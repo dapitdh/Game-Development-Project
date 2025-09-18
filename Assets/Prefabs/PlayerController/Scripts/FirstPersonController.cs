@@ -242,14 +242,15 @@ namespace EasyPeasyFirstPersonController
                 }
                 else if (moveDirection.y < 0)
                 {
+                    // Biar nempel ke tanah, tapi tidak hilangkan gravity sepenuhnya
                     moveDirection.y = -2f;
                 }
             }
-            else
-            {
-                moveDirection.y -= gravity * Time.deltaTime;
-            }
 
+            // Gravity SELALU diterapkan
+            moveDirection.y -= gravity * Time.deltaTime;
+
+            // Movement akhir
             if (!isSliding)
             {
                 moveDirection = new Vector3(moveVector.x, moveDirection.y, moveVector.z);

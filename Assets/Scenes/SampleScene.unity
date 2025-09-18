@@ -1191,6 +1191,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: OmAgus
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 6f1426807395e70408540307da84c886, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
