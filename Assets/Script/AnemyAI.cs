@@ -9,18 +9,19 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Chase")]
     public float chaseSpeed = 4f;
-    public float loseSightDelay = 2f; // detik sebelum kembali patrol
+    public float loseSightDelay = 2f;
 
     [Header("Vision")]
     public float viewRadius = 10f;
     [Range(0, 360)] public float viewAngle = 90f;
-    public float eyeHeight = 1.2f; // offset mata dari center capsule
-    public Transform player; // assign di inspector (root transform)
-    
+    public float eyeHeight = 1.2f;
+    public Transform player;
+
     [Header("Debug")]
     public bool drawGizmos = true;
 
     private NavMeshAgent agent;
+    private Animator animator;
     private int currentWaypointIndex = 0;
     private bool isChasing = false;
     private float timeSinceLastSeen = Mathf.Infinity;
@@ -28,14 +29,17 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        if (agent == null)
+        animator = GetComponent<Animator>();
+
+        if (agent == null || animator == null)
         {
-            Debug.LogError("NavMeshAgent not found on enemy.");
+            Debug.LogError("NavMeshAgent/Animator not found on enemy.");
             enabled = false;
             return;
         }
 
         agent.speed = patrolSpeed;
+
         if (waypoints != null && waypoints.Length > 0)
         {
             GoToNextWaypoint();
@@ -55,7 +59,6 @@ public class EnemyAI : MonoBehaviour
             timeSinceLastSeen = 0f;
             agent.speed = chaseSpeed;
 
-            // sample player's nearest NavMesh position (fallback safe)
             Vector3 targetPos = player.position;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(targetPos, out hit, 1.0f, NavMesh.AllAreas))
@@ -72,28 +75,25 @@ public class EnemyAI : MonoBehaviour
             if (isChasing)
             {
                 timeSinceLastSeen += Time.deltaTime;
-                // keep moving toward last known position OR give time to reacquire
                 if (timeSinceLastSeen >= loseSightDelay)
                 {
-                    // give up, return to patrol
                     isChasing = false;
                     agent.speed = patrolSpeed;
                     GoToNextWaypoint();
                 }
-                else
-                {
-                    // optionally keep last destination (agent already moving)
-                }
             }
             else
             {
-                // still patrolling
                 if (!agent.pathPending && agent.remainingDistance <= Mathf.Max(0.1f, agent.stoppingDistance))
                 {
                     GoToNextWaypoint();
                 }
             }
         }
+
+        // ✅ Update animasi sesuai kecepatan
+        float speedPercent = agent.velocity.magnitude / chaseSpeed;
+        animator.SetFloat("Speed", speedPercent);
     }
 
     void GoToNextWaypoint()
@@ -112,19 +112,15 @@ public class EnemyAI : MonoBehaviour
         float dist = Vector3.Distance(eyePos, playerEye);
 
         if (dist > viewRadius) return false;
-
         if (Vector3.Angle(transform.forward, dirToPlayer) > viewAngle * 0.5f) return false;
 
-        // Raycast to check line of sight
         if (Physics.Raycast(eyePos, dirToPlayer, out RaycastHit hit, viewRadius))
         {
-            // Pastikan raycast mengenai player (player harus punya collider & tag "Player")
-            if (hit.collider != null && hit.collider.transform == player || hit.collider.CompareTag("Player"))
+            if (hit.collider != null && (hit.collider.transform == player || hit.collider.CompareTag("Player")))
             {
                 return true;
             }
         }
-
         return false;
     }
 
