@@ -1,8 +1,23 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
+    //Backsound music & Sound Effect
+    [Header("Audio Settings")]
+    public AudioSource audioSourceMusic;     // drag AudioSource di inspector
+    public AudioSource audioSourceSFX;
+    public AudioClip chaseMusic;         // assign clip musik chase
+    public AudioClip screamClip;
+    public AudioClip[] footstepClips;
+    public float musicFadeSpeed = 1.5f;        // lama fade in/out
+    private bool isMusicFadingOut = false;
+    private Coroutine fadeCoroutine;
+    private bool isChasingPlayer = false;
+    private bool hasShouted = false;
+
+    //Enemy Ai Settings
     [Header("Patrol")]
     public Transform[] waypoints;
     public float patrolSpeed = 2f;
@@ -44,6 +59,12 @@ public class EnemyAI : MonoBehaviour
         {
             GoToNextWaypoint();
         }
+
+        if (audioSourceMusic != null)
+        {
+            audioSourceMusic.loop = true;
+            audioSourceMusic.playOnAwake = false;
+        }
     }
 
     void Update()
@@ -61,6 +82,20 @@ public class EnemyAI : MonoBehaviour
 
             Vector3 targetPos = player.position;
             NavMeshHit hit;
+
+            if (!isChasingPlayer)
+            {
+                isChasingPlayer = true;
+                StartChasing();
+            }
+
+            // Teriakan pertama kali lihat player
+            if (!hasShouted && screamClip != null && audioSourceSFX != null)
+            {
+                audioSourceSFX.PlayOneShot(screamClip, 1f);
+                hasShouted = true;
+            }
+
             if (NavMesh.SamplePosition(targetPos, out hit, 1.0f, NavMesh.AllAreas))
             {
                 agent.SetDestination(hit.position);
@@ -72,6 +107,11 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
+            if (isChasingPlayer)
+            {
+                isChasingPlayer = false;
+                StopChasing();
+            }
             if (isChasing)
             {
                 timeSinceLastSeen += Time.deltaTime;
@@ -80,6 +120,7 @@ public class EnemyAI : MonoBehaviour
                     isChasing = false;
                     agent.speed = patrolSpeed;
                     GoToNextWaypoint();
+                    hasShouted = false;
                 }
             }
             else
@@ -91,7 +132,17 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        // ✅ Update animasi sesuai kecepatan
+        if (isMusicFadingOut && audioSourceMusic.volume > 0f)
+        {
+            audioSourceMusic.volume -= Time.deltaTime * musicFadeSpeed;
+            if (audioSourceMusic.volume <= 0f)
+            {
+                audioSourceMusic.Stop();
+                isMusicFadingOut = false;
+                audioSourceMusic.volume = 1f;
+            }
+        }
+
         float speedPercent = agent.velocity.magnitude / chaseSpeed;
         animator.SetFloat("Speed", speedPercent);
     }
@@ -144,4 +195,60 @@ public class EnemyAI : MonoBehaviour
     {
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
+
+    // === AUDIO HANDLER ===
+
+    void StartChasing()
+    {
+        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+        fadeCoroutine = StartCoroutine(FadeIn(audioSourceMusic, chaseMusic));
+    }
+
+    void StopChasing()
+    {
+        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+        fadeCoroutine = StartCoroutine(FadeOut(audioSourceMusic));
+    }
+
+    IEnumerator FadeIn(AudioSource source, AudioClip clip)
+    {
+        source.clip = clip;
+        source.volume = 0f;
+        source.Play();
+
+        float t = 0f;
+        while (t < musicFadeSpeed)
+        {
+            t += Time.deltaTime;
+            source.volume = Mathf.Lerp(0f, 1f, t / musicFadeSpeed);
+            yield return null;
+        }
+        source.volume = 1f;
+    }
+
+    IEnumerator FadeOut(AudioSource source)
+    {
+        float startVolume = source.volume;
+        float t = 0f;
+
+        while (t < musicFadeSpeed)
+        {
+            t += Time.deltaTime;
+            source.volume = Mathf.Lerp(startVolume, 0f, t / musicFadeSpeed);
+            yield return null;
+        }
+
+        source.Stop();
+        source.volume = 1f; // reset volume
+    }
+    
+    // ======== Dipanggil lewat Animation Event ========
+    // public void PlayFootstep()
+    // {
+    //     if (audioSourceSFX == null) return;
+    //     if (footstepClips == null || footstepClips.Length == 0) return;
+
+    //     int idx = Random.Range(0, footstepClips.Length);
+    //     audioSourceSFX.PlayOneShot(footstepClips[idx], 1f);
+    // }
 }
