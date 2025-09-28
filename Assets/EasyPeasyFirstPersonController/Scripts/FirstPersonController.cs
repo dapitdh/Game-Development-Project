@@ -37,6 +37,7 @@ namespace EasyPeasyFirstPersonController
         public LayerMask groundMask;
         public Transform playerCamera;
         public Transform cameraParent;
+
         private float rotX, rotY;
         private float xVelocity, yVelocity;
         private CharacterController characterController;
@@ -67,12 +68,17 @@ namespace EasyPeasyFirstPersonController
         private float currentTiltAngle;
         private float tiltVelocity;
 
+        // === Animator ===
+        private Animator animator;
+
         public float CurrentCameraHeight => isCrouching || isSliding ? crouchCameraHeight : originalCameraParentHeight;
 
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
             cam = playerCamera.GetComponent<Camera>();
+            animator = GetComponentInChildren<Animator>(); // ambil Animator dari child juga
+
             originalHeight = characterController.height;
             originalCameraParentHeight = cameraParent.localPosition.y;
             defaultPosY = cameraParent.localPosition.y;
@@ -102,7 +108,7 @@ namespace EasyPeasyFirstPersonController
                 coyoteTimer -= Time.deltaTime;
             }
 
-            // --- Mouse Look (Input System)
+            // --- Mouse Look
             if (isLook && Mouse.current != null)
             {
                 float mouseX = Mouse.current.delta.ReadValue().x * mouseSensitivity * Time.deltaTime;
@@ -123,63 +129,6 @@ namespace EasyPeasyFirstPersonController
             }
 
             HandleHeadBob();
-
-            // --- Crouch / Slide (Input System)
-            bool wantsToCrouch = canCrouch && Keyboard.current.leftCtrlKey.isPressed && !isSliding;
-
-            Vector3 point1 = transform.position + characterController.center - Vector3.up * (characterController.height * 0.5f);
-            Vector3 point2 = point1 + Vector3.up * characterController.height * 0.6f;
-            float capsuleRadius = characterController.radius * 0.95f;
-            float castDistance = isSliding ? originalHeight + 0.2f : originalHeight - crouchHeight + 0.2f;
-            bool hasCeiling = Physics.CapsuleCast(point1, point2, capsuleRadius, Vector3.up, castDistance, groundMask);
-
-            if (isSliding)
-            {
-                postSlideCrouchTimer = 0.3f;
-            }
-            if (postSlideCrouchTimer > 0)
-            {
-                postSlideCrouchTimer -= Time.deltaTime;
-                isCrouching = canCrouch;
-            }
-            else
-            {
-                isCrouching = canCrouch && (wantsToCrouch || (hasCeiling && !isSliding));
-            }
-
-            if (canSlide && isSprinting && Keyboard.current.leftCtrlKey.wasPressedThisFrame && isGrounded)
-            {
-                isSliding = true;
-                slideTimer = slideDuration;
-                slideDirection = moveInput.magnitude > 0.1f
-                    ? (transform.right * moveInput.x + transform.forward * moveInput.y).normalized
-                    : transform.forward;
-                currentSlideSpeed = sprintSpeed;
-            }
-
-            float slideProgress = slideTimer / slideDuration;
-            if (isSliding)
-            {
-                slideTimer -= Time.deltaTime;
-                if (slideTimer <= 0f || !isGrounded)
-                {
-                    isSliding = false;
-                }
-                float targetSlideSpeed = slideSpeed * Mathf.Lerp(0.7f, 1f, slideProgress);
-                currentSlideSpeed = Mathf.SmoothDamp(currentSlideSpeed, targetSlideSpeed, ref slideSpeedVelocity, 0.2f);
-                characterController.Move(slideDirection * currentSlideSpeed * Time.deltaTime);
-            }
-
-            // --- Crouch height lerp
-            float targetHeight = isCrouching || isSliding ? crouchHeight : originalHeight;
-            characterController.height = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * 10f);
-            characterController.center = new Vector3(0f, characterController.height * 0.5f, 0f);
-
-            // --- FOV effect
-            float targetFov = isSprinting ? sprintFov : (isSliding ? sprintFov + (slideFovBoost * Mathf.Lerp(0f, 1f, 1f - slideProgress)) : normalFov);
-            currentFov = Mathf.SmoothDamp(currentFov, targetFov, ref fovVelocity, 1f / fovChangeSpeed);
-            cam.fieldOfView = currentFov;
-
             HandleMovement();
         }
 
@@ -268,6 +217,35 @@ namespace EasyPeasyFirstPersonController
                 moveDirection = new Vector3(moveVector.x, moveDirection.y, moveVector.z);
                 characterController.Move(moveDirection * Time.deltaTime);
             }
+
+            // === Update Animator berdasarkan input KeyCode ===
+            if (animator != null)
+            {
+                bool pressWASD = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+                                 Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+
+                if (!pressWASD) // Idle
+                {
+                    animator.SetBool("idle", true);
+                    animator.SetBool("walking", false);
+                    animator.SetBool("running", false);
+                }
+                else if (pressWASD && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))) // Jalan
+                {
+                    animator.SetBool("idle", false);
+                    animator.SetBool("walking", true);
+                    animator.SetBool("running", false);
+                }
+                else if (pressWASD && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))) // Lari
+                {
+                    animator.SetBool("idle", false);
+                    animator.SetBool("walking", false);
+                    animator.SetBool("running", true);
+                }
+
+                // Debug cek di console
+                Debug.Log($"Idle:{animator.GetBool("idle")}, Walk:{animator.GetBool("walking")}, Run:{animator.GetBool("running")}");
+            }
         }
 
         public void SetControl(bool newState)
@@ -277,7 +255,6 @@ namespace EasyPeasyFirstPersonController
         }
 
         public void SetLookControl(bool newState) => isLook = newState;
-
         public void SetMoveControl(bool newState) => isMove = newState;
 
         public void SetCursorVisibility(bool newVisibility)
