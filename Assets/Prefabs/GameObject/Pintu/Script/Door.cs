@@ -1,43 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace DoorScript
+
+public class Door : OnRaycast
 {
-	[RequireComponent(typeof(AudioSource))]
+    [SerializeField] private float openAngle;
+    [SerializeField] private float closeAngle;
+
+    [SerializeField] private float speed;
+    [SerializeField] Collider col;
+
+    public bool isOpen;
+    Quaternion newRotation;
+
+    private void Update()
+    {
+        if (isOpen)
+        {
+            newRotation = Quaternion.Euler(transform.localEulerAngles.x, openAngle, transform.localEulerAngles.z);
+        }
+        else
+        {
+            newRotation = Quaternion.Euler(transform.localEulerAngles.x, closeAngle, transform.localEulerAngles.z);
+        }
 
 
-public class Door : MonoBehaviour {
-	public bool open;
-	public float smooth = 1.0f;
-	float DoorOpenAngle = -90.0f;
-    float DoorCloseAngle = 0.0f;
-	public AudioSource asource;
-	public AudioClip openDoor,closeDoor;
-	// Use this for initialization
-	void Start () {
-		asource = GetComponent<AudioSource> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (open)
-		{
-            var target = Quaternion.Euler (0, DoorOpenAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * 5 * smooth);
-	
-		}
-		else
-		{
-            var target1= Quaternion.Euler (0, DoorCloseAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, target1, Time.deltaTime * 5 * smooth);
-	
-		}  
-	}
+        col.enabled = transform.localRotation == newRotation;
 
-	public void OpenDoor(){
-		open =!open;
-		asource.clip = open?openDoor:closeDoor;
-		asource.Play ();
-	}
-}
+        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, newRotation, speed);
+    }
+
+    public override void OnUseItem()
+    {
+        Debug.Log("Pintu kuncinya terbuka");
+        removeRequirementItem(); // pakai nama yang benar
+    }
+
+
+    public override void OnInteract()
+    {
+        isOpen = !isOpen;
+    }
 }

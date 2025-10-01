@@ -6,7 +6,7 @@ namespace CameraDoorScript
 {
 public class CameraOpenDoor : MonoBehaviour {
 	public float DistanceOpen=3;
-
+	public GameObject text;
 	// Use this for initialization
 	void Start () {
 		
@@ -16,11 +16,22 @@ public class CameraOpenDoor : MonoBehaviour {
 	void Update () {
 		RaycastHit hit;
 		if (Physics.Raycast (transform.position, transform.forward, out hit, DistanceOpen)) {
-				if (hit.transform.GetComponent<DoorScript.Door> ()) {
-					if (Input.GetKeyDown(KeyCode.Mouse0))
-						hit.transform.GetComponent<DoorScript.Door> ().OpenDoor();
-				}
-			}
+                if (hit.transform.GetComponent<Door>())
+                {
+                    text.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.E))
+                        hit.transform.GetComponent<Door>().OnInteract(); // panggil OnInteract
+                }
+                else
+                {
+                    text.SetActive(false);
+                }
+
+            }
+            else
+            {
+			text.SetActive (false);
 		}
 	}
+}
 }
