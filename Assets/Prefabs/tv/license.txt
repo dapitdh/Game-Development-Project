@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor TV
+* source:	https://sketchfab.com/3d-models/hello-neighbor-tv-9d3be02953db4e48b2474eff27f37132
+* author:	juandavidchibuque (https://sketchfab.com/juandavidchibuque)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor TV" (https://sketchfab.com/3d-models/hello-neighbor-tv-9d3be02953db4e48b2474eff27f37132) by juandavidchibuque (https://sketchfab.com/juandavidchibuque) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

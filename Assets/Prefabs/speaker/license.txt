@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor Speaker
+* source:	https://sketchfab.com/3d-models/hello-neighbor-speaker-3b4e9b63dd794efda1971b0270bee490
+* author:	juandavidchibuque (https://sketchfab.com/juandavidchibuque)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor Speaker" (https://sketchfab.com/3d-models/hello-neighbor-speaker-3b4e9b63dd794efda1971b0270bee490) by juandavidchibuque (https://sketchfab.com/juandavidchibuque) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
