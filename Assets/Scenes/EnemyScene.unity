@@ -197,6 +197,18 @@ MonoBehaviour:
   isSprinting: 0
   isCrouching: 0
   isSliding: 0
+--- !u!114 &35862616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35862607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17437d5190e36e748943e8bff6a97fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FPP
 --- !u!1 &83665131
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +743,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9156347144040445547, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 35862614}
+    - targetCorrespondingSourceObject: {fileID: 9156347144040445547, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 35862616}
     - targetCorrespondingSourceObject: {fileID: 9156347144824098803, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1155327273}
