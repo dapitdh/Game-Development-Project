@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor Hanger_hook
+* source:	https://sketchfab.com/3d-models/hello-neighbor-hanger-hook-af56db5926794616b941241c1b9d27b4
+* author:	helloguest897 (https://sketchfab.com/helloguest897)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor Hanger_hook" (https://sketchfab.com/3d-models/hello-neighbor-hanger-hook-af56db5926794616b941241c1b9d27b4) by helloguest897 (https://sketchfab.com/helloguest897) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

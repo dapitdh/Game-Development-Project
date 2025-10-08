@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor Sink
+* source:	https://sketchfab.com/3d-models/hello-neighbor-sink-50d90b07639141529d64b3c6b8fd14b7
+* author:	helloguest897 (https://sketchfab.com/helloguest897)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor Sink" (https://sketchfab.com/3d-models/hello-neighbor-sink-50d90b07639141529d64b3c6b8fd14b7) by helloguest897 (https://sketchfab.com/helloguest897) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

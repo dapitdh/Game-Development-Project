@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello-neighbor-rifle
+* source:	https://sketchfab.com/3d-models/hello-neighbor-rifle-8e754190b95e4fc19abf5d01a0c22884
+* author:	Youthful strawbewwy (https://sketchfab.com/Youthful-Strawberry)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello-neighbor-rifle" (https://sketchfab.com/3d-models/hello-neighbor-rifle-8e754190b95e4fc19abf5d01a0c22884) by Youthful strawbewwy (https://sketchfab.com/Youthful-Strawberry) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

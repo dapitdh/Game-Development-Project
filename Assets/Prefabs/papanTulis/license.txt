@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor School_Board
+* source:	https://sketchfab.com/3d-models/hello-neighbor-school-board-b1b55c4c1f3d4b6cbc8fe1edadef9dec
+* author:	helloguest897 (https://sketchfab.com/helloguest897)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor School_Board" (https://sketchfab.com/3d-models/hello-neighbor-school-board-b1b55c4c1f3d4b6cbc8fe1edadef9dec) by helloguest897 (https://sketchfab.com/helloguest897) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

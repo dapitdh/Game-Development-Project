@@ -1,0 +1,11 @@
+Model Information:
+* title:	Crowbar Hello Neighbor
+* source:	https://sketchfab.com/3d-models/crowbar-hello-neighbor-c013ff5246274596a245ba112ec37b52
+* author:	Kriz Faerson (https://sketchfab.com/KrizFaerson)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Crowbar Hello Neighbor" (https://sketchfab.com/3d-models/crowbar-hello-neighbor-c013ff5246274596a245ba112ec37b52) by Kriz Faerson (https://sketchfab.com/KrizFaerson) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
