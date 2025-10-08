@@ -14,7 +14,7 @@ public class Sc_hero : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        this.transform.Translate(new Vector3(h, 0, v) * 5 * Time.deltaTime);
+        this.transform.Translate(new Vector3(0, 0, v) * 5 * Time.deltaTime);
         this.transform.Rotate(new Vector3(0, h, 0) * 90 * 3 * Time.deltaTime);
     }
 }
