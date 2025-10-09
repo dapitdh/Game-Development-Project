@@ -19,8 +19,10 @@ public class Sc_pickupItem : MonoBehaviour
             return;
         }
 
-        // === Raycast dari kamera ke depan ===
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        // === Ray dari titik tengah layar ===
+        Ray ray = Camera.main.ScreenPointToRay(
+            new Vector3(Screen.width / 2f, Screen.height / 2f, 0)
+        );
         if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, itemLayer))
         {
             if (hit.collider.CompareTag("Item"))
