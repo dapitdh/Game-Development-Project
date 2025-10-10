@@ -40,6 +40,8 @@ public class EnemyAI : MonoBehaviour
     private int currentWaypointIndex = 0;
     private bool isChasing = false;
     private float timeSinceLastSeen = Mathf.Infinity;
+    // Tambahkan setelah variabel timeSinceLastSeen
+    private bool isOnOffMeshLink = false;
 
     void Start()
     {
@@ -143,7 +145,38 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        float speedPercent = agent.velocity.magnitude / chaseSpeed;
+        UpdateAnimation();
+    }
+
+    void UpdateAnimation()
+    {
+        float speedPercent;
+        
+        // Jika sedang melewati NavMesh Link (pintu), paksa jalan pelan
+        if (agent.isOnOffMeshLink)
+        {
+            // Gunakan nilai untuk animasi berjalan normal
+            // Sesuaikan nilai ini agar sesuai dengan animator controller Anda
+            speedPercent = 0.5f; // Nilai 0.5 = jalan santai
+            
+            if (!isOnOffMeshLink)
+            {
+                isOnOffMeshLink = true;
+                // Optional: bisa tambahkan logic khusus saat mulai melewati link
+            }
+        }
+        else
+        {
+            if (isOnOffMeshLink)
+            {
+                isOnOffMeshLink = false;
+                // Optional: logic saat selesai melewati link
+            }
+            
+            // Animasi normal berdasarkan kecepatan aktual
+            speedPercent = agent.velocity.magnitude / chaseSpeed;
+        }
+        
         animator.SetFloat("Speed", speedPercent);
     }
 
@@ -241,14 +274,5 @@ public class EnemyAI : MonoBehaviour
         source.Stop();
         source.volume = 1f; // reset volume
     }
-    
-    // ======== Dipanggil lewat Animation Event ========
-    // public void PlayFootstep()
-    // {
-    //     if (audioSourceSFX == null) return;
-    //     if (footstepClips == null || footstepClips.Length == 0) return;
 
-    //     int idx = Random.Range(0, footstepClips.Length);
-    //     audioSourceSFX.PlayOneShot(footstepClips[idx], 1f);
-    // }
 }

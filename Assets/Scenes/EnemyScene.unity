@@ -152,6 +152,63 @@ CapsuleCollider:
   m_Height: 2.0386837
   m_Direction: 1
   m_Center: {x: 0, y: 1.0016326, z: 0}
+--- !u!114 &35862614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35862607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2922308556bc98e4898cb3309250e781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasyPeasyFirstPersonController.FirstPersonController
+  mouseSensitivity: 25
+  walkSpeed: 10
+  sprintSpeed: 15
+  crouchSpeed: 6
+  crouchHeight: 1
+  crouchCameraHeight: 0.5
+  slideSpeed: 9
+  slideDuration: 0.7
+  slideFovBoost: 5
+  slideTiltAngle: 5
+  jumpSpeed: 3
+  gravity: 9.81
+  coyoteTimeEnabled: 1
+  coyoteTimeDuration: 0.25
+  normalFov: 60
+  sprintFov: 70
+  fovChangeSpeed: 5
+  walkingBobbingSpeed: 14
+  bobbingAmount: 0.05
+  canSlide: 1
+  canJump: 1
+  canSprint: 1
+  canCrouch: 1
+  groundCheck: {fileID: 1736749762}
+  groundDistance: 0.3
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  playerCamera: {fileID: 466459683}
+  cameraParent: {fileID: 1155327274}
+  isSprinting: 0
+  isCrouching: 0
+  isSliding: 0
+--- !u!114 &35862616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35862607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17437d5190e36e748943e8bff6a97fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FPP
 --- !u!1 &83665131
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +503,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!4 &466459683 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9156347143994207885, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+  m_PrefabInstance: {fileID: 557451801}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &550394443
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,13 +732,20 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9156347144040445544, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9156347144040445547, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 35862611}
+    - targetCorrespondingSourceObject: {fileID: 9156347144040445547, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 35862614}
+    - targetCorrespondingSourceObject: {fileID: 9156347144040445547, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 35862616}
     - targetCorrespondingSourceObject: {fileID: 9156347144824098803, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1155327273}
@@ -966,6 +1035,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraDoorScript.CameraOpenDoor
   DistanceOpen: 3
+--- !u!4 &1155327274 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9156347144824098802, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+  m_PrefabInstance: {fileID: 557451801}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1236104193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1080,8 +1154,7 @@ MonoBehaviour:
   audioSourceSFX: {fileID: 1414259768}
   chaseMusic: {fileID: 8300000, guid: 101c4e44298a41d4986759a2b9acb3c6, type: 3}
   screamClip: {fileID: 8300000, guid: aa8a69a2306a6b949ac6788591207b17, type: 3}
-  footstepClips:
-  - {fileID: 8300000, guid: b40f62e6bf43894408feafa69edf58d2, type: 3}
+  footstepClips: []
   musicFadeSpeed: 1.5
   waypoints:
   - {fileID: 1454483913}
@@ -1094,7 +1167,7 @@ MonoBehaviour:
   viewAngle: 90
   eyeHeight: 1.2
   player: {fileID: 35862610}
-  drawGizmos: 0
+  drawGizmos: 1
 --- !u!195 &1236104196
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1679,6 +1752,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!4 &1736749762 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9156347144365898843, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
+  m_PrefabInstance: {fileID: 557451801}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2076036829
 GameObject:
   m_ObjectHideFlags: 0
