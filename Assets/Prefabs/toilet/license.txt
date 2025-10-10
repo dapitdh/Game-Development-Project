@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor Alpha 1 Toilet
+* source:	https://sketchfab.com/3d-models/hello-neighbor-alpha-1-toilet-e9edbd0c027c4f648e1405df96670cc1
+* author:	Tukutimur (https://sketchfab.com/Tukutimur)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor Alpha 1 Toilet" (https://sketchfab.com/3d-models/hello-neighbor-alpha-1-toilet-e9edbd0c027c4f648e1405df96670cc1) by Tukutimur (https://sketchfab.com/Tukutimur) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

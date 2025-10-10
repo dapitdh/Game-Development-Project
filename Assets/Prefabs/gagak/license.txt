@@ -1,0 +1,11 @@
+Model Information:
+* title:	Crow - Hello Neighbor 2
+* source:	https://sketchfab.com/3d-models/crow-hello-neighbor-2-24d21ddda69344839ceb5814e1d238e7
+* author:	bytopro (https://sketchfab.com/bytopro)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Crow - Hello Neighbor 2" (https://sketchfab.com/3d-models/crow-hello-neighbor-2-24d21ddda69344839ceb5814e1d238e7) by bytopro (https://sketchfab.com/bytopro) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

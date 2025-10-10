@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor - alarm clock
+* source:	https://sketchfab.com/3d-models/hello-neighbor-alarm-clock-f8e29184e97541a18880d2a48637070d
+* author:	Youthful strawbewwy (https://sketchfab.com/Youthful-Strawberry)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor - alarm clock" (https://sketchfab.com/3d-models/hello-neighbor-alarm-clock-f8e29184e97541a18880d2a48637070d) by Youthful strawbewwy (https://sketchfab.com/Youthful-Strawberry) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 3
   tags:
+<<<<<<< HEAD
   - Reach
+=======
+  - Hero
+  - Item
+>>>>>>> Vedian
   layers:
   - Default
   - TransparentFX
