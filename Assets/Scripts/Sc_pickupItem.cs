@@ -46,11 +46,14 @@ public class Sc_pickupItem : MonoBehaviour
     void PickUpItem(GameObject item)
     {
         Rigidbody rb = item.GetComponent<Rigidbody>();
-        Collider col = item.GetComponent<Collider>();
+        Collider[] cols = item.GetComponents<Collider>();
 
         // Nonaktifkan physics
         if (rb) rb.isKinematic = true;
-        if (col) col.enabled = false;
+        foreach (Collider col in cols)
+        {
+            col.enabled = false;
+        }
 
         // Pindahkan ke tangan
         item.transform.SetParent(itemHolder);
@@ -67,11 +70,15 @@ public class Sc_pickupItem : MonoBehaviour
         if (heldItem == null) return;
 
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        Collider col = heldItem.GetComponent<Collider>();
+        Collider[] cols = heldItem.GetComponents<Collider>();
 
         heldItem.transform.SetParent(null);
 
-        if (col) col.enabled = true;
+        foreach (Collider col in cols)
+        {
+            col.enabled = true;
+        }
+
         if (rb)
         {
             rb.isKinematic = false;
