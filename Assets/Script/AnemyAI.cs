@@ -29,7 +29,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Vision")]
     public float viewRadius = 10f;
     [Range(0, 360)] public float viewAngle = 90f;
-    public float eyeHeight = 1.2f;
+    public float eyeHeight = 0.8f;
     public Transform player;
 
     [Header("Debug")]
