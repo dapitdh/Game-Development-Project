@@ -26,13 +26,13 @@ public class Sc_pintuKulkas : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Hero"))
+        if (other.CompareTag("Player"))
             isHeroNear = true;
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Hero"))
+        if (other.CompareTag("Player"))
             isHeroNear = false;
     }
 }
