@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace FPP
@@ -21,17 +21,13 @@ namespace FPP
         public float groundStick = 10f;    // nempel ke tanah saat grounded
         [Tooltip("Abaikan ground sesaat setelah lompatan agar tidak langsung terdeteksi grounded")]
         public float postJumpGroundIgnore = 0.12f;
-        [Tooltip("Waktu minimal benar2 menyentuh tanah agar dianggap grounded (stabil)")]
-        public float minStableGroundTime = 0.05f;
-
-        [Header("Ground Check")]
-        public Transform groundCheck;
-        public float groundCheckRadius = 0.28f;
-        public LayerMask groundMask;
 
         [Header("Crouch (Collider)")]
         public float standingHeight = 1.8f;
         public float crouchingHeight = 1.2f;
+
+        [Header("Ground (via Rigidbody Contacts)")]
+        [Range(0f, 1f)] public float minGroundNormalY = 0.6f; // ambang normal.y agar dianggap lantai (≈ > 53°)
 
         // State publik (untuk kamera)
         public bool IsGrounded { get; private set; }
@@ -42,17 +38,19 @@ namespace FPP
         Rigidbody rb;
         CapsuleCollider capsule;
 
-        // --- Anti "terbang" ---
+        // --- Anti "terbang" / kontrol lompat ---
         bool jumpQueued;
-        bool hasLandedSinceLastJump = true; // WAJIB true untuk bisa lompat
+        bool hasLandedSinceLastJump = true;
         bool wasGrounded;
         float postJumpIgnoreTimer;
-        float groundedStableTimer;          // akumulasi waktu grounded stabil
+
+        // flag grounded yang di-set dari callback physics (dipakai di FixedUpdate berikutnya)
+        bool groundedFromContacts;
 
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            rb.freezeRotation = true;
+            rb.freezeRotation = true; // biar ga jatuh terguling
 
             capsule = GetComponent<CapsuleCollider>();
             capsule.height = standingHeight;
@@ -75,34 +73,21 @@ namespace FPP
 
         void FixedUpdate()
         {
-            UpdateGrounded();
-            MoveHorizontal();
-            HandleJumpAndGravity();
-        }
-
-        void UpdateGrounded()
-        {
+            // Timer ignore ground sesaat setelah lompat
             if (postJumpIgnoreTimer > 0f)
                 postJumpIgnoreTimer -= Time.fixedDeltaTime;
 
-            // Raw ground (tanpa stabilisasi), tapi diabaikan saat post-jump ignore aktif
-            bool rawGround =
-                postJumpIgnoreTimer <= 0f &&
-                Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask, QueryTriggerInteraction.Ignore);
+            // Ambil hasil grounded dari step physics sebelumnya
+            bool prevGrounded = IsGrounded;
+            IsGrounded = (postJumpIgnoreTimer <= 0f) && groundedFromContacts;
+            groundedFromContacts = false; // reset, akan di-set lagi oleh OnCollisionStay di step physics ini
 
-            // Stabilisasi grounded (harus bertahan minStableGroundTime)
-            if (rawGround)
-                groundedStableTimer += Time.fixedDeltaTime;
-            else
-                groundedStableTimer = 0f;
-
-            IsGrounded = groundedStableTimer >= minStableGroundTime;
-
-            // Event landing (udara -> grounded)
-            if (IsGrounded && !wasGrounded)
+            if (IsGrounded && !prevGrounded)
                 hasLandedSinceLastJump = true;
-
             wasGrounded = IsGrounded;
+
+            MoveHorizontal();
+            HandleJumpAndGravity();
         }
 
         void MoveHorizontal()
@@ -124,17 +109,15 @@ namespace FPP
 
         void HandleJumpAndGravity()
         {
-            // HANYA boleh lompat jika grounded stabil & sudah mendarat sejak lompatan terakhir
+            // HANYA boleh lompat jika grounded & sudah mendarat sejak lompatan terakhir
             if (jumpQueued && IsGrounded && hasLandedSinceLastJump)
             {
                 // reset vertikal lalu lompat
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
-                // kunci sampai benar2 mendarat lagi
                 hasLandedSinceLastJump = false;
-                postJumpIgnoreTimer = postJumpGroundIgnore;
-                groundedStableTimer = 0f; // paksa harus stabil lagi setelah lompat
+                postJumpIgnoreTimer = postJumpGroundIgnore; // cegah ke-detect grounded 1-2 frame setelah lompat
             }
             jumpQueued = false;
 
@@ -163,12 +146,19 @@ namespace FPP
         bool IsCrouchHeld() => Keyboard.current?.leftCtrlKey.isPressed ?? false;
         bool JumpPressed() => Keyboard.current?.spaceKey.wasPressedThisFrame ?? false;
 
-        void OnDrawGizmosSelected()
+        // === Ground via kontak Rigidbody ===
+        void OnCollisionStay(Collision col)
         {
-            if (groundCheck != null)
+            if (postJumpIgnoreTimer > 0f) return;
+
+            // anggap grounded jika ada contact dengan normal.y cukup besar (permukaan "bawah kakimu")
+            foreach (var cp in col.contacts)
             {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+                if (cp.normal.y >= minGroundNormalY)
+                {
+                    groundedFromContacts = true; // dipakai di FixedUpdate berikutnya
+                    break;
+                }
             }
         }
     }
