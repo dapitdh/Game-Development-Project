@@ -27,7 +27,21 @@ namespace FPP
         public float crouchingHeight = 1.2f;
 
         [Header("Ground (via Rigidbody Contacts)")]
-        [Range(0f, 1f)] public float minGroundNormalY = 0.6f; // ambang normal.y agar dianggap lantai (≈ > 53°)
+        [Range(0f, 1f)] public float minGroundNormalY = 0.6f; // > ~53°
+
+        [Header("Stairs / Step Assist (NEW)")]
+        [Tooltip("Tinggi maksimum anak tangga yang bisa dinaikkan otomatis")]
+        public float stepHeight = 0.45f;
+        [Tooltip("Jarak cek halangan di depan kaki")]
+        public float stepCheckDistance = 0.35f;
+        [Tooltip("Radius sphere untuk deteksi bibir tangga")]
+        public float stepProbeRadius = 0.1f;
+        [Tooltip("Kecepatan naik per detik (dibatasi per FixedUpdate)")]
+        public float stepClimbRate = 2.0f;
+        [Tooltip("Berapa kali mencoba 'naik' kecil per FixedUpdate")]
+        public int stepIterations = 2;
+        [Tooltip("Layer environment/tangga")]
+        public LayerMask groundMask;
 
         // State publik (untuk kamera)
         public bool IsGrounded { get; private set; }
@@ -38,19 +52,17 @@ namespace FPP
         Rigidbody rb;
         CapsuleCollider capsule;
 
-        // --- Anti "terbang" / kontrol lompat ---
+        // --- Lompat & grounded via kontak ---
         bool jumpQueued;
         bool hasLandedSinceLastJump = true;
         bool wasGrounded;
         float postJumpIgnoreTimer;
-
-        // flag grounded yang di-set dari callback physics (dipakai di FixedUpdate berikutnya)
         bool groundedFromContacts;
 
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            rb.freezeRotation = true; // biar ga jatuh terguling
+            rb.freezeRotation = true; // cegah terguling
 
             capsule = GetComponent<CapsuleCollider>();
             capsule.height = standingHeight;
@@ -73,20 +85,31 @@ namespace FPP
 
         void FixedUpdate()
         {
-            // Timer ignore ground sesaat setelah lompat
             if (postJumpIgnoreTimer > 0f)
                 postJumpIgnoreTimer -= Time.fixedDeltaTime;
 
-            // Ambil hasil grounded dari step physics sebelumnya
             bool prevGrounded = IsGrounded;
             IsGrounded = (postJumpIgnoreTimer <= 0f) && groundedFromContacts;
-            groundedFromContacts = false; // reset, akan di-set lagi oleh OnCollisionStay di step physics ini
+            groundedFromContacts = false;
 
             if (IsGrounded && !prevGrounded)
                 hasLandedSinceLastJump = true;
             wasGrounded = IsGrounded;
 
             MoveHorizontal();
+
+            // ==== STEP ASSIST: beberapa iterasi naik kecil agar halus ====
+            if (IsGrounded && MoveInput.sqrMagnitude > 0.01f && !IsCrouching)
+            {
+                Vector3 wishDir = (transform.right * MoveInput.x + transform.forward * MoveInput.y).normalized;
+                for (int i = 0; i < stepIterations; i++)
+                {
+                    if (!TryStepUpMulti(wishDir)) break;
+                    // nolkan VY agar tidak "mental" saat nyentuh bibir
+                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+                }
+            }
+
             HandleJumpAndGravity();
         }
 
@@ -109,19 +132,16 @@ namespace FPP
 
         void HandleJumpAndGravity()
         {
-            // HANYA boleh lompat jika grounded & sudah mendarat sejak lompatan terakhir
             if (jumpQueued && IsGrounded && hasLandedSinceLastJump)
             {
-                // reset vertikal lalu lompat
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
                 hasLandedSinceLastJump = false;
-                postJumpIgnoreTimer = postJumpGroundIgnore; // cegah ke-detect grounded 1-2 frame setelah lompat
+                postJumpIgnoreTimer = postJumpGroundIgnore;
             }
             jumpQueued = false;
 
-            // gravity / stick
             if (!IsGrounded)
                 rb.AddForce(Vector3.down * extraGravity, ForceMode.Acceleration);
             else
@@ -146,20 +166,95 @@ namespace FPP
         bool IsCrouchHeld() => Keyboard.current?.leftCtrlKey.isPressed ?? false;
         bool JumpPressed() => Keyboard.current?.spaceKey.wasPressedThisFrame ?? false;
 
-        // === Ground via kontak Rigidbody ===
+        // Ground via kontak physics
         void OnCollisionStay(Collision col)
         {
             if (postJumpIgnoreTimer > 0f) return;
-
-            // anggap grounded jika ada contact dengan normal.y cukup besar (permukaan "bawah kakimu")
             foreach (var cp in col.contacts)
             {
                 if (cp.normal.y >= minGroundNormalY)
                 {
-                    groundedFromContacts = true; // dipakai di FixedUpdate berikutnya
+                    groundedFromContacts = true;
                     break;
                 }
             }
         }
+
+        // ============================================================
+        // STEP ASSIST: spherecast low/high + downcast, 3 arah (depan/diagonal)
+        // ============================================================
+        bool TryStepUpMulti(Vector3 wishDir)
+        {
+            // 3 arah: depan & 45° kiri/kanan agar ga nyangkut di sudut pijakan
+            Vector3 right = Vector3.Cross(Vector3.up, wishDir).normalized;
+            Vector3[] dirs = new Vector3[]
+            {
+                wishDir,
+                (wishDir + right).normalized,
+                (wishDir - right).normalized,
+            };
+
+            foreach (var d in dirs)
+            {
+                if (TryStepUpOnce(d)) return true;
+            }
+            return false;
+        }
+
+        bool TryStepUpOnce(Vector3 dir)
+        {
+            float radius = capsule.radius;
+            float skin = 0.02f;
+            float castDist = radius + stepCheckDistance;
+
+            float bottomY = rb.position.y + capsule.center.y - (capsule.height * 0.5f) + radius;
+            Vector3 foot = new Vector3(rb.position.x, bottomY, rb.position.z);
+
+            Vector3 lowOrigin = foot + Vector3.up * skin;
+
+            // LOW SPHERECAST (pakai out + named args)
+            RaycastHit lowHit;
+            if (Physics.SphereCast(lowOrigin, stepProbeRadius, dir, out lowHit,
+                                   castDist, layerMask: groundMask,
+                                   queryTriggerInteraction: QueryTriggerInteraction.Ignore))
+            {
+                if (lowHit.normal.y > 0.2f) return false;
+
+                // HIGH SPHERECAST: hanya untuk cek blocked
+                Vector3 highOrigin = lowOrigin + Vector3.up * stepHeight;
+                RaycastHit highHit;
+                bool blockedHigh = Physics.SphereCast(highOrigin, stepProbeRadius, dir, out highHit,
+                                                      castDist, layerMask: groundMask,
+                                                      queryTriggerInteraction: QueryTriggerInteraction.Ignore);
+                if (blockedHigh) return false;
+
+                // DOWNCAST: cari permukaan mendarat
+                Vector3 downStart = highOrigin + dir * (lowHit.distance + skin);
+                float downRange = stepHeight + 0.6f;
+
+                RaycastHit downHit;
+                bool foundLanding =
+                    Physics.SphereCast(downStart, stepProbeRadius, Vector3.down, out downHit,
+                                       downRange, layerMask: groundMask,
+                                       queryTriggerInteraction: QueryTriggerInteraction.Ignore)
+                    || Physics.Raycast(downStart, Vector3.down, out downHit,
+                                       downRange, groundMask, QueryTriggerInteraction.Ignore);
+
+                if (foundLanding && downHit.normal.y >= minGroundNormalY)
+                {
+                    float neededBottomY = downHit.point.y + skin;
+                    float neededUp = neededBottomY - bottomY;
+
+                    if (neededUp > 0f && neededUp <= stepHeight + 0.05f)
+                    {
+                        float climb = Mathf.Min(neededUp, stepClimbRate * Time.fixedDeltaTime);
+                        rb.MovePosition(rb.position + Vector3.up * climb);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }
