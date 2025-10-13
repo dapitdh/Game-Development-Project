@@ -6,8 +6,8 @@ public class FP_naiktangga : MonoBehaviour
     Rigidbody rigidBody;
     [SerializeField] GameObject stepRayUpper;
     [SerializeField] GameObject stepRayLower;
-    [SerializeField] float stepHeight = 0.5f;
-    [SerializeField] float stepSmooth = 2f;
+    [SerializeField] float stepHeight = 2.5f;
+    [SerializeField] float stepSmooth = 1f;
 
     private void Awake()
     {
