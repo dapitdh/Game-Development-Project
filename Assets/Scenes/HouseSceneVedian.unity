@@ -4188,7 +4188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20768050fff454494bf0f09b08000b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_cardReader
-  moveSpeed: 0.1
+  moveSpeed: 0.5
+  moveSpeedCard: 0.1
 --- !u!65 &352330733
 BoxCollider:
   m_ObjectHideFlags: 0
