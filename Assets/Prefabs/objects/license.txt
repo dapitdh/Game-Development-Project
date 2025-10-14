@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor Objects
+* source:	https://sketchfab.com/3d-models/hello-neighbor-objects-e11e0a75f1fb4e14872c2c345c067291
+* author:	juandavidchibuque (https://sketchfab.com/juandavidchibuque)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor Objects" (https://sketchfab.com/3d-models/hello-neighbor-objects-e11e0a75f1fb4e14872c2c345c067291) by juandavidchibuque (https://sketchfab.com/juandavidchibuque) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

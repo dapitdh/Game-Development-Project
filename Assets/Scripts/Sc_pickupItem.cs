@@ -28,7 +28,7 @@ public class Sc_pickupItem : MonoBehaviour
             if (hit.collider.CompareTag("Item"))
             {
                 Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
-                Debug.Log("Lihat item: " + hit.collider.name);
+                // Debug.Log("Lihat item: " + hit.collider.name);
 
                 // Saat tekan E, ambil item
                 if (Input.GetKeyDown(KeyCode.E))
@@ -50,10 +50,12 @@ public class Sc_pickupItem : MonoBehaviour
 
         // Nonaktifkan physics
         if (rb) rb.isKinematic = true;
-        foreach (Collider col in cols)
+        foreach (var col in cols)
         {
-            col.enabled = false;
+            if (col is SphereCollider) continue; // jangan dimatikan
+            col.enabled = false;                  // lainnya dimatikan
         }
+
 
         // Pindahkan ke tangan
         item.transform.SetParent(itemHolder);

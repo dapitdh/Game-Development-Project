@@ -28,17 +28,25 @@ public class Sc_pintu : MonoBehaviour
     {
         if (other.CompareTag("Player"))
             isHeroNear = true;
-        
+            Debug.Log("Hero dekat pintu: " + isHeroNear);
+
         if (other.CompareTag("Item"))
+        {
             isBlocked = true;
+            Debug.Log("Pintu terhalang: " + isBlocked);
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
+        Transform root = other.attachedRigidbody ? other.attachedRigidbody.transform : other.transform.root;
         if (other.CompareTag("Player"))
             isHeroNear = false;
 
         if (other.CompareTag("Item"))
+        {
             isBlocked = false;
+            Debug.Log("Pintu terhalang: " + isBlocked);
+        }
     }
 }
