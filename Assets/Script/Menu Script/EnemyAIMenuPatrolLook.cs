@@ -99,41 +99,38 @@ public class EnemyAIMenuPatrolLook : MonoBehaviour
 
         var node = nodes[idx];
 
-        // Opsional: hadap target dulu
+        // Optional: hadap target dulu
         if (node.runLookAround && node.faceTarget != null)
-        yield return RotateTowardsTarget(
-            node.faceTarget.position,
-            node.faceTurnSpeed > 0 ? node.faceTurnSpeed : 360f
-        );
+            yield return RotateTowardsTarget(node.faceTarget.position, node.faceTurnSpeed);
 
         if (node.runLookAround)
         {
-            // Pastikan nama state valid
             string state = string.IsNullOrEmpty(node.lookAroundState) ? "LookAround" : node.lookAroundState;
+            float wait = node.lookAroundDuration > 0f ? node.lookAroundDuration : 0f;
 
-            float blendIn = Mathf.Clamp(0.35f, 0.05f, 0.6f);    // coba 0.3–0.45
-            float startNormalized = Mathf.Clamp(0.18f, 0f, 0.85f);
-            animator.CrossFadeInFixedTime(state, blendIn, 0, startNormalized);
+            animator.Play(state, 0, 0f); // langsung di-normalizedTime 0
 
-            // Tentukan waktu tunggu
-            float wait = node.lookAroundDuration > 0f ? node.lookAroundDuration : GetStateLength(animator, state);
-            if (wait <= 0f) wait = 1.8f; // fallback aman
+            // Jika durasi belum ditentukan, coba cari clip length
+            if (wait <= 0f)
+            {
+                wait = GetStateLength(animator, state);
+                if (wait <= 0f) wait = 1.8f; // fallback aman
+            }
+
+            // (Opsional) pastikan balik ke locomotion setelahnya
             yield return new WaitForSeconds(wait);
-
-            // Pastikan balik ke locomotion
-            animator.CrossFadeInFixedTime("Locomotion", 0.25f);
+            animator.CrossFadeInFixedTime("Locomotion", 0.1f);
         }
         else
         {
-            float dwell = Mathf.Max(0f, node.dwellTime);
-            if (dwell > 0f) yield return new WaitForSeconds(dwell);
+            float t = Mathf.Max(0f, node.dwellTime);
+            if (t > 0f) yield return new WaitForSeconds(t);
         }
 
         agent.isStopped = false;
         GoNext();
         isBusy = false;
     }
-
 
     private void GoNext()
     {
@@ -167,22 +164,18 @@ public class EnemyAIMenuPatrolLook : MonoBehaviour
 
     private IEnumerator RotateTowardsTarget(Vector3 targetPos, float degreesPerSec)
     {
-        if (degreesPerSec <= 0f) yield break; // safety guard
-
         Vector3 dir = (targetPos - transform.position);
         dir.y = 0f;
         if (dir.sqrMagnitude < 0.0001f) yield break;
 
         Quaternion targetRot = Quaternion.LookRotation(dir.normalized, Vector3.up);
+        // putar sampai cukup dekat
         while (Quaternion.Angle(transform.rotation, targetRot) > 1f)
         {
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation, targetRot, degreesPerSec * Time.deltaTime
-            );
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, degreesPerSec * Time.deltaTime);
             yield return null;
         }
     }
-
 
     private float GetStateLength(Animator anim, string stateName, int layer = 0)
     {
