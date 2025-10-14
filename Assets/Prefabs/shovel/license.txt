@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor - Shovel
+* source:	https://sketchfab.com/3d-models/hello-neighbor-shovel-96e2d56b412a47308faa5b694f247298
+* author:	Youthful strawbewwy (https://sketchfab.com/Youthful-Strawberry)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor - Shovel" (https://sketchfab.com/3d-models/hello-neighbor-shovel-96e2d56b412a47308faa5b694f247298) by Youthful strawbewwy (https://sketchfab.com/Youthful-Strawberry) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

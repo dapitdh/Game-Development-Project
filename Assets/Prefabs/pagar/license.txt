@@ -1,0 +1,11 @@
+Model Information:
+* title:	Latticle | Hello Neighbor
+* source:	https://sketchfab.com/3d-models/latticle-hello-neighbor-39f815cc4123426a83a96b3f191552fc
+* author:	Kriz Faerson (https://sketchfab.com/KrizFaerson)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Latticle | Hello Neighbor" (https://sketchfab.com/3d-models/latticle-hello-neighbor-39f815cc4123426a83a96b3f191552fc) by Kriz Faerson (https://sketchfab.com/KrizFaerson) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

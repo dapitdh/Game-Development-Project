@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor Box Remastered
+* source:	https://sketchfab.com/3d-models/hello-neighbor-box-remastered-6e0ab10b96d946c2904da171aed4651f
+* author:	Viktor™ (https://sketchfab.com/miguelmoreno2009)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor Box Remastered" (https://sketchfab.com/3d-models/hello-neighbor-box-remastered-6e0ab10b96d946c2904da171aed4651f) by Viktor™ (https://sketchfab.com/miguelmoreno2009) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

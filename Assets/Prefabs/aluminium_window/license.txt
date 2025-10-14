@@ -1,0 +1,11 @@
+Model Information:
+* title:	Aluminium Window
+* source:	https://sketchfab.com/3d-models/aluminium-window-01a288332ffb463fa7762f96fee13992
+* author:	bunny (https://sketchfab.com/bunbunny)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Aluminium Window" (https://sketchfab.com/3d-models/aluminium-window-01a288332ffb463fa7762f96fee13992) by bunny (https://sketchfab.com/bunbunny) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

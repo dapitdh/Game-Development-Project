@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor Food
+* source:	https://sketchfab.com/3d-models/hello-neighbor-food-d03081a44e264ef7a576b0aca1114ab7
+* author:	juandavidchibuque (https://sketchfab.com/juandavidchibuque)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor Food" (https://sketchfab.com/3d-models/hello-neighbor-food-d03081a44e264ef7a576b0aca1114ab7) by juandavidchibuque (https://sketchfab.com/juandavidchibuque) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

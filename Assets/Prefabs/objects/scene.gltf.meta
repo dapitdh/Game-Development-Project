@@ -1,0 +1,171 @@
+fileFormatVersion: 2
+guid: add6c9da6ed5c4c1fb9a60b291e2c414
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 804e1ce4c496647cfa3f1a1134187c71, type: 3}
+  _removeEmptyRootObjects: 1
+  _scaleFactor: 1
+  _deduplicateResources: 0
+  _maximumLod: 300
+  _readWriteEnabled: 1
+  _generateColliders: 0
+  _addColliders: 0
+  _swapUvs: 0
+  _generateLightmapUVs: 0
+  _importBlendShapeNames: 1
+  _blendShapeFrameWeight:
+    _option: 0
+    _multiplier: 1
+  _importNormals: 0
+  _importTangents: 0
+  _importCamera: 2
+  _importAnimations: 2
+  _mecanimHumanoidFlip: 0
+  _addAnimatorComponent: 0
+  _animationLoopTime: 1
+  _animationLoopPose: 0
+  _importMaterials: 1
+  _enableGpuInstancing: 0
+  _texturesReadWriteEnabled: 1
+  _generateMipMaps: 1
+  _useSceneNameIdentifier: 1
+  _textureCompression: -50
+  _gltfAsset: '<b>Generator: </b>Sketchfab-13.52.1
+
+    <b>Version: </b>2.0
+
+
+    <b>Extras:
+    </b>
+
+'
+  optimizeGameObjects: 0
+  materials:
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  textures:
+  - {fileID: 2800000, guid: fff284445119a446b81b1ac382a52e5b, type: 3}
+  - {fileID: 2800000, guid: 6421e5b90309b4a2a98ed8db15e00fcd, type: 3}
+  - {fileID: 2800000, guid: 7cfb4b8d47f504d29bc2420532d21e4a, type: 3}
+  - {fileID: 2800000, guid: 54554f3ae6ae24993a02b35f6d227915, type: 3}
+  - {fileID: 2800000, guid: f2a78d163a6e1484db7449d7fd3fe2ec, type: 3}
+  - {fileID: 2800000, guid: 91d273e68dd6349d9bfc9e84c9224390, type: 3}
+  - {fileID: 2800000, guid: 5ac5a142ebe4b4b94ac5ed1b3852c580, type: 3}
+  - {fileID: 2800000, guid: 2d0663d32fdc445ecbf0c91e44decf9f, type: 3}
+  - {fileID: 2800000, guid: 706bde07fdbd74f779c060a8e57e338c, type: 3}
+  - {fileID: 2800000, guid: 523787a9f6fb14f32ad4359f27463767, type: 3}
+  - {fileID: 2800000, guid: 30f6501fe239b491f9ea01bbbdbdb9a5, type: 3}
+  - {fileID: 2800000, guid: befca8eb1efd749459967c814ea4a8b5, type: 3}
+  - {fileID: 2800000, guid: 34de8534b79c447db988135e75e197f6, type: 3}
+  - {fileID: 2800000, guid: 488ed4084e25e477ba7885ea4c86e948, type: 3}
+  - {fileID: 2800000, guid: 7f73412db311541b2a3aa2690d336f69, type: 3}
+  - {fileID: 2800000, guid: 078d5b44bf4f048f2a87deab8465940e, type: 3}
+  - {fileID: 2800000, guid: 8beb76281260e412092e02ef185704aa, type: 3}
+  - {fileID: 2800000, guid: af2cfbca817a6489eb66031172812c09, type: 3}
+  - {fileID: 2800000, guid: f993b19bd4d47403f9da8325cd6a0abc, type: 3}
+  - {fileID: 2800000, guid: 1d423af0afb5c493aa7b3b68bba12ec9, type: 3}
+  - {fileID: 2800000, guid: 0962957e9f43a46a08d0b5598115126d, type: 3}
+  hasSceneData: 1
+  hasAnimationData: 0
+  hasMaterialData: 1
+  hasTextureData: 1
+  animations: []
+  _extensions: []
+  _textures:
+  - texture: {fileID: 2800000, guid: fff284445119a446b81b1ac382a52e5b, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 6421e5b90309b4a2a98ed8db15e00fcd, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 7cfb4b8d47f504d29bc2420532d21e4a, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 54554f3ae6ae24993a02b35f6d227915, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: f2a78d163a6e1484db7449d7fd3fe2ec, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 91d273e68dd6349d9bfc9e84c9224390, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 5ac5a142ebe4b4b94ac5ed1b3852c580, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 2d0663d32fdc445ecbf0c91e44decf9f, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 706bde07fdbd74f779c060a8e57e338c, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 523787a9f6fb14f32ad4359f27463767, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 30f6501fe239b491f9ea01bbbdbdb9a5, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: befca8eb1efd749459967c814ea4a8b5, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 34de8534b79c447db988135e75e197f6, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 488ed4084e25e477ba7885ea4c86e948, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 7f73412db311541b2a3aa2690d336f69, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 078d5b44bf4f048f2a87deab8465940e, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 8beb76281260e412092e02ef185704aa, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: af2cfbca817a6489eb66031172812c09, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: f993b19bd4d47403f9da8325cd6a0abc, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 1d423af0afb5c493aa7b3b68bba12ec9, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  - texture: {fileID: 2800000, guid: 0962957e9f43a46a08d0b5598115126d, type: 3}
+    shouldBeLinear: 0
+    shouldBeNormalMap: 0
+  _mainAssetIdentifier: scenes/Sketchfab_Scene
+  _importPlugins: []

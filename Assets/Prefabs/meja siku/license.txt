@@ -1,0 +1,11 @@
+Model Information:
+* title:	hello Neighbor desk
+* source:	https://sketchfab.com/3d-models/hello-neighbor-desk-52d7769d614944078560f4f946634b3a
+* author:	Juandaneitor master (https://sketchfab.com/juandavidchibuque)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "hello Neighbor desk" (https://sketchfab.com/3d-models/hello-neighbor-desk-52d7769d614944078560f4f946634b3a) by Juandaneitor master (https://sketchfab.com/juandavidchibuque) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

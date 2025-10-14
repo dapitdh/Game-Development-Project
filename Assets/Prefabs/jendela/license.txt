@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hello Neighbor 2 Mini Window
+* source:	https://sketchfab.com/3d-models/hello-neighbor-2-mini-window-b962cc49dfeb49cb994d8467c4b1daf5
+* author:	Naufal Zx (https://sketchfab.com/adidasnaufal54)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hello Neighbor 2 Mini Window" (https://sketchfab.com/3d-models/hello-neighbor-2-mini-window-b962cc49dfeb49cb994d8467c4b1daf5) by Naufal Zx (https://sketchfab.com/adidasnaufal54) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
