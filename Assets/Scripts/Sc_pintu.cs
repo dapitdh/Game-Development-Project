@@ -7,6 +7,7 @@ public class Sc_pintu : MonoBehaviour
     private Quaternion closedRot;
     private Quaternion openRot;
     private bool isHeroNear = false;
+    private bool isBlocked = false; // untuk mendeteksi jika ada item yang menghalangi pintu
 
     void Start()
     {
@@ -16,7 +17,7 @@ public class Sc_pintu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isHeroNear)
+        if (Input.GetKeyDown(KeyCode.E) && isHeroNear && !isBlocked)
             isOpen = !isOpen;
 
         Quaternion targetRot = isOpen ? openRot : closedRot;
@@ -27,11 +28,17 @@ public class Sc_pintu : MonoBehaviour
     {
         if (other.CompareTag("Player"))
             isHeroNear = true;
+        
+        if (other.CompareTag("Item"))
+            isBlocked = true;
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
             isHeroNear = false;
+
+        if (other.CompareTag("Item"))
+            isBlocked = false;
     }
 }
