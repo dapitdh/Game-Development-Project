@@ -25,8 +25,8 @@ namespace FPP
         public float standingHeight = 1.8f;
         public float crouchingHeight = 1.2f;
 
-        [Header("Ground (via Rigidbody Contacts)")]
-        [Range(0f, 1f)] public float minGroundNormalY = 0.6f;
+        [Header("Ground (GroundCheck GO ONLY)")]
+        public Transform groundCheck; // drag GameObject kaki ke sini
 
         // ===== Animator params =====
         [Header("Animation (Animator Bools)")]
@@ -41,22 +41,13 @@ namespace FPP
         public string turnLParam = "turnL";
         public string turnRParam = "turnR";
 
-        int walkHash, runHash, jumpHash, strafeLHash, strafeLWalkHash, strafeRHash, strafeRWalkHash, turnLHash, turnRHash;
+        [Header("Step Climb")]
+        [SerializeField] public GameObject stepRayLower;
+        [SerializeField] public GameObject stepRayUpper;
+        [SerializeField] float stepRayHeight = 0.3f;
+        [SerializeField] float stepSmooth = 0.1f;
 
-        // ===== Stairs / Step Assist =====
-        [Header("Stairs / Step Assist (robust)")]
-        [Tooltip("Tinggi maksimum anak tangga yang bisa dinaikkan otomatis")]
-        public float stepHeight = 0.45f;
-        [Tooltip("Seberapa jauh memeriksa rintangan di depan kaki")]
-        public float stepProbeForward = 0.35f;
-        [Tooltip("Radius probe (mendekati radius capsule)")]
-        public float stepProbeRadius = 0.12f;
-        [Tooltip("Kecepatan naik per detik saat menapak step")]
-        public float stepClimbRate = 3.5f;
-        [Tooltip("Berapa kali mencoba 'naik kecil' per FixedUpdate")]
-        public int stepIterations = 3;
-        [Tooltip("Layer environment/tangga (pakai sama dgn groundMask kamu)")]
-        public LayerMask groundMask;
+        int walkHash, runHash, jumpHash, strafeLHash, strafeLWalkHash, strafeRHash, strafeRWalkHash, turnLHash, turnRHash;
 
         // State publik
         public bool IsGrounded { get; private set; }
@@ -72,7 +63,6 @@ namespace FPP
         bool hasLandedSinceLastJump = true;
         bool wasGrounded;
         float postJumpIgnoreTimer;
-        bool groundedFromContacts;
 
         // untuk turn anim
         float mouseXRaw;
@@ -81,8 +71,7 @@ namespace FPP
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            rb.freezeRotation = true;
-
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
             capsule = GetComponent<CapsuleCollider>();
             capsule.height = standingHeight;
             capsule.center = new Vector3(0f, standingHeight * 0.5f, 0f);
@@ -105,6 +94,13 @@ namespace FPP
                 anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
                 anim.speed = 1f;
             }
+
+            rb.useGravity = false; // gravity manual
+
+            // (biarkan sesuai permintaanmu, tidak diubah)
+            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepRayHeight, stepRayUpper.transform.position.z);
+
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         void Update()
@@ -130,30 +126,20 @@ namespace FPP
                 postJumpIgnoreTimer -= Time.fixedDeltaTime;
 
             bool prevGrounded = IsGrounded;
-            IsGrounded = (postJumpIgnoreTimer <= 0f) && groundedFromContacts;
-            groundedFromContacts = false;
+
+            // Grounding: hanya dari GroundCheckGO (tanpa kontak)
+            bool groundByCast = GroundCheckGO();
+            IsGrounded = (postJumpIgnoreTimer <= 0f) && groundByCast;
 
             if (IsGrounded && !prevGrounded)
                 hasLandedSinceLastJump = true;
             wasGrounded = IsGrounded;
 
             MoveHorizontal();
-
-            // === STEP ASSIST aktif: jalan/larian/crouch semua bisa ===
-            if (IsGrounded && MoveInput.sqrMagnitude > 0.01f)
-            {
-                Vector3 wishDir = (transform.right * MoveInput.x + transform.forward * MoveInput.y).normalized;
-
-                for (int i = 0; i < stepIterations; i++)
-                {
-                    if (!TryStepUpIterative(wishDir)) break;
-                    // nolkan Vy agar tak “mental” saat nabrak bibir
-                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-                }
-            }
-
             HandleJumpAndGravity();
             UpdateAnimatorBools();
+
+            stepClimb(); // tetap panggil
         }
 
         void MoveHorizontal()
@@ -191,6 +177,7 @@ namespace FPP
                 rb.AddForce(Vector3.down * groundStick, ForceMode.Acceleration);
         }
 
+        // ---------- INPUT ----------
         void ReadInputs()
         {
             var kb = Keyboard.current;
@@ -209,20 +196,32 @@ namespace FPP
         bool IsCrouchHeld() => Keyboard.current?.leftCtrlKey.isPressed ?? false;
         bool JumpPressed() => Keyboard.current?.spaceKey.wasPressedThisFrame ?? false;
 
-        void OnCollisionStay(Collision col)
+        // ---------- GROUND VIA GroundCheck GO ----------
+        bool GroundCheckGO()
         {
-            if (postJumpIgnoreTimer > 0f) return;
-            foreach (var cp in col.contacts)
+            if (!groundCheck) return false;
+
+            // Radius & jarak internal, dihitung dari kapsul (tanpa property publik)
+            float scaleXZ = Mathf.Max(transform.lossyScale.x, transform.lossyScale.z);
+            float r = (capsule ? capsule.radius : 0.2f) * scaleXZ;
+            Vector3 up = transform.up;
+
+            // mulai sedikit di atas kaki
+            Vector3 origin = groundCheck.position + up * 0.02f;
+            float dist = 0.08f; // kecil & stabil
+
+            // SphereCast turun (tanpa groundMask)
+            if (Physics.SphereCast(origin, r, -up, out RaycastHit hit, dist))
             {
-                if (cp.normal.y >= minGroundNormalY)
-                {
-                    groundedFromContacts = true;
-                    break;
-                }
+                // ambang kemiringan tetap sebagai konstanta (bukan field publik)
+                return hit.normal.y >= 0.6f;
             }
+
+            // fallback: CheckSphere di titik kaki (tanpa groundMask)
+            return Physics.CheckSphere(groundCheck.position, r * 0.98f);
         }
 
-        // ====== Animator sync lengkap ======
+        // ---------- ANIM ----------
         void UpdateAnimatorBools()
         {
             if (!anim) return;
@@ -257,97 +256,19 @@ namespace FPP
             bool isTurnR = IsGrounded && noKeys && mouseXRaw > turnMouseThreshold;
 
             anim.SetBool(jumpHash, isJump);
-
             anim.SetBool(runHash, !isJump && isRun);
             anim.SetBool(walkHash, !isJump && isWalk);
-
             anim.SetBool(strafeLHash, !isJump && isStrafeL);
             anim.SetBool(strafeRHash, !isJump && isStrafeR);
             anim.SetBool(strafeLWalkHash, !isJump && isStrafeLWalk);
             anim.SetBool(strafeRWalkHash, !isJump && isStrafeRWalk);
-
             anim.SetBool(turnLHash, !isJump && isTurnL);
             anim.SetBool(turnRHash, !isJump && isTurnR);
         }
 
-        // ============================
-        // STEP ASSIST (CapsuleCast + CheckCapsule + iterative climb)
-        // ============================
-        bool TryStepUpIterative(Vector3 dir)
-        {
-            // 3 arah (depan & diagonal) supaya gak nyangkut di sudut
-            Vector3 right = Vector3.Cross(Vector3.up, dir).normalized;
-            Vector3[] dirs = new Vector3[] { dir, (dir + right).normalized, (dir - right).normalized };
-
-            foreach (var d in dirs)
-            {
-                if (TryStepOnce(d)) return true;
-            }
-            return false;
-        }
-
-        bool TryStepOnce(Vector3 dir)
-        {
-            float skin = 0.02f;
-            float climbPerFrame = Mathf.Max(0.03f, stepClimbRate * Time.fixedDeltaTime);
-
-            // hitung world capsule
-            GetCapsuleWorldAt(rb.position, out Vector3 top, out Vector3 bottom, out float capRadius);
-
-            // Origin rendah sedikit di atas dasar kapsul
-            float bottomY = bottom.y;
-            Vector3 foot = new Vector3(rb.position.x, bottomY, rb.position.z);
-            Vector3 lowOrigin = foot + Vector3.up * (skin + capRadius * 0.2f);
-
-            // LOW CAPSULECAST: ada bibir di depan?
-            Vector3 p1 = lowOrigin + Vector3.up * (capsule.height * 0.5f - capRadius);
-            Vector3 p2 = lowOrigin - Vector3.up * (capsule.height * 0.5f - capRadius);
-
-            RaycastHit lowHit;
-            bool hit = Physics.CapsuleCast(
-                p1, p2, stepProbeRadius, dir, out lowHit,
-                maxDistance: stepProbeForward, layerMask: groundMask
-            );
-            if (!hit) return false;
-
-            // Pastikan ini bibir (permukaan bukan lantai)
-            if (lowHit.normal.y > 0.25f) return false;
-
-            // Cari ketinggian yang clear: 0 → stepHeight
-            float targetUp = 0f;
-            bool found = false;
-
-            for (float h = climbPerFrame; h <= stepHeight + 0.001f; h += climbPerFrame)
-            {
-                // kandidat posisi: naik h + sedikit maju sejauh lowHit.distance
-                Vector3 candidate = rb.position + Vector3.up * h + dir * Mathf.Min(lowHit.distance + 0.03f, stepProbeForward);
-
-                if (CapsuleClearAt(candidate))
-                {
-                    targetUp = h;
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) return false;
-
-            // Snap naik sebagian (halus)
-            float climb = Mathf.Min(targetUp, climbPerFrame);
-            rb.MovePosition(rb.position + Vector3.up * climb);
-
-            return true;
-        }
-
-        bool CapsuleClearAt(Vector3 centerPos)
-        {
-            GetCapsuleWorldAt(centerPos, out Vector3 top, out Vector3 bottom, out float radius);
-            return !Physics.CheckCapsule(top, bottom, radius, groundMask, QueryTriggerInteraction.Ignore);
-        }
-
+        // ---------- UTIL KAPSUL DUNIA ----------
         void GetCapsuleWorldAt(Vector3 centerPos, out Vector3 top, out Vector3 bottom, out float radius)
         {
-            // skala kira-kira: ambil skala terbesar untuk radius
             float scaleY = transform.lossyScale.y;
             float scaleXZ = Mathf.Max(transform.lossyScale.x, transform.lossyScale.z);
 
@@ -360,6 +281,37 @@ namespace FPP
 
             top = worldCenter + up * half;
             bottom = worldCenter - up * half;
+        }
+
+        // ---------- DEBUG GIZMOS ----------
+        void OnDrawGizmosSelected()
+        {
+            if (!groundCheck) return;
+            Gizmos.color = Color.green;
+
+            float scaleXZ = Application.isPlaying ? Mathf.Max(transform.lossyScale.x, transform.lossyScale.z) : 1f;
+            float r = (capsule ? capsule.radius : 0.2f) * scaleXZ;
+
+            // sphere di titik kaki
+            Gizmos.DrawWireSphere(groundCheck.position, r);
+
+            // garis cast turun (pakai dist internal 0.08f)
+            Vector3 origin = groundCheck.position + transform.up * 0.02f;
+            Gizmos.DrawLine(origin, origin - transform.up * 0.08f);
+        }
+
+        // ---------- STEP CLIMB (biarkan sesuai punyamu) ----------
+        void stepClimb()
+        {
+            RaycastHit hitLower;
+            if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
+            {
+                RaycastHit hitUpper;
+                if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
+                {
+                    rb.position -= new Vector3(0f, -stepSmooth, 0f);
+                }
+            }
         }
     }
 }
