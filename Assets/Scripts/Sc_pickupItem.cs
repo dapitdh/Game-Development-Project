@@ -6,6 +6,7 @@ public class Sc_pickupItem : MonoBehaviour
     public float pickupRange = 3f;  // jarak pickup maksimal
     public LayerMask itemLayer;     // layer "Item", biar raycast fokus
     private GameObject heldItem;
+    public Vector3 targetPos = new Vector3(0, 0, 0);
 
     void Update()
     {
@@ -25,7 +26,7 @@ public class Sc_pickupItem : MonoBehaviour
         );
         if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, itemLayer))
         {
-            if (hit.collider.CompareTag("Item"))
+            if (hit.collider.CompareTag("Item") || hit.collider.CompareTag("KeyCard"))
             {
                 Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 // Debug.Log("Lihat item: " + hit.collider.name);
@@ -59,7 +60,11 @@ public class Sc_pickupItem : MonoBehaviour
 
         // Pindahkan ke tangan
         item.transform.SetParent(itemHolder);
-        item.transform.localPosition = Vector3.zero;
+        if (item.name == "crowbar")
+            item.transform.localPosition = targetPos + new Vector3(0, -1f, 0);
+        else
+            item.transform.localPosition = targetPos;
+
         item.transform.localRotation = Quaternion.identity;
 
         heldItem = item;
@@ -67,7 +72,7 @@ public class Sc_pickupItem : MonoBehaviour
         Debug.Log("Picked up: " + item.name);
     }
 
-    void DropItem()
+    public void DropItem()
     {
         if (heldItem == null) return;
 
