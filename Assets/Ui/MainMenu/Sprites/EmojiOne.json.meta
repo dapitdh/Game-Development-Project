@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Ui/MainMenu/Sprites/EmojiOne.json.meta
 guid: b49e68df5d18371419ea9263b21f2f84
 timeCreated: 1480316860
 licenseType: Pro
 TextScriptImporter:
+========
+guid: 2632a0b9a6598444fbddf8f668940153
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+>>>>>>>> Stashed changes:Assets/Settings/Build Profiles/Windows.asset.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

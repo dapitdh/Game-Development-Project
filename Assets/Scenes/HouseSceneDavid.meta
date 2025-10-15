@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Scenes/HouseSceneDavid.meta
 guid: e95995788f2d4c246a5dffe155415e53
+========
+guid: c994dfeb11f430444bab7fb390435a3c
+>>>>>>>> Stashed changes:Assets/Settings/Build Profiles.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
