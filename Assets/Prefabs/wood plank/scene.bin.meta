@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Prefabs/wood plank/scene.bin.meta
 guid: 56fce9db1b6204c10847b7ac0cdb90a1
+========
+guid: c994dfeb11f430444bab7fb390435a3c
+folderAsset: yes
+>>>>>>>> Stashed changes:Assets/Settings/Build Profiles.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
