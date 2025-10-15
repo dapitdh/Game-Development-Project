@@ -11743,6 +11743,10 @@ MonoBehaviour:
   - {fileID: 325671857}
   - {fileID: 72614393}
   patrolSpeed: 2
+  patrolMode: 1
+  backtrackBlock: 1
+  stuckTimeout: 3
+  stuckSpeedEps: 0.05
   chaseSpeed: 4
   loseSightDelay: 2
   viewRadius: 10
