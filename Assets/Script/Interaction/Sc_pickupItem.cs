@@ -7,7 +7,9 @@ public class Sc_pickupItem : MonoBehaviour
     public LayerMask itemLayer;     // layer "Item", biar raycast fokus
     private GameObject heldItem;
     public Vector3 targetPos = new Vector3(0, 0, 0);
-
+    // public TextMeshProUGUI pickupText;
+    public GameObject presEUI, dropGUI;
+    public GameObject findCrowbarGUI, findKeyCardGUI;
     void Update()
     {
         // Kalau sudah pegang item -> cek tombol drop
@@ -16,6 +18,7 @@ public class Sc_pickupItem : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.G))
             {
                 DropItem();
+                dropGUI.SetActive(false);
             }
             return;
         }
@@ -30,16 +33,39 @@ public class Sc_pickupItem : MonoBehaviour
             {
                 Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 // Debug.Log("Lihat item: " + hit.collider.name);
+                // pickupText.text = "Press E to pick up " + hit.collider.name;
+                if (!hit.collider.CompareTag("KayuPenghalang"))
+                    presEUI.SetActive(true);
+                else if (hit.collider.CompareTag("KayuPenghalang"))
+                {
+                    findCrowbarGUI.SetActive(true);
+                }
+                
 
                 // Saat tekan E, ambil item
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     PickUpItem(hit.collider.gameObject);
+                    presEUI.SetActive(false);
+                    dropGUI.SetActive(true);
                 }
+            }
+            else if (hit.collider.name == "electric door")
+            {
+                findKeyCardGUI.SetActive(true);
+            } else
+            {
+                presEUI.SetActive(false);
+                dropGUI.SetActive(false);
+                findCrowbarGUI.SetActive(false);
+                findKeyCardGUI.SetActive(false);
             }
         }
         else
         {
+            presEUI.SetActive(false);
+            findCrowbarGUI.SetActive(false);
+            findKeyCardGUI.SetActive(false);
             Debug.DrawRay(ray.origin, ray.direction * pickupRange, Color.red);
         }
     }

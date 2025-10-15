@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Sc_pintuKulkas : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Sc_pintuKulkas : MonoBehaviour
     private Quaternion closedRot;
     private Quaternion openRot;
     private bool isHeroNear = false;
+    public GameObject leftClickGUI; // UI left click
+    public TextMeshProUGUI text;
 
     void Start()
     {
@@ -27,12 +30,21 @@ public class Sc_pintuKulkas : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             isHeroNear = true;
+            leftClickGUI.SetActive(true);
+            text.text = isOpen ? "Close Fridge" : "Open Fridge";
+        }
+
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
+            leftClickGUI.SetActive(false);
             isHeroNear = false;
+            text.text = isOpen ? "Close Door" : "Open Door";
+        }
     }
 }
