@@ -65,6 +65,7 @@ public class MainMenuController : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+
     void OnEnable()
     {
         if (firstSelected) EventSystem.current.SetSelectedGameObject(firstSelected);
