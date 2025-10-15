@@ -30,7 +30,7 @@ public class Sc_pintu : MonoBehaviour
             isHeroNear = true;
             Debug.Log("Hero dekat pintu: " + isHeroNear);
 
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Obstacle"))
         {
             isBlocked = true;
             Debug.Log("Pintu terhalang: " + isBlocked);
@@ -43,7 +43,7 @@ public class Sc_pintu : MonoBehaviour
         if (other.CompareTag("Player"))
             isHeroNear = false;
 
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Obstacle"))
         {
             isBlocked = false;
             Debug.Log("Pintu terhalang: " + isBlocked);

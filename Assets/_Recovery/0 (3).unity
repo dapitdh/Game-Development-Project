@@ -1561,7 +1561,7 @@ GameObject:
   - component: {fileID: 146690780}
   m_Layer: 0
   m_Name: Kardus (9)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1628,7 +1628,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &146690782
 BoxCollider:
@@ -1665,7 +1665,7 @@ GameObject:
   - component: {fileID: 159065862}
   m_Layer: 0
   m_Name: Kardus (1)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1732,7 +1732,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &159065864
 BoxCollider:
@@ -3110,7 +3110,7 @@ GameObject:
   - component: {fileID: 296545845}
   m_Layer: 0
   m_Name: Kardus (4)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3177,7 +3177,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &296545847
 BoxCollider:
@@ -5189,7 +5189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
       propertyPath: m_TagString
-      value: Obstacle
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
       propertyPath: m_LocalScale.x
@@ -5450,7 +5450,7 @@ GameObject:
   - component: {fileID: 461465779}
   m_Layer: 0
   m_Name: Kardus
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5490,7 +5490,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &461465778
 BoxCollider:
@@ -6176,7 +6176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: 2eef9b09fd8a4410baf9904a3860353a, type: 3}
       propertyPath: m_TagString
-      value: Obstacle
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 2eef9b09fd8a4410baf9904a3860353a, type: 3}
       propertyPath: m_LocalScale.x
@@ -6533,7 +6533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_TagString
-      value: Obstacle
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalScale.x
@@ -6541,7 +6541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.7500004
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalScale.z
@@ -6549,19 +6549,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.0899997
+      value: 5.827
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.212
+      value: 0.82627654
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.15
+      value: -11.797
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6569,19 +6569,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.94887453
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.3156535
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -36.801
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -6589,7 +6589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 8abe0e30ea6cf4f359add06b760fed3c, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7926,7 +7926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
       propertyPath: m_TagString
-      value: Obstacle
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
       propertyPath: m_LocalScale.x
@@ -8399,7 +8399,7 @@ GameObject:
   - component: {fileID: 730220627}
   m_Layer: 0
   m_Name: Kardus (5)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8466,7 +8466,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &730220629
 BoxCollider:
@@ -9042,7 +9042,7 @@ GameObject:
   - component: {fileID: 811818542}
   m_Layer: 0
   m_Name: Kardus (3)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9109,7 +9109,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &811818544
 BoxCollider:
@@ -9564,15 +9564,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.746
+      value: 22.481
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.15
+      value: 6.749
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.402
+      value: 11.231
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12742,10 +12742,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: box (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 8128668236925612103, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
-      objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2
@@ -12801,16 +12797,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1485885585}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1485885584}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1485885586}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: -5645937942226959685, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
 --- !u!4 &1087900922 stripped
 Transform:
@@ -15815,80 +15802,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a7d30b990c0dde488697e6ab4aaeee3, type: 3}
   m_PrefabInstance: {fileID: 1768146070}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1485885581 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8128668236925612103, guid: e98962a64b94646f398e3bfe0e0304e3, type: 3}
-  m_PrefabInstance: {fileID: 1087900921}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &1485885584
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485885581}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2
-  m_Center: {x: -0.008801821, y: 0.0000072237563, z: 1.7013701}
---- !u!65 &1485885585
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485885581}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.009383, y: 3.0000014, z: 3.4382377}
-  m_Center: {x: -0.008801821, y: 0.0000072237563, z: 1.7013701}
---- !u!54 &1485885586
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485885581}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &1487299612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17323,7 +17236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: 2eef9b09fd8a4410baf9904a3860353a, type: 3}
       propertyPath: m_TagString
-      value: Obstacle
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 2eef9b09fd8a4410baf9904a3860353a, type: 3}
       propertyPath: m_LocalScale.x
@@ -17888,7 +17801,7 @@ GameObject:
   - component: {fileID: 1605213473}
   m_Layer: 0
   m_Name: Kardus (6)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17955,7 +17868,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1605213475
 BoxCollider:
@@ -18055,7 +17968,7 @@ GameObject:
   - component: {fileID: 1625472353}
   m_Layer: 0
   m_Name: Kardus (2)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18122,7 +18035,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1625472355
 BoxCollider:
@@ -20761,7 +20674,7 @@ GameObject:
   - component: {fileID: 1885476973}
   m_Layer: 0
   m_Name: Kardus (8)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20828,7 +20741,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1885476975
 BoxCollider:
@@ -21626,7 +21539,7 @@ GameObject:
   - component: {fileID: 1938608726}
   m_Layer: 0
   m_Name: Kardus (7)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21693,7 +21606,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1938608728
 BoxCollider:
@@ -22488,7 +22401,7 @@ Transform:
   m_GameObject: {fileID: 2023154875}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.78, y: 0.677, z: -0.37}
+  m_LocalPosition: {x: -6.96, y: 3.216, z: 7.415}
   m_LocalScale: {x: 1.25, y: 1, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22730,7 +22643,7 @@ GameObject:
   - component: {fileID: 2040936904}
   m_Layer: 0
   m_Name: Kardus (11)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22797,7 +22710,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &2040936906
 BoxCollider:
@@ -23825,7 +23738,7 @@ GameObject:
   - component: {fileID: 2134222477}
   m_Layer: 0
   m_Name: Kardus (10)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23892,7 +23805,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &2134222479
 BoxCollider:

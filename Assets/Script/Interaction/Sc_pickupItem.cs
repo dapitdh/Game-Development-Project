@@ -26,7 +26,7 @@ public class Sc_pickupItem : MonoBehaviour
         );
         if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, itemLayer))
         {
-            if (hit.collider.CompareTag("Item") || hit.collider.CompareTag("KeyCard"))
+            if (hit.collider.CompareTag("Item") || hit.collider.CompareTag("KeyCard") || hit.collider.CompareTag("Obstacle"))
             {
                 Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 // Debug.Log("Lihat item: " + hit.collider.name);
