@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - PintuKulkas
   - Paku
+  - KayuPenghalang
   layers:
   - Default
   - TransparentFX

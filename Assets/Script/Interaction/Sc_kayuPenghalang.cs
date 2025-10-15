@@ -7,7 +7,7 @@ public class Sc_kayuPenghalang : MonoBehaviour
     public Transform rightAnchor;
 
     [Header("Arah engsel (biasanya Z untuk dinding datar)")]
-    public Vector3 hingeAxis = new Vector3(1, 0, 0);
+    public Vector3 hingeAxis = new Vector3(0, 1, 0);
 
     Rigidbody rb;
     HingeJoint activeHinge;

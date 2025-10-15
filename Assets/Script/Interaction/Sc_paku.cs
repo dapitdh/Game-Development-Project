@@ -39,7 +39,7 @@ public class Sc_paku : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "crowbar (1)")
+        if (other.name == "crowbar")
         {
             targetPos = this.transform.position + new Vector3(0, 0, -0.1f);
             moving = true;

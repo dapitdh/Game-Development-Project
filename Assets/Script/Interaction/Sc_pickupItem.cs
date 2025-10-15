@@ -26,7 +26,7 @@ public class Sc_pickupItem : MonoBehaviour
         );
         if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, itemLayer))
         {
-            if (hit.collider.CompareTag("Item") || hit.collider.CompareTag("KeyCard") || hit.collider.CompareTag("Obstacle"))
+            if (hit.collider.CompareTag("Item") || hit.collider.CompareTag("KeyCard") || hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("KayuPenghalang"))
             {
                 Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
                 // Debug.Log("Lihat item: " + hit.collider.name);
@@ -60,7 +60,7 @@ public class Sc_pickupItem : MonoBehaviour
 
         // Pindahkan ke tangan
         item.transform.SetParent(itemHolder);
-        if (item.name == "crowbar (1)")
+        if (item.name == "crowbar")
             item.transform.localPosition = targetPos + new Vector3(0, -1f, 0);
         else
             item.transform.localPosition = targetPos;
