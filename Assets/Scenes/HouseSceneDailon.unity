@@ -20832,15 +20832,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  m_NavMeshData: {fileID: 23800000, guid: 10bb369ba7ce1394c9207e01f3479c32, type: 2}
-=======
   m_NavMeshData: {fileID: 23800000, guid: ee2218d71a5bbbb469c511a2b7faca50, type: 2}
->>>>>>> Stashed changes
-=======
-  m_NavMeshData: {fileID: 23800000, guid: ee2218d71a5bbbb469c511a2b7faca50, type: 2}
->>>>>>> Stashed changes
   m_BuildHeightMesh: 0
 --- !u!64 &1927335723
 MeshCollider:
