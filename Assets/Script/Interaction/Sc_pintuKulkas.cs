@@ -17,7 +17,7 @@ public class Sc_pintuKulkas : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isHeroNear)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isHeroNear)
             isOpen = !isOpen;
 
         Quaternion targetRot = isOpen ? openRot : closedRot;

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Nail
+* source:	https://sketchfab.com/3d-models/nail-58f0c51993c1461da0a76d735d118281
+* author:	Jvdm78 (https://sketchfab.com/Jvdm78)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Nail" (https://sketchfab.com/3d-models/nail-58f0c51993c1461da0a76d735d118281) by Jvdm78 (https://sketchfab.com/Jvdm78) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

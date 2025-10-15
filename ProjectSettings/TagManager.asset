@@ -7,6 +7,8 @@ TagManager:
   - Item
   - KeyCard
   - Obstacle
+  - PintuKulkas
+  - Paku
   layers:
   - Default
   - TransparentFX
