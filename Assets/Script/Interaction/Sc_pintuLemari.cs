@@ -36,7 +36,7 @@ public class Sc_pintuLemari : MonoBehaviour
 
     void Update()
     {
-        if (isHeroNear && Input.GetKeyDown(KeyCode.E))
+        if (isHeroNear && Input.GetKeyDown(KeyCode.Mouse0))
             isOpen = !isOpen;
 
         // Tentukan rotasi target

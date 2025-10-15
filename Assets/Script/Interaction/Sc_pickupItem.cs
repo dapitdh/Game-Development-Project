@@ -60,7 +60,7 @@ public class Sc_pickupItem : MonoBehaviour
 
         // Pindahkan ke tangan
         item.transform.SetParent(itemHolder);
-        if (item.name == "crowbar")
+        if (item.name == "crowbar (1)")
             item.transform.localPosition = targetPos + new Vector3(0, -1f, 0);
         else
             item.transform.localPosition = targetPos;
