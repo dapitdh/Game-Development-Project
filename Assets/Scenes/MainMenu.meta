@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Scenes/MainMenu.meta
 guid: 1466a9b538884784eb7ea9d5b98aca5f
+========
+guid: c994dfeb11f430444bab7fb390435a3c
+>>>>>>>> Stashed changes:Assets/Settings/Build Profiles.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
