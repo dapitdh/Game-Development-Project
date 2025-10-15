@@ -18,9 +18,19 @@ public class EnemyAI : MonoBehaviour
     private bool hasShouted = false;
 
     //Enemy Ai Settings
+    public enum PatrolMode { Sequential, Random }
     [Header("Patrol")]
     public Transform[] waypoints;
-    public float patrolSpeed = 2f;
+    public float patrolSpeed = 1.8f;
+    public PatrolMode patrolMode = PatrolMode.Random;   // <— default random
+    [Range(0f, 1f)] public float backtrackBlock = 1f;   // 1 = never go back to the previous point, 0 = allowed
+    public float stuckTimeout = 3f;                     // seconds of low movement = re-pick target
+    public float stuckSpeedEps = 0.05f; 
+
+    // internals
+    private int currentWaypointIndex = -1;
+    private int lastWaypointIndex = -1;
+    private float stuckTimer = 0f;
 
     [Header("Chase")]
     public float chaseSpeed = 4f;
@@ -37,7 +47,6 @@ public class EnemyAI : MonoBehaviour
 
     private NavMeshAgent agent;
     private Animator animator;
-    private int currentWaypointIndex = 0;
     private bool isChasing = false;
     private float timeSinceLastSeen = Mathf.Infinity;
     // Tambahkan setelah variabel timeSinceLastSeen
@@ -132,6 +141,23 @@ public class EnemyAI : MonoBehaviour
                     GoToNextWaypoint();
                 }
             }
+            // --- STUCK GUARD (only when patrolling) ---
+            if (!isChasing)  // only during patrol
+            {
+                // low speed?
+                if (agent.velocity.sqrMagnitude < stuckSpeedEps * stuckSpeedEps)
+                    stuckTimer += Time.deltaTime;
+                else
+                    stuckTimer = 0f;
+
+                if (stuckTimer >= stuckTimeout)
+                {
+                    // repick a new waypoint to unstick
+                    stuckTimer = 0f;
+                    GoToNextWaypoint();
+                }
+            }
+
         }
 
         if (isMusicFadingOut && audioSourceMusic.volume > 0f)
@@ -184,9 +210,45 @@ public class EnemyAI : MonoBehaviour
     {
         if (waypoints == null || waypoints.Length == 0) return;
 
-        agent.SetDestination(waypoints[currentWaypointIndex].position);
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        int next = (patrolMode == PatrolMode.Sequential)
+            ? NextSequential()
+            : NextRandomNoImmediateRepeat();
+
+        lastWaypointIndex = currentWaypointIndex;
+        currentWaypointIndex = next;
+
+        // Sample navmesh (as you already did)
+        Vector3 dst = waypoints[currentWaypointIndex].position;
+        if (NavMesh.SamplePosition(dst, out NavMeshHit hit, 1.5f, NavMesh.AllAreas))
+            agent.SetDestination(hit.position);
+        else
+            agent.SetDestination(dst);
+
+        stuckTimer = 0f;
     }
+
+    int NextSequential()
+    {
+        if (currentWaypointIndex < 0) return 0;
+        return (currentWaypointIndex + 1) % waypoints.Length;
+    }
+
+    int NextRandomNoImmediateRepeat()
+    {
+        if (waypoints.Length == 1) return 0;
+
+        int pick = currentWaypointIndex;
+        int guard = 0;
+
+        // avoid immediate repeat and (optionally) avoid backtracking to last point
+        while (pick == currentWaypointIndex || (backtrackBlock >= 0.99f && pick == lastWaypointIndex))
+        {
+            pick = Random.Range(0, waypoints.Length);
+            if (++guard > 20) break; // safety
+        }
+        return pick;
+    }
+
 
     bool CanSeePlayer()
     {
