@@ -24,7 +24,8 @@ public class MainMenuController : MonoBehaviour
     public GameObject firstSelected;  // set ke Btn_Play
 
     [Header("Gameplay")]
-    public string gameplaySceneName = "HouseSceneDavid";
+    public string gameplaySceneName = "HouseSceneVedian";
+    
 
     [Header("Fade")]
     public float fadeTime = 0.2f;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Sc_pickupItem : MonoBehaviour
 {
@@ -35,12 +36,22 @@ public class Sc_pickupItem : MonoBehaviour
                 // Debug.Log("Lihat item: " + hit.collider.name);
                 // pickupText.text = "Press E to pick up " + hit.collider.name;
                 if (!hit.collider.CompareTag("KayuPenghalang"))
+                {
                     presEUI.SetActive(true);
+
+                    // var label = presEUI.GetComponentInChildren<TMP_Text>(true);
+                    // if (label)
+                    // {
+                    //     // Catatan: .name bisa muncul "(Clone)". Kalau mau rapi, ganti ke displayName milik item.
+                    //     label.text = "Press E to pick up " + hit.collider.name;
+                    // }
+                }
+
                 else if (hit.collider.CompareTag("KayuPenghalang"))
                 {
                     findCrowbarGUI.SetActive(true);
                 }
-                
+
 
                 // Saat tekan E, ambil item
                 if (Input.GetKeyDown(KeyCode.E))
@@ -53,7 +64,8 @@ public class Sc_pickupItem : MonoBehaviour
             else if (hit.collider.name == "electric door")
             {
                 findKeyCardGUI.SetActive(true);
-            } else
+            }
+            else
             {
                 presEUI.SetActive(false);
                 dropGUI.SetActive(false);

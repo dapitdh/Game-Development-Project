@@ -2555,6 +2555,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintuKulkas
   openAngle: -90
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!135 &169436690
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5095,6 +5097,8 @@ MonoBehaviour:
   speed: 3
   rotasiBukaKiri: {x: 0, y: -100, z: 0}
   rotasiBukaKanan: {x: 0, y: 100, z: 0}
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!1 &397798918
 GameObject:
   m_ObjectHideFlags: 0
@@ -6150,6 +6154,8 @@ MonoBehaviour:
   speed: 3
   rotasiBukaKiri: {x: 0, y: 85, z: 4}
   rotasiBukaKanan: {x: 5, y: -102, z: -1}
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!1 &482963683
 GameObject:
   m_ObjectHideFlags: 0
@@ -7442,6 +7448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &649024724
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10646,6 +10654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &898156686
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13321,6 +13331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1084761504
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14032,6 +14044,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1189820207
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15298,6 +15312,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1314443613
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16189,6 +16205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1412279134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16762,6 +16780,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1450249012
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17634,6 +17654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1492350802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19359,6 +19381,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1657787440
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19941,7 +19965,7 @@ MonoBehaviour:
   btnBackSettings: {fileID: 1848940472}
   btnBackCredits: {fileID: 65623505}
   firstSelected: {fileID: 0}
-  gameplaySceneName: HouseSceneDavid
+  gameplaySceneName: HouseSceneVedian
   fadeTime: 0.2
   fadeOverlay: {fileID: 499245726}
   bgmSource: {fileID: 569410602}
@@ -21476,6 +21500,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1809391567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23264,6 +23290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &1943952360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24287,6 +24315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pintu
   speed: 3
+  leftClickGUI: {fileID: 0}
+  text: {fileID: 0}
 --- !u!65 &2102899968
 BoxCollider:
   m_ObjectHideFlags: 0
