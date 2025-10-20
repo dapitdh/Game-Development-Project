@@ -9,12 +9,13 @@ public class JumpTrigger : MonoBehaviour
     public GameObject JumpAgus; // ParticleSystem di child "JumpEffect"
     public GameObject FlashImg;  
 
-    void OnTriggerEnter()
-    {   
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return; 
         SetOmAgusControl(false);
-        JumpSfx.Play();
-        JumpAgus.SetActive(true);
-        FlashImg.SetActive(true);
+        if (JumpSfx) JumpSfx.Play();
+        if (JumpAgus) JumpAgus.SetActive(true);
+        if (FlashImg) FlashImg.SetActive(true);
         SetPlayerControl(false);
         SetCursor(false);
         StartCoroutine(EndJump());
@@ -22,7 +23,7 @@ public class JumpTrigger : MonoBehaviour
 
     IEnumerator EndJump()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         var scene = SceneManager.GetActiveScene().name;
         JumpAgus.SetActive(false);
         FlashImg.SetActive(false);
@@ -33,7 +34,6 @@ public class JumpTrigger : MonoBehaviour
 
     void SetPlayerControl(bool enabled)
     {
-        // cari controller player-mu (dalam namespace FPP)
         var pc = FindObjectOfType<FPP.Puan_control>(true);
         if (pc) pc.enabled = enabled;
 
