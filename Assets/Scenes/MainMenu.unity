@@ -21662,7 +21662,7 @@ MonoBehaviour:
   btnBackSettings: {fileID: 1848940472}
   btnBackCredits: {fileID: 65623505}
   firstSelected: {fileID: 0}
-  gameplaySceneName: HouseSceneVedian
+  gameplaySceneName: HouseScene
   fadeTime: 0.2
   fadeOverlay: {fileID: 499245726}
   bgmSource: {fileID: 569410602}

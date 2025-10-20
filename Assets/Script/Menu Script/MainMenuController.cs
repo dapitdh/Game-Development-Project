@@ -27,7 +27,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject firstSelected;  // set ke Btn_Play
 
     [Header("Gameplay")]
-    public string gameplaySceneName = "HouseSceneVedian";
+    public string gameplaySceneName = "HouseScene";
 
 
     [Header("Fade")]
