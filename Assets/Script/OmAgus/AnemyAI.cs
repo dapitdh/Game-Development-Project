@@ -299,7 +299,7 @@ public class EnemyAI : MonoBehaviour
         fadeCoroutine = StartCoroutine(FadeIn(audioSourceMusic, chaseMusic));
     }
 
-    void StopChasing()
+    public void StopChasing()
     {
         if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
         fadeCoroutine = StartCoroutine(FadeOut(audioSourceMusic));
