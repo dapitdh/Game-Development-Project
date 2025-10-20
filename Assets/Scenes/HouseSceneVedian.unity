@@ -20642,7 +20642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Winner Winner Chicken Dinner
+  m_text: Stage 1 Completed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -38316,6 +38316,7 @@ MonoBehaviour:
   audioSourceSFX: {fileID: 417426430}
   chaseMusic: {fileID: 8300000, guid: 101c4e44298a41d4986759a2b9acb3c6, type: 3}
   screamClip: {fileID: 8300000, guid: aa8a69a2306a6b949ac6788591207b17, type: 3}
+  mainClips: {fileID: 0}
   footstepClips: []
   musicFadeSpeed: 1.5
   waypoints:

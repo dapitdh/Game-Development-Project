@@ -8,11 +8,14 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/HouseSceneDailon.unity
     guid: 02e4f65c09bf6aa4ea5d6306574f1572
-  - enabled: 1
-    path: Assets/Scenes/HouseScene.unity
+  - enabled: 0
+    path: Assets/Scenes/HouseSceneVedian.unity
     guid: c2be36e258e34bb40a7668c5788f94e1
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: a0857ca8515fd6d4d913af5d0e887504
+  - enabled: 1
+    path: Assets/Scenes/HouseScene.unity
+    guid: a1b2e44ba7815f5409347e05aca0131a
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
