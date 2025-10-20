@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class MenuPause : MonoBehaviour
 {
@@ -145,8 +146,8 @@ public class MenuPause : MonoBehaviour
     public void QuitGame()
     {
         PlayClickSfx();
-        Debug.Log("Quitting Game...");
-        Application.Quit();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 
     // ---------------- BGM fade helpers ----------------
