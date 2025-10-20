@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     public AudioSource audioSourceSFX;
     public AudioClip chaseMusic;         // assign clip musik chase
     public AudioClip screamClip;
+    public AudioClip mainClips;
     public AudioClip[] footstepClips;
     public float musicFadeSpeed = 1.5f;        // lama fade in/out
     private bool isMusicFadingOut = false;
@@ -71,6 +72,8 @@ public class EnemyAI : MonoBehaviour
             GoToNextWaypoint();
         }
 
+        playBacksound(mainClips);
+
         if (audioSourceMusic != null)
         {
             audioSourceMusic.loop = true;
@@ -122,6 +125,7 @@ public class EnemyAI : MonoBehaviour
             {
                 isChasingPlayer = false;
                 StopChasing();
+                playBacksound(mainClips);
             }
             if (isChasing)
             {
@@ -160,16 +164,16 @@ public class EnemyAI : MonoBehaviour
 
         }
 
-        if (isMusicFadingOut && audioSourceMusic.volume > 0f)
-        {
-            audioSourceMusic.volume -= Time.deltaTime * musicFadeSpeed;
-            if (audioSourceMusic.volume <= 0f)
-            {
-                audioSourceMusic.Stop();
-                isMusicFadingOut = false;
-                audioSourceMusic.volume = 1f;
-            }
-        }
+        // if (isMusicFadingOut && audioSourceMusic.volume > 0f)
+        // {
+        //     audioSourceMusic.volume -= Time.deltaTime * musicFadeSpeed;
+        //     if (audioSourceMusic.volume <= 0f)
+        //     {
+        //         audioSourceMusic.Stop();
+        //         isMusicFadingOut = false;
+        //         audioSourceMusic.volume = 1f;
+        //     }
+        // }
 
         UpdateAnimation();
     }
@@ -303,6 +307,13 @@ public class EnemyAI : MonoBehaviour
     {
         if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
         fadeCoroutine = StartCoroutine(FadeOut(audioSourceMusic));
+    }
+
+    void playBacksound(AudioClip clip)
+    {
+        audioSourceMusic.clip = clip;
+        audioSourceMusic.volume = 1f;
+        audioSourceMusic.Play();
     }
 
     IEnumerator FadeIn(AudioSource source, AudioClip clip)

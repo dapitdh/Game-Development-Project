@@ -8821,7 +8821,7 @@ AudioSource:
   m_GameObject: {fileID: 417426429}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5217319261298156971, guid: e2e404f3299e8a946a88597017e2d018, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: aa8a69a2306a6b949ac6788591207b17, type: 3}
   m_PlayOnAwake: 0
@@ -9023,7 +9023,7 @@ AudioSource:
   m_GameObject: {fileID: 446398835}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -9199902666084568960, guid: e2e404f3299e8a946a88597017e2d018, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -18308,7 +18308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UsePipelineSettings: 1
+  m_UsePipelineSettings: 0
   m_AdditionalLightsShadowResolutionTier: 2
   m_CustomShadowLayers: 0
   m_LightCookieSize: {x: 1, y: 1}
@@ -18336,7 +18336,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 0.7019608, b: 0.41568628, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -18345,9 +18345,9 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_Strength: 0.85
+    m_Bias: 0.02
+    m_NormalBias: 0.3
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -18375,11 +18375,11 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 3600
+  m_ColorTemperature: 8500
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -18398,13 +18398,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935037290}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.084186025, y: -0.25783414, z: 0.022557573, w: 0.9622502}
+  m_LocalRotation: {x: -0.0017387341, y: -0.08724258, z: -0.00015227248, w: 0.9961856}
   m_LocalPosition: {x: 7.63, y: 21.18, z: -13.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 10, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.2, y: -10.01, z: 0}
 --- !u!1001 &935847521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27168,7 +27168,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5217319261298156971, guid: e2e404f3299e8a946a88597017e2d018, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: c81ad92180c27d4448a00ca213e2ce06, type: 3}
+  m_Resource: {fileID: 8300000, guid: 1499396fe1f276c4ba3f3627a6e0a876, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -38865,6 +38865,7 @@ MonoBehaviour:
   audioSourceSFX: {fileID: 417426430}
   chaseMusic: {fileID: 8300000, guid: 101c4e44298a41d4986759a2b9acb3c6, type: 3}
   screamClip: {fileID: 8300000, guid: aa8a69a2306a6b949ac6788591207b17, type: 3}
+  mainClips: {fileID: 8300000, guid: f0aced1971523ad4284339bfc0042fd5, type: 3}
   footstepClips: []
   musicFadeSpeed: 1.5
   waypoints:
