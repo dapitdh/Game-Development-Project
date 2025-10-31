@@ -12,11 +12,16 @@ public class EnemyAI : MonoBehaviour
     public AudioClip screamClip;
     public AudioClip mainClips;
     public AudioClip[] footstepClips;
-    public float musicFadeSpeed = 1.5f;        // lama fade in/out
     private bool isMusicFadingOut = false;
-    private Coroutine fadeCoroutine;
     private bool isChasingPlayer = false;
     private bool hasShouted = false;
+
+    [Range(0.05f, 1.5f)] public float musicFade = 0.25f;
+
+    enum MusicTarget { None, Main, Chase }
+    MusicTarget _musicTarget = MusicTarget.None;
+    Coroutine _musicCo;
+    int _musicTicket = 0;
 
     //Enemy Ai Settings
     public enum PatrolMode { Sequential, Random }
@@ -72,17 +77,22 @@ public class EnemyAI : MonoBehaviour
             GoToNextWaypoint();
         }
 
-        playBacksound(mainClips);
-
+        // Safety untuk source
         if (audioSourceMusic != null)
         {
-            audioSourceMusic.loop = true;
             audioSourceMusic.playOnAwake = false;
+            audioSourceMusic.loop = true;
+            audioSourceMusic.spatialBlend = 0f;
+            audioSourceMusic.volume = 1f;
         }
+
+        // Mulai BGM utama
+        PlayMainImmediate();
     }
 
     void Update()
     {
+        NavMeshHit sampleHit;
         if (player == null) return;
 
         bool canSee = CanSeePlayer();
@@ -100,7 +110,7 @@ public class EnemyAI : MonoBehaviour
             if (!isChasingPlayer)
             {
                 isChasingPlayer = true;
-                StartChasing();
+                StartChasing(); 
             }
 
             // Teriakan pertama kali lihat player
@@ -110,14 +120,14 @@ public class EnemyAI : MonoBehaviour
                 hasShouted = true;
             }
 
-            if (NavMesh.SamplePosition(targetPos, out hit, 1.0f, NavMesh.AllAreas))
+            if (AgentReady())
             {
-                agent.SetDestination(hit.position);
+                if (NavMesh.SamplePosition(targetPos, out sampleHit, 1f, NavMesh.AllAreas))
+                    agent.SetDestination(sampleHit.position);
+                else
+                    agent.SetDestination(targetPos);
             }
-            else
-            {
-                agent.SetDestination(targetPos);
-            }
+
         }
         else
         {
@@ -125,7 +135,6 @@ public class EnemyAI : MonoBehaviour
             {
                 isChasingPlayer = false;
                 StopChasing();
-                playBacksound(mainClips);
             }
             if (isChasing)
             {
@@ -140,7 +149,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                if (!agent.pathPending && agent.remainingDistance <= Mathf.Max(0.1f, agent.stoppingDistance))
+                if (AgentReady() && !agent.pathPending && agent.remainingDistance <= Mathf.Max(0.1f, agent.stoppingDistance))
                 {
                     GoToNextWaypoint();
                 }
@@ -180,48 +189,40 @@ public class EnemyAI : MonoBehaviour
 
     void UpdateAnimation()
     {
-        float speedPercent;
-        
-        // Jika sedang melewati NavMesh Link (pintu), paksa jalan pelan
-        if (agent.isOnOffMeshLink)
+        float speedPercent = 0f;
+
+        if (AgentReady())
         {
-            // Gunakan nilai untuk animasi berjalan normal
-            // Sesuaikan nilai ini agar sesuai dengan animator controller Anda
-            speedPercent = 0.5f; // Nilai 0.5 = jalan santai
-            
-            if (!isOnOffMeshLink)
+            if (agent.isOnOffMeshLink)
             {
-                isOnOffMeshLink = true;
-                // Optional: bisa tambahkan logic khusus saat mulai melewati link
+                speedPercent = 0.5f;   // paksa jalan santai saat lewat link
+                if (!isOnOffMeshLink) isOnOffMeshLink = true;
+            }
+            else
+            {
+                if (isOnOffMeshLink) isOnOffMeshLink = false;
+                speedPercent = agent.velocity.magnitude / chaseSpeed;
             }
         }
-        else
-        {
-            if (isOnOffMeshLink)
-            {
-                isOnOffMeshLink = false;
-                // Optional: logic saat selesai melewati link
-            }
-            
-            // Animasi normal berdasarkan kecepatan aktual
-            speedPercent = agent.velocity.magnitude / chaseSpeed;
-        }
-        
-        animator.SetFloat("Speed", speedPercent);
+
+        // clamp + damping biar smooth
+        animator.SetFloat("Speed", Mathf.Clamp01(speedPercent), 0.1f, Time.deltaTime);
     }
 
     void GoToNextWaypoint()
     {
-        if (waypoints == null || waypoints.Length == 0) return;
+        if (!AgentReady() || waypoints == null || waypoints.Length == 0) return;
 
+        // Tentukan index berikutnya (tanpa mengubah current dulu)
         int next = (patrolMode == PatrolMode.Sequential)
             ? NextSequential()
             : NextRandomNoImmediateRepeat();
 
+        // Update state index
         lastWaypointIndex = currentWaypointIndex;
         currentWaypointIndex = next;
 
-        // Sample navmesh (as you already did)
+        // Set tujuan sekali saja (sample navmesh dulu)
         Vector3 dst = waypoints[currentWaypointIndex].position;
         if (NavMesh.SamplePosition(dst, out NavMeshHit hit, 1.5f, NavMesh.AllAreas))
             agent.SetDestination(hit.position);
@@ -295,57 +296,83 @@ public class EnemyAI : MonoBehaviour
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
-    // === AUDIO HANDLER ===
-
-    void StartChasing()
+    bool AgentReady()
     {
-        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
-        fadeCoroutine = StartCoroutine(FadeIn(audioSourceMusic, chaseMusic));
+        return agent != null && agent.enabled && agent.isOnNavMesh;
+    }
+
+    // === AUDIO HANDLER ===
+    void PlayMainImmediate()
+    {
+        if (!audioSourceMusic || !mainClips) return;
+        _musicTarget = MusicTarget.Main;
+        audioSourceMusic.clip = mainClips;
+        audioSourceMusic.volume = 1f;
+        if (!audioSourceMusic.isPlaying) audioSourceMusic.Play();
+    }
+
+    public void StartChasing()
+    {
+        SetMusic(MusicTarget.Chase);
     }
 
     public void StopChasing()
     {
-        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
-        fadeCoroutine = StartCoroutine(FadeOut(audioSourceMusic));
+        SetMusic(MusicTarget.Main);
     }
 
-    void playBacksound(AudioClip clip)
+    void SetMusic(MusicTarget target)
     {
-        audioSourceMusic.clip = clip;
+        if (target == _musicTarget) return;
+        _musicTarget = target;
+
+        if (_musicCo != null) StopCoroutine(_musicCo);
+        _musicCo = StartCoroutine(CoSwitchMusic(target));
+    }
+
+    public void StopAllMusicImmediate()
+    {
+        if (audioSourceMusic && audioSourceMusic.isPlaying)
+        {
+            audioSourceMusic.Stop();
+            audioSourceMusic.volume = 1f; // reset volume agar siap dipakai lagi nanti
+        }
+    }
+
+    System.Collections.IEnumerator CoSwitchMusic(MusicTarget target)
+    {
+        int my = ++_musicTicket;
+
+        AudioClip next = (target == MusicTarget.Main) ? mainClips : chaseMusic;
+        if (!audioSourceMusic || !next) yield break;
+
+        float t = 0f;
+        float dur = Mathf.Max(0.05f, musicFade);
+        float v0 = audioSourceMusic.volume;
+
+        // Fade out
+        while (t < dur)
+        {
+            if (my != _musicTicket) yield break; // superseded
+            t += Time.deltaTime;
+            audioSourceMusic.volume = Mathf.Lerp(v0, 0f, t / dur);
+            yield return null;
+        }
+        audioSourceMusic.volume = 0f;
+
+        // Ganti clip & play
+        audioSourceMusic.clip = next;
+        if (!audioSourceMusic.isPlaying) audioSourceMusic.Play();
+
+        // Fade in
+        t = 0f;
+        while (t < dur)
+        {
+            if (my != _musicTicket) yield break; // superseded
+            t += Time.deltaTime;
+            audioSourceMusic.volume = Mathf.Lerp(0f, 1f, t / dur);
+            yield return null;
+        }
         audioSourceMusic.volume = 1f;
-        audioSourceMusic.Play();
     }
-
-    IEnumerator FadeIn(AudioSource source, AudioClip clip)
-    {
-        source.clip = clip;
-        source.volume = 0f;
-        source.Play();
-
-        float t = 0f;
-        while (t < musicFadeSpeed)
-        {
-            t += Time.deltaTime;
-            source.volume = Mathf.Lerp(0f, 1f, t / musicFadeSpeed);
-            yield return null;
-        }
-        source.volume = 1f;
-    }
-
-    IEnumerator FadeOut(AudioSource source)
-    {
-        float startVolume = source.volume;
-        float t = 0f;
-
-        while (t < musicFadeSpeed)
-        {
-            t += Time.deltaTime;
-            source.volume = Mathf.Lerp(startVolume, 0f, t / musicFadeSpeed);
-            yield return null;
-        }
-
-        source.Stop();
-        source.volume = 1f; // reset volume
-    }
-
 }

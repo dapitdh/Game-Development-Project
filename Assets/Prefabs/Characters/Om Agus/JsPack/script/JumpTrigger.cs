@@ -51,13 +51,51 @@ public class JumpTrigger : MonoBehaviour
     void SetOmAgusControl(bool enabled)
     {
         var omAgus = FindObjectOfType<EnemyAI>(true);
-        omAgus.StopChasing();
-        if (omAgus) omAgus.enabled = enabled;
-    }
+        if (!omAgus) return;
 
-    void SetCursor(bool visible)
-    {
-        Cursor.visible = visible;
-        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
-    }
+        omAgus.StopChasing();
+        if (omAgus) omAgus.StopAllMusicImmediate();
+
+        var rb = omAgus.GetComponent<Rigidbody>();
+        if (rb)
+        {
+            if (!enabled) { rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; }
+            rb.isKinematic = !enabled;
+        }
+
+        var agent = omAgus.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (agent)
+        {
+            if (!enabled)
+            {
+                if (agent.enabled)
+                {
+                    agent.ResetPath();
+                }
+                agent.enabled = false;  // <- agent off supaya AI tidak gerak
+            }
+            else
+            {
+                // aktifkan kembali dan pastikan ditempatkan di NavMesh
+                if (!agent.enabled) agent.enabled = true;
+
+                // pastikan posisinya valid di NavMesh (warp ke titik terdekat jika perlu)
+                if (!agent.isOnNavMesh)
+                {
+                    if (UnityEngine.AI.NavMesh.SamplePosition(omAgus.transform.position, out var hit, 2f, UnityEngine.AI.NavMesh.AllAreas))
+                        agent.Warp(hit.position);
+                }
+            }
+        }
+
+        // matikan/nyalakan visual & animasi
+        var anim = omAgus.GetComponent<Animator>(); if (anim) anim.enabled = enabled;
+        foreach (var r in omAgus.GetComponentsInChildren<Renderer>(true)) r.enabled = enabled;
+        }
+
+        void SetCursor(bool visible)
+        {
+            Cursor.visible = visible;
+            Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+        }
 }
