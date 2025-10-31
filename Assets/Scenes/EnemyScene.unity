@@ -1158,6 +1158,7 @@ MonoBehaviour:
   audioSourceSFX: {fileID: 1414259768}
   chaseMusic: {fileID: 8300000, guid: 101c4e44298a41d4986759a2b9acb3c6, type: 3}
   screamClip: {fileID: 8300000, guid: aa8a69a2306a6b949ac6788591207b17, type: 3}
+  mainClips: {fileID: 0}
   footstepClips: []
   musicFadeSpeed: 1.5
   waypoints:

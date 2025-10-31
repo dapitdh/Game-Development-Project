@@ -22,8 +22,8 @@ namespace FPP
         public float crouchCamY = 1.0f;
 
         [Header("FOV (Zoom saat sprint)")]
-        public float normalFov = 60f;
-        public float sprintFov = 68f;
+        public float normalFov = 90f;
+        public float sprintFov = 93f;
         public float fovLerpSpeed = 8f;
 
         float xRot;                 // pitch (atas-bawah)

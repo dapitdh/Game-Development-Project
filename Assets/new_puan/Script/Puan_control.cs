@@ -7,26 +7,40 @@ namespace FPP
     [RequireComponent(typeof(CapsuleCollider))]
     public class Puan_control : MonoBehaviour
     {
+        // =======================
+        //     CONFIGURATIONS
+        // =======================
+
         [Header("Movement")]
         public float walkSpeed = 3f;
         public float sprintSpeed = 6f;
         public float crouchSpeed = 1.5f;
         [Tooltip("Seberapa cepat mengubah velocity horizontal ke target")]
         public float accel = 40f;
-        public float airControl = 0.4f;
+        [Range(0f, 1f)] public float airControl = 0.4f;
 
         [Header("Jump & Gravity")]
         public float jumpForce = 5f;
         public float extraGravity = 20f;
         public float groundStick = 10f;
+        [Tooltip("Setelah lompat, jeda sebelum diizinkan detect grounded lagi")]
         public float postJumpGroundIgnore = 0.12f;
+
+        [SerializeField, Tooltip("Cooldown antar lompatan untuk anti-bunnyhop")]
+        float jumpCooldown = 0.10f;
+        [SerializeField, Tooltip("Minimal durasi grounded sebelum boleh lompat")]
+        float minGroundedTime = 0.05f;
 
         [Header("Crouch (Collider)")]
         public float standingHeight = 1.8f;
         public float crouchingHeight = 1.2f;
 
         [Header("Ground (GroundCheck GO ONLY)")]
-        public Transform groundCheck; // drag GameObject kaki ke sini
+        public Transform groundCheck; // drag GameObject "kaki"
+        [Tooltip("Layer yang dihitung sebagai tanah (excluded Player)")]
+        public LayerMask groundMask = ~0;
+        [SerializeField, Range(0.0f, 1.0f)]
+        float minGroundNormalY = 0.6f; // ambang kemiringan
 
         // ===== Animator params =====
         [Header("Animation (Animator Bools)")]
@@ -47,9 +61,15 @@ namespace FPP
         [SerializeField] float stepRayHeight = 0.3f;
         [SerializeField] float stepSmooth = 0.1f;
 
+        [Header("Turning")]
+        public float turnMouseThreshold = 0.2f;
+
+        // =======================
+        //       RUNTIME STATE
+        // =======================
+
         int walkHash, runHash, jumpHash, strafeLHash, strafeLWalkHash, strafeRHash, strafeRWalkHash, turnLHash, turnRHash;
 
-        // State publik
         public bool IsGrounded { get; private set; }
         public bool IsCrouching { get; private set; }
         public bool IsSprinting { get; private set; }
@@ -57,24 +77,33 @@ namespace FPP
 
         Rigidbody rb;
         CapsuleCollider capsule;
+        Collider selfCol;
 
-        // lompat/ground
         bool jumpQueued;
         bool hasLandedSinceLastJump = true;
-        bool wasGrounded;
         float postJumpIgnoreTimer;
-
-        // untuk turn anim
+        float groundedTimer;
+        float nextJumpTime;
         float mouseXRaw;
-        public float turnMouseThreshold = 0.2f;
+
+        // temp buffer untuk overlap (hindari alloc)
+        readonly Collider[] overlapBuf = new Collider[8];
+
+        // =======================
+        //        LIFECYCLE
+        // =======================
 
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.useGravity = false; // gravity manual
+
             capsule = GetComponent<CapsuleCollider>();
             capsule.height = standingHeight;
             capsule.center = new Vector3(0f, standingHeight * 0.5f, 0f);
+
+            selfCol = GetComponent<Collider>();
 
             if (!anim) anim = GetComponent<Animator>();
             if (anim)
@@ -90,15 +119,17 @@ namespace FPP
                 turnRHash = Animator.StringToHash(turnRParam);
 
                 anim.applyRootMotion = false;
-                anim.updateMode = AnimatorUpdateMode.Normal;
+                anim.updateMode = AnimatorUpdateMode.Normal; // disinkronkan via Update()
                 anim.cullingMode = AnimatorCullingMode.AlwaysAnimate;
                 anim.speed = 1f;
             }
 
-            rb.useGravity = false; // gravity manual
-
-            // (biarkan sesuai permintaanmu, tidak diubah)
-            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepRayHeight, stepRayUpper.transform.position.z);
+            // Set tinggi ray step di local space (bukan world)
+            if (stepRayUpper)
+            {
+                var lp = stepRayUpper.transform.localPosition;
+                stepRayUpper.transform.localPosition = new Vector3(lp.x, stepRayHeight, lp.z);
+            }
 
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -107,8 +138,16 @@ namespace FPP
         {
             ReadInputs();
 
-            // crouch (hold)
-            IsCrouching = IsCrouchHeld();
+            // crouch (hold) + safe-stand check
+            bool crouchHeld = IsCrouchHeld();
+            if (!crouchHeld && IsCrouching)
+            {
+                // mau berdiri → cek headroom
+                if (!CanStandUp())
+                    crouchHeld = true; // tetap crouch kalau mentok
+            }
+            IsCrouching = crouchHeld;
+
             float targetH = IsCrouching ? crouchingHeight : standingHeight;
             capsule.height = Mathf.Lerp(capsule.height, targetH, Time.deltaTime * 12f);
             capsule.center = new Vector3(0f, capsule.height * 0.5f, 0f);
@@ -116,8 +155,11 @@ namespace FPP
             if (JumpPressed())
                 jumpQueued = true;
 
-            // simpan mouse X untuk anim turn
-            mouseXRaw = Input.GetAxis("Mouse X");
+            // Mouse delta (Input System baru)
+            mouseXRaw = Mouse.current?.delta.ReadValue().x ?? 0f;
+
+            // Animator sinkron di Update
+            UpdateAnimatorBools();
         }
 
         void FixedUpdate()
@@ -127,20 +169,23 @@ namespace FPP
 
             bool prevGrounded = IsGrounded;
 
-            // Grounding: hanya dari GroundCheckGO (tanpa kontak)
+            // Grounding: via groundCheck spherecast/overlap
             bool groundByCast = GroundCheckGO();
             IsGrounded = (postJumpIgnoreTimer <= 0f) && groundByCast;
 
+            groundedTimer = IsGrounded ? groundedTimer + Time.fixedDeltaTime : 0f;
+
             if (IsGrounded && !prevGrounded)
                 hasLandedSinceLastJump = true;
-            wasGrounded = IsGrounded;
 
             MoveHorizontal();
             HandleJumpAndGravity();
-            UpdateAnimatorBools();
-
-            stepClimb(); // tetap panggil
+            StepClimb(); // hanya jalan saat grounded
         }
+
+        // =======================
+        //        MOVEMENT
+        // =======================
 
         void MoveHorizontal()
         {
@@ -161,23 +206,36 @@ namespace FPP
 
         void HandleJumpAndGravity()
         {
-            if (jumpQueued && IsGrounded && hasLandedSinceLastJump)
+            bool canJumpNow =
+                jumpQueued &&
+                IsGrounded &&
+                hasLandedSinceLastJump &&
+                groundedTimer >= minGroundedTime &&
+                Time.time >= nextJumpTime &&
+                rb.linearVelocity.y <= 0.1f; // cegah chain jump saat masih naik
+
+            if (canJumpNow)
             {
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
                 hasLandedSinceLastJump = false;
                 postJumpIgnoreTimer = postJumpGroundIgnore;
+                nextJumpTime = Time.time + jumpCooldown;
             }
             jumpQueued = false;
 
+            // Gravity manual
             if (!IsGrounded)
                 rb.AddForce(Vector3.down * extraGravity, ForceMode.Acceleration);
             else
                 rb.AddForce(Vector3.down * groundStick, ForceMode.Acceleration);
         }
 
-        // ---------- INPUT ----------
+        // =======================
+        //          INPUT
+        // =======================
+
         void ReadInputs()
         {
             var kb = Keyboard.current;
@@ -196,32 +254,46 @@ namespace FPP
         bool IsCrouchHeld() => Keyboard.current?.leftCtrlKey.isPressed ?? false;
         bool JumpPressed() => Keyboard.current?.spaceKey.wasPressedThisFrame ?? false;
 
-        // ---------- GROUND VIA GroundCheck GO ----------
+        // =======================
+        //       GROUND CHECK
+        // =======================
+
         bool GroundCheckGO()
         {
-            if (!groundCheck) return false;
+            if (!groundCheck || !capsule) return false;
 
-            // Radius & jarak internal, dihitung dari kapsul (tanpa property publik)
+            // Skala radius sesuai transform
             float scaleXZ = Mathf.Max(transform.lossyScale.x, transform.lossyScale.z);
-            float r = (capsule ? capsule.radius : 0.2f) * scaleXZ;
+            float r = (capsule.radius > 0f ? capsule.radius : 0.2f) * scaleXZ;
             Vector3 up = transform.up;
 
-            // mulai sedikit di atas kaki
+            // Mulai sedikit di atas kaki, cast turun
             Vector3 origin = groundCheck.position + up * 0.02f;
-            float dist = 0.08f; // kecil & stabil
+            float dist = 0.08f;
 
-            // SphereCast turun (tanpa groundMask)
-            if (Physics.SphereCast(origin, r, -up, out RaycastHit hit, dist))
+            if (Physics.SphereCast(origin, r, -up, out RaycastHit hit, dist, groundMask, QueryTriggerInteraction.Ignore))
             {
-                // ambang kemiringan tetap sebagai konstanta (bukan field publik)
-                return hit.normal.y >= 0.6f;
+                if (!IsSelf(hit.collider) && hit.normal.y >= minGroundNormalY)
+                    return true;
             }
 
-            // fallback: CheckSphere di titik kaki (tanpa groundMask)
-            return Physics.CheckSphere(groundCheck.position, r * 0.98f);
+            // Fallback: overlap sphere
+            int n = Physics.OverlapSphereNonAlloc(groundCheck.position, r * 0.98f, overlapBuf, groundMask, QueryTriggerInteraction.Ignore);
+            for (int i = 0; i < n; i++)
+            {
+                var c = overlapBuf[i];
+                if (c && !IsSelf(c))
+                    return true;
+            }
+            return false;
         }
 
-        // ---------- ANIM ----------
+        bool IsSelf(Collider c) => c && c.transform.root == transform.root;
+
+        // =======================
+        //         ANIM
+        // =======================
+
         void UpdateAnimatorBools()
         {
             if (!anim) return;
@@ -266,24 +338,59 @@ namespace FPP
             anim.SetBool(turnRHash, !isJump && isTurnR);
         }
 
-        // ---------- UTIL KAPSUL DUNIA ----------
-        void GetCapsuleWorldAt(Vector3 centerPos, out Vector3 top, out Vector3 bottom, out float radius)
+        // =======================
+        //      CROUCH/HEADROOM
+        // =======================
+
+        bool CanStandUp()
         {
+            if (!capsule) return true;
+
             float scaleY = transform.lossyScale.y;
             float scaleXZ = Mathf.Max(transform.lossyScale.x, transform.lossyScale.z);
 
-            radius = capsule.radius * scaleXZ;
-            float height = Mathf.Max(capsule.height * scaleY, 2f * radius + 0.01f);
+            float radius = capsule.radius * scaleXZ;
+            float height = Mathf.Max(standingHeight * scaleY, 2f * radius + 0.01f);
 
             Vector3 up = transform.up;
-            Vector3 worldCenter = transform.TransformPoint(capsule.center) + (centerPos - rb.position);
+            Vector3 worldCenter = transform.TransformPoint(capsule.center);
             float half = (height * 0.5f) - radius;
 
-            top = worldCenter + up * half;
-            bottom = worldCenter - up * half;
+            Vector3 top = worldCenter + up * half;
+            Vector3 bottom = worldCenter - up * half;
+
+            int n = Physics.OverlapCapsuleNonAlloc(bottom, top, radius, overlapBuf, ~0, QueryTriggerInteraction.Ignore);
+            for (int i = 0; i < n; i++)
+            {
+                var c = overlapBuf[i];
+                if (c && !IsSelf(c))
+                    return false; // ada halangan
+            }
+            return true;
         }
 
-        // ---------- DEBUG GIZMOS ----------
+        // =======================
+        //       STEP CLIMB
+        // =======================
+
+        void StepClimb()
+        {
+            if (!IsGrounded) return;
+            if (!stepRayLower || !stepRayUpper) return;
+
+            if (Physics.Raycast(stepRayLower.transform.position, transform.forward, out var hitLower, 0.1f))
+            {
+                if (!Physics.Raycast(stepRayUpper.transform.position, transform.forward, out var hitUpper, 0.2f))
+                {
+                    rb.MovePosition(rb.position + Vector3.up * stepSmooth);
+                }
+            }
+        }
+
+        // =======================
+        //        DEBUG DRAW
+        // =======================
+
         void OnDrawGizmosSelected()
         {
             if (!groundCheck) return;
@@ -292,26 +399,10 @@ namespace FPP
             float scaleXZ = Application.isPlaying ? Mathf.Max(transform.lossyScale.x, transform.lossyScale.z) : 1f;
             float r = (capsule ? capsule.radius : 0.2f) * scaleXZ;
 
-            // sphere di titik kaki
             Gizmos.DrawWireSphere(groundCheck.position, r);
 
-            // garis cast turun (pakai dist internal 0.08f)
             Vector3 origin = groundCheck.position + transform.up * 0.02f;
             Gizmos.DrawLine(origin, origin - transform.up * 0.08f);
-        }
-
-        // ---------- STEP CLIMB (biarkan sesuai punyamu) ----------
-        void stepClimb()
-        {
-            RaycastHit hitLower;
-            if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
-            {
-                RaycastHit hitUpper;
-                if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
-                {
-                    rb.position -= new Vector3(0f, -stepSmooth, 0f);
-                }
-            }
         }
     }
 }
