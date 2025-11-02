@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     private bool isChasingPlayer = false;
     private bool hasShouted = false;
 
-    [Range(0.05f, 1.5f)] public float musicFade = 0.25f;
+    [Range(0.05f, 1.5f)] public float musicFade = 0.15f;
 
     enum MusicTarget { None, Main, Chase }
     MusicTarget _musicTarget = MusicTarget.None;
