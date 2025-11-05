@@ -11506,6 +11506,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1212619102211645321, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.194
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212619102211645321, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.501
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212619102211645321, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.205
+      objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.99
@@ -11574,6 +11586,18 @@ PrefabInstance:
       propertyPath: findKeyCardGUI
       value: 
       objectReference: {fileID: 1262066961}
+    - target: {fileID: 8056265551681626822, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.365
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056265551681626822, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.429
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056265551681626822, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.67
+      objectReference: {fileID: 0}
     - target: {fileID: 8531270031013856944, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -11600,6 +11624,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1278101544}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6694595986463806724, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 651134660}
+    - targetCorrespondingSourceObject: {fileID: 6694595986463806724, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 651134659}
     - targetCorrespondingSourceObject: {fileID: 7720249355176209434, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 651134649}
@@ -11645,6 +11675,144 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.7, y: 0.5, z: 1.0014915}
   m_Center: {x: 0, y: 0, z: 0.15221436}
+--- !u!114 &651134650 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8531270031013856944, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 651134644}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651134648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91950c0aafd371c43838b825ade6c78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasyPeasyFirstPersonController.Puan_control
+--- !u!82 &651134659
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651134648}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &651134660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651134648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d707e8e2f720c4fb7c403f56d6ef81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepSFX
+  source: {fileID: 651134659}
+  walkClips:
+  - {fileID: 8300000, guid: 001d32711909cdc4f9854caab562c10a, type: 3}
+  runClips: []
+  jumpClip: {fileID: 0}
+  landClip: {fileID: 8300000, guid: 3b540148493606444be5a2d6fab601f1, type: 3}
+  groundCheck: {fileID: 1567052702}
+  groundRadius: 0.25
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  minMoveSpeed: 0.1
+  walkStrideLength: 1.9
+  runStrideLength: 2.6
+  walkVolume: 0.6
+  runVolume: 0.85
+  pitchJitter: {x: 0.95, y: 1.05}
+  useShiftToRun: 1
 --- !u!1001 &663526484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27447,7 +27615,7 @@ MonoBehaviour:
   screamClip: {fileID: 8300000, guid: aa8a69a2306a6b949ac6788591207b17, type: 3}
   mainClips: {fileID: 8300000, guid: f0aced1971523ad4284339bfc0042fd5, type: 3}
   footstepClips: []
-  musicFadeSpeed: 1.5
+  musicFade: 0.15
   waypoints:
   - {fileID: 135840610}
   - {fileID: 769070868}
@@ -29573,6 +29741,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!4 &1567052702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2648243837319315521, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 651134644}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1576351103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29814,6 +29987,11 @@ MonoBehaviour:
   sfxClick: {fileID: 8300000, guid: a0c4272aced14864ab7a611aa57f0fb8, type: 3}
   sfxHover: {fileID: 8300000, guid: a0c4272aced14864ab7a611aa57f0fb8, type: 3}
   sfxVolume: 0.9
+  disableWhenPaused:
+  - {fileID: 651134650}
+  freezeWhenPaused:
+  - {fileID: 651134645}
+  freezeChildren: 1
 --- !u!114 &1579569036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38094,7 +38272,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 1000
+    maxNumParticles: 10000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -38155,14 +38333,14 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 10
+    angle: 90
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 2, y: 2, z: 2}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -38241,7 +38419,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.0001
+      value: 0.001
       mode: 0
       spread: 0
       speed:
@@ -38299,7 +38477,7 @@ ParticleSystem:
           m_RotationOrder: 4
     arc:
       value: 360
-      mode: 0
+      mode: 3
       spread: 0
       speed:
         serializedVersion: 2
