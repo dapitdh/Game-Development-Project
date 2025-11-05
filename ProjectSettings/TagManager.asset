@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Item
+  - KeyCard
+  - Obstacle
+  - PintuKulkas
+  - Paku
+  - KayuPenghalang
   layers:
   - Default
   - TransparentFX
@@ -11,8 +17,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - Interachted
+  - Projectile
   - 
   - 
   - 

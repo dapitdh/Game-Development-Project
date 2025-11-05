@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 6371dccc4b476764aa429ce86c690a55
+<<<<<<<< HEAD:Assets/Scenes/HouseSceneDailon/NavMesh-Ground.asset.meta
+guid: eb5f8ddd420911a47b20813f1eac13a2
+========
+guid: 66c949fab1ba62649a5352ae9138fb02
+>>>>>>>> David:Assets/Scenes/MainMenu/NavMesh-Ground.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 23800000

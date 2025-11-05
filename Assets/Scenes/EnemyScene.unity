@@ -187,6 +187,8 @@ MonoBehaviour:
   canJump: 1
   canSprint: 1
   canCrouch: 1
+  ceilingCheckQueryTriggerInteraction: 1
+  groundCheckQueryTriggerInteraction: 1
   groundCheck: {fileID: 1736749762}
   groundDistance: 0.3
   groundMask:
@@ -301,7 +303,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1035,6 +1038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraDoorScript.CameraOpenDoor
   DistanceOpen: 3
+  text: {fileID: 0}
 --- !u!4 &1155327274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9156347144824098802, guid: c82236c16aae9d34fbd437f8dea6e2c9, type: 3}
@@ -1154,6 +1158,7 @@ MonoBehaviour:
   audioSourceSFX: {fileID: 1414259768}
   chaseMusic: {fileID: 8300000, guid: 101c4e44298a41d4986759a2b9acb3c6, type: 3}
   screamClip: {fileID: 8300000, guid: aa8a69a2306a6b949ac6788591207b17, type: 3}
+  mainClips: {fileID: 0}
   footstepClips: []
   musicFadeSpeed: 1.5
   waypoints:
@@ -1161,6 +1166,10 @@ MonoBehaviour:
   - {fileID: 83665132}
   - {fileID: 1355506747}
   patrolSpeed: 2
+  patrolMode: 1
+  backtrackBlock: 1
+  stuckTimeout: 3
+  stuckSpeedEps: 0.05
   chaseSpeed: 4
   loseSightDelay: 2
   viewRadius: 10
