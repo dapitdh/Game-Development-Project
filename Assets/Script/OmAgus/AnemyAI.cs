@@ -11,17 +11,20 @@ public class EnemyAI : MonoBehaviour
     public AudioClip chaseMusic;         // assign clip musik chase
     public AudioClip screamClip;
     public AudioClip mainClips;
-    public AudioClip[] footstepClips;
     private bool isMusicFadingOut = false;
     private bool isChasingPlayer = false;
     private bool hasShouted = false;
-
     [Range(0.05f, 1.5f)] public float musicFade = 0.15f;
-
     enum MusicTarget { None, Main, Chase }
     MusicTarget _musicTarget = MusicTarget.None;
     Coroutine _musicCo;
     int _musicTicket = 0;
+    //Suara step Om agus
+    [SerializeField] AudioSource sumberSuaraKaki;
+    [SerializeField] AudioClip suaraKaki;
+    [SerializeField] AudioClip suaraKakiLari;
+    bool isPlayingFootstep = false;
+    [Range(0.01f, 1f)] public float footstepThreshold = 0.1f; // speed threshold to trigger footsteps
 
     //Enemy Ai Settings
     public enum PatrolMode { Sequential, Random }
@@ -88,6 +91,14 @@ public class EnemyAI : MonoBehaviour
 
         // Mulai BGM utama
         PlayMainImmediate();
+
+        //Suara Step Om Agus
+        if (suaraKaki != null)
+        {
+            sumberSuaraKaki.clip = suaraKaki;
+            sumberSuaraKaki.loop = true;
+            sumberSuaraKaki.playOnAwake = false;
+        }
     }
 
     void Update()
@@ -172,18 +183,6 @@ public class EnemyAI : MonoBehaviour
             }
 
         }
-
-        // if (isMusicFadingOut && audioSourceMusic.volume > 0f)
-        // {
-        //     audioSourceMusic.volume -= Time.deltaTime * musicFadeSpeed;
-        //     if (audioSourceMusic.volume <= 0f)
-        //     {
-        //         audioSourceMusic.Stop();
-        //         isMusicFadingOut = false;
-        //         audioSourceMusic.volume = 1f;
-        //     }
-        // }
-
         UpdateAnimation();
     }
 
@@ -206,6 +205,46 @@ public class EnemyAI : MonoBehaviour
         }
 
         // clamp + damping biar smooth
+        // Footstep handling: choose run vs walk footsteps and avoid flicker when switching clips
+        bool shouldPlayWalk = false;
+        bool shouldPlayRun = false;
+
+        if (AgentReady())
+        {
+            float speed = agent.velocity.magnitude;
+
+            // If agent is traversing an OffMeshLink prefer continuing current movement sound
+            if (agent.isOnOffMeshLink || isOnOffMeshLink)
+            {
+                // when chasing, prefer run sound on links; otherwise walk
+                if (isChasing) shouldPlayRun = true;
+                else shouldPlayWalk = true;
+            }
+            else
+            {
+                // normal case: decide based on chasing state and speed
+                if (isChasing && speed > footstepThreshold) shouldPlayRun = true;
+                else if (!isChasing && speed > footstepThreshold) shouldPlayWalk = true;
+            }
+        }
+
+        if (shouldPlayRun)
+        {
+            // ensure run sound plays and normal walk stops
+            PlayRunFootstepSound();
+            StopFootstepSound();
+        }
+        else if (shouldPlayWalk)
+        {
+            PlayFootstepSound();
+            StopRunFootstepSound();
+        }
+        else
+        {
+            StopRunFootstepSound();
+            StopFootstepSound();
+        }
+
         animator.SetFloat("Speed", Mathf.Clamp01(speedPercent), 0.1f, Time.deltaTime);
     }
 
@@ -307,7 +346,7 @@ public class EnemyAI : MonoBehaviour
         if (!audioSourceMusic || !mainClips) return;
         _musicTarget = MusicTarget.Main;
         audioSourceMusic.clip = mainClips;
-        audioSourceMusic.volume = 1f;
+        audioSourceMusic.volume = 0.4f;
         if (!audioSourceMusic.isPlaying) audioSourceMusic.Play();
     }
 
@@ -374,5 +413,70 @@ public class EnemyAI : MonoBehaviour
             yield return null;
         }
         audioSourceMusic.volume = 1f;
+    }
+
+    // Om Agus Step Handler Audio
+    public void PlayFootstepSound()
+    {
+        if (sumberSuaraKaki == null) return;
+
+        // If already playing the desired clip, do nothing
+        if (sumberSuaraKaki.isPlaying && sumberSuaraKaki.clip == suaraKaki)
+        {
+            isPlayingFootstep = true;
+            return;
+        }
+
+        // Otherwise switch to the walk clip and play
+        if (sumberSuaraKaki.isPlaying) sumberSuaraKaki.Stop();
+        sumberSuaraKaki.clip = suaraKaki;
+        sumberSuaraKaki.loop = true;
+        sumberSuaraKaki.Play();
+        isPlayingFootstep = true;
+    }
+
+    public void StopFootstepSound()
+    {
+        if (sumberSuaraKaki == null) return;
+        if (sumberSuaraKaki.isPlaying && sumberSuaraKaki.clip == suaraKaki)
+        {
+            sumberSuaraKaki.Stop();
+            isPlayingFootstep = false;
+        }
+    }
+
+    public void PlayRunFootstepSound()
+    {
+        if (sumberSuaraKaki == null) return;
+
+        // If already playing run clip, do nothing
+        if (sumberSuaraKaki.isPlaying && sumberSuaraKaki.clip == suaraKakiLari)
+        {
+            isPlayingFootstep = true;
+            return;
+        }
+
+        // Switch to run clip and play from start
+        if (sumberSuaraKaki.isPlaying) sumberSuaraKaki.Stop();
+        sumberSuaraKaki.clip = suaraKakiLari;
+        sumberSuaraKaki.loop = true;
+        sumberSuaraKaki.Play();
+        isPlayingFootstep = true;
+    }
+
+    public void StopRunFootstepSound()
+    {
+        if (sumberSuaraKaki == null) return;
+
+        // Only stop if currently playing run clip
+        if (sumberSuaraKaki.isPlaying && sumberSuaraKaki.clip == suaraKakiLari)
+        {
+            sumberSuaraKaki.Stop();
+            isPlayingFootstep = false;
+        }
+
+        // Ensure default clip is set back to walk clip (but don't autoplay)
+        if (sumberSuaraKaki.clip != suaraKaki)
+            sumberSuaraKaki.clip = suaraKaki;
     }
 }
