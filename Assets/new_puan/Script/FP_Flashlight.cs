@@ -11,6 +11,16 @@ namespace FPP
 
         bool isOn = true;
 
+        void Awake()
+        {
+            if (!lightSource)
+            {
+                var go = GameObject.Find("FlashLight");
+                if (go) lightSource = go.GetComponentInChildren<Light>(true);
+            }
+        }
+
+
         void Reset()
         {
             lightSource = GetComponentInChildren<Light>();
