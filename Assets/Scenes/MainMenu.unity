@@ -5382,7 +5382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &370138437
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12124,10 +12124,10 @@ RectTransform:
   - {fileID: 988586429}
   m_Father: {fileID: 1705731736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 520, y: 0}
-  m_SizeDelta: {x: 620, y: 1080}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -510.99988, y: -0.000030517578}
+  m_SizeDelta: {x: -1442, y: 76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &901942858
 MonoBehaviour:
@@ -21526,6 +21526,8 @@ GameObject:
   - component: {fileID: 1705731737}
   - component: {fileID: 1705731738}
   - component: {fileID: 1705731739}
+  - component: {fileID: 1705731741}
+  - component: {fileID: 1705731740}
   m_Layer: 5
   m_Name: Canvas_MainMenu
   m_TagString: Untagged
@@ -21672,6 +21674,23 @@ MonoBehaviour:
   sfxClick: {fileID: 8300000, guid: a0c4272aced14864ab7a611aa57f0fb8, type: 3}
   sfxHover: {fileID: 0}
   sfxVolume: 0.9
+  titleRT: {fileID: 258686711}
+  buttonGroupRT: {fileID: 988586429}
+  windowFrameRightRT: {fileID: 0}
+  introDelay: 0.2
+  titleDropTime: 0.9
+  easeTitle: easeOutBounce
+  buttonStagger: 0.07
+  easeButtons: easeOutBack
+  leftPanelRT: {fileID: 901942857}
+  settingsPanelRT: {fileID: 878156711}
+  howToPanelRT: {fileID: 370138437}
+  creditsPanelRT: {fileID: 96169445}
+  slideDist: 620
+  slideTime: 0.35
+  panelFadeTime: 0.25
+  easeOut: easeInOutCubic
+  easeIn: easeInOutCubic
 --- !u!114 &1705731739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21703,6 +21722,61 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
+--- !u!114 &1705731740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705731732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111a149fdfc62b14a8d3af9fe03eb0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PanelSwitcherTween
+  leftPanel:
+    root: {fileID: 0}
+    cg: {fileID: 0}
+    rt: {fileID: 0}
+  howToPanel:
+    root: {fileID: 0}
+    cg: {fileID: 0}
+    rt: {fileID: 0}
+  settingsPanel:
+    root: {fileID: 0}
+    cg: {fileID: 0}
+    rt: {fileID: 0}
+  creditsPanel:
+    root: {fileID: 0}
+    cg: {fileID: 0}
+    rt: {fileID: 0}
+  slideDist: 620
+  slideTime: 0.35
+  fadeTime: 0.25
+  easeOut: easeInOutCubic
+  easeIn: easeInOutCubic
+--- !u!114 &1705731741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705731732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e0ae63b2c88b840bdd963b75ba04ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuIntroTween
+  title: {fileID: 0}
+  buttonGroup: {fileID: 0}
+  windowFrameRight: {fileID: 0}
+  leftPanelCg: {fileID: 0}
+  delayBefore: 0.2
+  titleDropTime: 0.9
+  buttonStagger: 0.07
+  groupFadeTime: 0.25
+  easeTitle: easeOutBounce
+  easeButtons: easeOutBack
 --- !u!1001 &1707482844
 PrefabInstance:
   m_ObjectHideFlags: 0
