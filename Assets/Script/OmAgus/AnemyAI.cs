@@ -353,11 +353,13 @@ public class EnemyAI : MonoBehaviour
     public void StartChasing()
     {
         SetMusic(MusicTarget.Chase);
+        var fx = FindObjectOfType<ChaseTensionFX>(true); if (fx) fx.OnChaseStart();
     }
 
     public void StopChasing()
     {
         SetMusic(MusicTarget.Main);
+        var fx = FindObjectOfType<ChaseTensionFX>(true); if (fx) fx.OnChaseEnd();
     }
 
     void SetMusic(MusicTarget target)
