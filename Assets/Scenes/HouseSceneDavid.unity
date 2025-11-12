@@ -19452,7 +19452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaseTensionFX
   enemy: {fileID: 1463677383}
-  player: {fileID: 1110184800}
+  player: {fileID: 1059917321}
   vignetteGroup: {fileID: 1579844840}
   shaker: {fileID: 1059917326}
   heartbeatSource: {fileID: 2020577299}
@@ -19485,6 +19485,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  pulse: 1
+  pulseHz: 0.8
+  pulseAmount: 0.2
+  pulseThreshold: 0.3
+  syncToHeartbeat: 1
+  heartbeatInfluence: 0.5
+  vignetteLerpSpeed: 5
   shakeAtMin: 1
   shakeAtMax: 0
   hbVolMin: 0
@@ -33853,14 +33860,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -35324,7 +35331,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9c6261d25666e9d479af64a2685bf3f0, type: 2}
+  m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
 --- !u!65 &1641550559
 BoxCollider:
