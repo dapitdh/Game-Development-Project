@@ -215,6 +215,7 @@ MonoBehaviour:
   localPos: {x: 0.25, y: -0.25, z: 0.5}
   localEuler: {x: 0, y: 0, z: 0}
   fpLayerName: FP_Arms
+  rightOffset: 0.08
 --- !u!114 &989806857824020084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +326,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 511
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1025,9 +1026,15 @@ MonoBehaviour:
   extraGravity: 20
   groundStick: 10
   postJumpGroundIgnore: 0.12
+  jumpCooldown: 0.1
+  minGroundedTime: 0.05
   standingHeight: 1.8
   crouchingHeight: 1.2
   groundCheck: {fileID: 2648243837319315521}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  minGroundNormalY: 0.6
   anim: {fileID: 7956415893747413874}
   walkParam: walk
   runParam: Run
@@ -1082,6 +1089,14 @@ MonoBehaviour:
   itemLayer:
     serializedVersion: 2
     m_Bits: 4294967295
+  targetPos: {x: 0, y: 0, z: 0}
+  presEUI: {fileID: 0}
+  dropGUI: {fileID: 0}
+  findCrowbarGUI: {fileID: 0}
+  findKeyCardGUI: {fileID: 0}
+  pressGUI: {fileID: 0}
+  flashlightLocalPos: {x: 0.25, y: -0.25, z: 0.45}
+  flashlightLocalEuler: {x: 0, y: 0, z: 0}
 --- !u!114 &8997032652508741837
 MonoBehaviour:
   m_ObjectHideFlags: 0
