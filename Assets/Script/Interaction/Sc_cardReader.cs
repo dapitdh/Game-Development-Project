@@ -10,6 +10,7 @@ public class Sc_cardReader : MonoBehaviour
     Vector3 targetPos, targetPosCard;
     [SerializeField] float moveSpeed = 0.5f; // atur kecepatan geser
     [SerializeField] float moveSpeedCard = 0.1f;
+    public GameObject pressGUI;
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class Sc_cardReader : MonoBehaviour
     void Update()
     {
         // Smooth move setiap frame
-        if (moving && kerangkeng != null )
+        if (moving && kerangkeng != null)
         {
             kerangkeng.transform.position = Vector3.MoveTowards(
                 kerangkeng.transform.position,
@@ -49,6 +50,7 @@ public class Sc_cardReader : MonoBehaviour
                 if (Vector3.Distance(cardKey.transform.position, targetPosCard) <= 0.001f)
                 {
                     hero.GetComponent<Sc_pickupItem>().DropItem(); // biar hero lepas pegangan
+                    if (pressGUI) pressGUI.SetActive(false);
                     Destroy(cardKey);
                     cardKey = null;
                 }
