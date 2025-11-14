@@ -93,6 +93,16 @@ namespace FPP
         //        LIFECYCLE
         // =======================
 
+        [SerializeField] private gagak_sfx gagakAudio;
+
+
+        GameObject mainCamera;
+
+        void Start()
+        {
+            mainCamera = GameObject.Find("MainCamera");
+        }
+
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -287,6 +297,32 @@ namespace FPP
             }
             return false;
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            // cek berdasarkan tag, bukan nama
+            if (other.CompareTag("GagakArea"))
+            {
+                if (gagakAudio != null)
+                {
+                    gagakAudio.rubah_musik2();
+                    Debug.Log("Masuk area gagak → rubah_musik2");
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("GagakArea"))
+            {
+                if (gagakAudio != null)
+                {
+                    gagakAudio.rubah_musik1();
+                    Debug.Log("Keluar area gagak → rubah_musik1");
+                }
+            }
+        }
+
 
         bool IsSelf(Collider c) => c && c.transform.root == transform.root;
 
