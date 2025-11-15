@@ -60,7 +60,7 @@ public class JumpTrigger : MonoBehaviour
         if (rb)
         {
             if (!enabled) { rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; }
-            rb.isKinematic = !enabled;
+            //rb.isKinematic = !enabled;
         }
 
         var agent = omAgus.GetComponent<UnityEngine.AI.NavMeshAgent>();
