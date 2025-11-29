@@ -53,7 +53,7 @@ public class iTween : MonoBehaviour
 
 	//status members (made public for visual troubleshooting in the inspector):
 	public string id, type, method;
-	public iTween.EaseType easeType;
+	public EaseType easeType;
 	public float time, delay;
 	public LoopType loopType;
 	public bool isRunning,isPaused;

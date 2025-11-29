@@ -61,10 +61,17 @@ public class EnemyAI : MonoBehaviour
     // Tambahkan setelah variabel timeSinceLastSeen
     private bool isOnOffMeshLink = false;
 
+    // Start Point
+    Vector3 startPosition;
+    Quaternion startRotation;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+
+        startPosition = transform.position;
+        startRotation = transform.rotation;
 
         if (agent == null || animator == null)
         {
@@ -340,6 +347,8 @@ public class EnemyAI : MonoBehaviour
         return agent != null && agent.enabled && agent.isOnNavMesh;
     }
 
+    
+
     // === AUDIO HANDLER ===
     void PlayMainImmediate()
     {
@@ -480,5 +489,33 @@ public class EnemyAI : MonoBehaviour
         // Ensure default clip is set back to walk clip (but don't autoplay)
         if (sumberSuaraKaki.clip != suaraKaki)
             sumberSuaraKaki.clip = suaraKaki;
+    }
+
+    public void ResetAfterJumpscare()
+    {
+        isChasing = false;
+        isChasingPlayer = false;
+        hasShouted = false;
+        timeSinceLastSeen = Mathf.Infinity;
+        agent.speed = patrolSpeed;
+
+        // reset musik chase
+        if (audioSourceMusic != null)
+        {
+            audioSourceMusic.Stop();
+            audioSourceMusic.volume = 1f;
+        }
+        // kalau pakai MusicManager:
+        // if (MusicManager.I) MusicManager.I.Stop();
+
+        if (agent != null)
+        {
+            agent.Warp(startPosition);   // posisi awal yang kamu simpan di Start()
+        }
+        else
+        {
+            transform.position = startPosition;
+        }
+        transform.rotation = startRotation;
     }
 }
