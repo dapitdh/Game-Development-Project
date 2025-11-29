@@ -26921,8 +26921,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58dfc586b9e79548ba0ce541bfe854c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpTrigger
-  JumpSfx: {fileID: 0}
-  JumpAgus: {fileID: 0}
+  JumpSfx: {fileID: 1452281304}
+  JumpAgus: {fileID: 1112358579}
   FlashImg: {fileID: 1509050017}
 --- !u!65 &1001707311
 BoxCollider:
@@ -28932,6 +28932,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110605795}
   m_CullTransparentMesh: 1
+--- !u!1 &1112358579 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
+  m_PrefabInstance: {fileID: 1749427214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1114247587
 GameObject:
   m_ObjectHideFlags: 0
@@ -31987,7 +31992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.04
+      value: 2.633
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -43766,7 +43771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.79
+      value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
       propertyPath: m_LocalRotation.w
