@@ -22763,7 +22763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaseTensionFX
   enemy: {fileID: 1463677383}
-  player: {fileID: 0}
+  player: {fileID: 1217023356}
   vignetteGroup: {fileID: 1579844840}
   shaker: {fileID: 0}
   heartbeatSource: {fileID: 0}
