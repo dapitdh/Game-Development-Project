@@ -86,6 +86,11 @@ public class Sc_pickupItem : MonoBehaviour
                     if (dropGUI) dropGUI.SetActive(true);
                 }
             }
+            else if (hit.collider.name == "pinLock")
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                    hit.collider.GetComponent<Sc_showUIPin>().isClicked = true;
+            }
             else if (hit.collider.name == "electric door")
             {
                 if (findKeyCardGUI) findKeyCardGUI.SetActive(true);

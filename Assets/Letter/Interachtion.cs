@@ -42,8 +42,10 @@ public class Interaction : MonoBehaviour
                 hit.collider.GetComponentInParent<Letter_sc>() ??
                 hit.collider.GetComponentInChildren<Letter_sc>();
 
-            if (letter != null)
+            if (letter != null && hit.collider.CompareTag("Letter"))
             {
+                Debug.Log($"[Interaction] Hit {hit.collider.name}");
+
                 if (interactionText) interactionText.SetActive(true); // "Q: Read"
                 if (Input.GetKeyDown(KeyCode.Q)) // toggle Q
                 {

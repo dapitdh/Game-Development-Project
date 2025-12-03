@@ -12,6 +12,7 @@ TagManager:
   - KayuPenghalang
   - FlashLight
   - GagakArea
+  - Letter
   layers:
   - Default
   - TransparentFX

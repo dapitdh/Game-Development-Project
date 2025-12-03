@@ -36,6 +36,7 @@ public class Sc_pintu : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if(!enabled) return;
         if (other.CompareTag("Obstacle") || other.CompareTag("KayuPenghalang"))
         {
             isBlocked = true;
