@@ -111,6 +111,12 @@ public class MenuPause : MonoBehaviour
             if (comp) comp.enabled = enabled;
     }
 
+    public void TestClick()
+    {
+        Debug.Log("Button kepencet");
+    }
+
+
     // ---------------- Flush input axes ----------------
     void HardStopInputs() => Input.ResetInputAxes(); // buang delta Mouse X/Y legacy
 
