@@ -17,6 +17,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject settingsPanel;   // default inactive
     public GameObject howToPlayPanel;  // default inactive
     public GameObject creditsPanel;    // default inactive
+    public GameObject modeSelectPanel;
 
     [Header("Back Buttons")]
     public Button btnBackHowToPlay;
@@ -28,6 +29,15 @@ public class MainMenuController : MonoBehaviour
 
     [Header("Gameplay")]
     public string gameplaySceneName = "HouseScene";
+    public string gameplaySceneName2 = "HouseScene_NoMercy";
+
+    [Header("Game Mode Select")]
+    public Button btnModeCalm;
+    public Button btnModeNoMercy;
+    public Button btnModeBack;
+
+    // key utk simpan mode ke PlayerPrefs (bisa dipakai di HouseScene)
+    public string difficultyPrefKey = "OmAgus_Difficulty";
 
     [Header("Fade Overlay")]
     public float fadeTime = 0.2f;
@@ -61,6 +71,7 @@ public class MainMenuController : MonoBehaviour
     public RectTransform settingsPanelRT;
     public RectTransform howToPanelRT;
     public RectTransform creditsPanelRT;
+    public RectTransform modeSelectPanelRT;
     public float slideDist = 620f;
     public float slideTime = 0.35f;
     public float panelFadeTime = 0.25f;
@@ -107,13 +118,23 @@ public class MainMenuController : MonoBehaviour
 
         if (fadeOverlay) { fadeOverlay.alpha = 0; fadeOverlay.gameObject.SetActive(true); }
 
+        if (modeSelectPanel)
+        {
+            modeSelectPanel.SetActive(false);
+            var cg = EnsureCanvasGroup(modeSelectPanel);
+            cg.alpha = 0;
+            cg.interactable = false;
+            cg.blocksRaycasts = false;
+        }
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 1f;
+
     }
     
     // --- cache posisi home tiap panel ---
-    Vector2 _homeLeft, _homeSettings, _homeHowTo, _homeCredits;
+    Vector2 _homeLeft, _homeSettings, _homeHowTo, _homeCredits, _homeModeSelect;
 
     RectTransform GetOrSelfRT(GameObject go, RectTransform prefer)
     {
@@ -127,11 +148,13 @@ public class MainMenuController : MonoBehaviour
         settingsPanelRT = GetOrSelfRT(settingsPanel, settingsPanelRT);
         howToPanelRT    = GetOrSelfRT(howToPlayPanel,howToPanelRT);
         creditsPanelRT  = GetOrSelfRT(creditsPanel,  creditsPanelRT);
+        modeSelectPanelRT = GetOrSelfRT(modeSelectPanel, modeSelectPanelRT);
 
         _homeLeft     = leftPanelRT     ? leftPanelRT.anchoredPosition     : Vector2.zero;
         _homeSettings = settingsPanelRT ? settingsPanelRT.anchoredPosition : Vector2.zero;
         _homeHowTo    = howToPanelRT    ? howToPanelRT.anchoredPosition    : Vector2.zero;
         _homeCredits  = creditsPanelRT  ? creditsPanelRT.anchoredPosition  : Vector2.zero;
+        _homeModeSelect   = modeSelectPanelRT ? modeSelectPanelRT.anchoredPosition : Vector2.zero;
 
         // Debug bantu verifikasi di Console:
     #if UNITY_EDITOR
@@ -139,6 +162,7 @@ public class MainMenuController : MonoBehaviour
         Debug.Log($"[Menu] Home Settings: {_homeSettings} (RT: {settingsPanelRT?.name})");
         Debug.Log($"[Menu] Home HowTo:    {_homeHowTo}    (RT: {howToPanelRT?.name})");
         Debug.Log($"[Menu] Home Credits:  {_homeCredits}  (RT: {creditsPanelRT?.name})");
+        Debug.Log($"[Menu] Home ModeSelect: {_homeModeSelect} (RT: {modeSelectPanelRT?.name})");
     #endif
     }
 
@@ -148,6 +172,7 @@ public class MainMenuController : MonoBehaviour
         if (go == settingsPanel)  return _homeSettings;
         if (go == howToPlayPanel) return _homeHowTo;
         if (go == creditsPanel)   return _homeCredits;
+        if (go == modeSelectPanel) return _homeModeSelect;
         var rt = GetRT(go);
         return rt ? rt.anchoredPosition : Vector2.zero;
     }
@@ -171,11 +196,18 @@ public class MainMenuController : MonoBehaviour
 
     void Update()
     {
+        if (modeSelectPanel && modeSelectPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            HideModePanel();
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (howToPlayPanel && howToPlayPanel.activeSelf) { BackToMain(); return; }
             if (settingsPanel && settingsPanel.activeSelf)   { BackToMain(); return; }
             if (creditsPanel && creditsPanel.activeSelf)     { BackToMain(); return; }
+            if (modeSelectPanel && modeSelectPanel.activeSelf) { BackToMain(); return; }
         }
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
@@ -262,6 +294,27 @@ public class MainMenuController : MonoBehaviour
         if (btnBackHowToPlay) AddHoverSfx(btnBackHowToPlay);
         if (btnBackSettings)  AddHoverSfx(btnBackSettings);
         if (btnBackCredits)   AddHoverSfx(btnBackCredits);
+
+        if (btnModeCalm)
+        {
+            btnModeCalm.onClick.AddListener(PlayClickSfx);
+            btnModeCalm.onClick.AddListener(() => StartGameWithDifficulty(0));   // 0 = Calm
+        }
+        if (btnModeNoMercy)
+        {
+            btnModeNoMercy.onClick.AddListener(PlayClickSfx);
+            btnModeNoMercy.onClick.AddListener(() => StartGameWithDifficulty(1)); // 1 = No Mercy
+        }
+        if (btnModeBack)
+        {
+            btnModeBack.onClick.AddListener(PlayClickSfx);
+            btnModeBack.onClick.AddListener(BackToMain); // bukan HideModePanel lagi
+        }
+        if (btnModeBack) AddHoverSfx(btnModeBack);
+
+        AddHoverSfx(btnModeCalm);
+        AddHoverSfx(btnModeNoMercy);
+        if (btnModeBack) AddHoverSfx(btnModeBack);
     }
 
     void AddHoverSfx(Button b)
@@ -295,9 +348,11 @@ public class MainMenuController : MonoBehaviour
         if (busySwitch) return;
 
         GameObject open = null;
-        if (howToPlayPanel && howToPlayPanel.activeSelf) open = howToPlayPanel;
-        else if (settingsPanel && settingsPanel.activeSelf) open = settingsPanel;
-        else if (creditsPanel && creditsPanel.activeSelf) open = creditsPanel;
+        if (howToPlayPanel && howToPlayPanel.activeSelf)      open = howToPlayPanel;
+        else if (settingsPanel && settingsPanel.activeSelf)   open = settingsPanel;
+        else if (creditsPanel && creditsPanel.activeSelf)     open = creditsPanel;
+        else if (modeSelectPanel && modeSelectPanel.activeSelf) open = modeSelectPanel; // NEW
+
         if (!open) return;
 
         var from = new PanelPack(open, GetRT(open));
@@ -391,6 +446,7 @@ public class MainMenuController : MonoBehaviour
         if (go == settingsPanel)  return settingsPanelRT ? settingsPanelRT : go.GetComponent<RectTransform>();
         if (go == howToPlayPanel) return howToPanelRT    ? howToPanelRT    : go.GetComponent<RectTransform>();
         if (go == creditsPanel)   return creditsPanelRT   ? creditsPanelRT   : go.GetComponent<RectTransform>();
+        if (go == modeSelectPanel)  return modeSelectPanelRT  ? modeSelectPanelRT  : go.GetComponent<RectTransform>();
         if (go == leftPanel)      return leftPanelRT      ? leftPanelRT      : go.GetComponent<RectTransform>();
         return go.GetComponent<RectTransform>();
     }
@@ -411,14 +467,19 @@ public class MainMenuController : MonoBehaviour
     // -------------------- PLAY / QUIT --------------------
     void OnPlay()
     {
-        System.Action go = () => SceneManager.LoadScene(gameplaySceneName);
+        if (modeSelectPanel)
+        {
+            modeSelectPanel.SetActive(true);
 
-        if (bgmSource) StartCoroutine(FadeAudio(bgmSource, 0f, bgmFadeOut));
+            // fokuskan ke tombol Calm
+            if (btnModeCalm)
+                EventSystem.current.SetSelectedGameObject(btnModeCalm.gameObject);
 
-        if (fadeOverlay)
-            StartCoroutine(FadeIn(fadeOverlay, 0.25f, () => go(), useRaycast: false));
-        else
-            go();
+            OpenPanel(modeSelectPanel);
+            return;
+        } else {
+             StartGameWithDifficulty(0);
+        }
     }
 
     void OnQuit()
@@ -429,6 +490,53 @@ public class MainMenuController : MonoBehaviour
                 Application.Quit();
         #endif
     }
+
+    void StartGameWithDifficulty(int difficulty)
+    {
+        string targetScene = gameplaySceneName;
+
+        if (difficulty == 1)
+            targetScene = string.IsNullOrEmpty(gameplaySceneName2) ? gameplaySceneName : gameplaySceneName2;
+
+        if (string.IsNullOrEmpty(targetScene))
+        {
+            Debug.LogError("[MainMenu] Target scene name is empty!");
+            return;
+        }
+
+        // (Opsional) tetap simpan info difficulty, kalau mau dipakai di UI dalam scene
+        if (!string.IsNullOrEmpty(difficultyPrefKey))
+        {
+            PlayerPrefs.SetInt(difficultyPrefKey, difficulty);
+            PlayerPrefs.Save();
+        }
+
+        // Tutup panel mode biar rapi
+        HideModePanel();
+
+        // Transisi: fade BGM + fade overlay, sama seperti sebelumnya
+        System.Action go = () => SceneManager.LoadScene(targetScene);
+
+        if (bgmSource)
+            StartCoroutine(FadeAudio(bgmSource, 0f, bgmFadeOut));
+
+        if (fadeOverlay)
+            StartCoroutine(FadeIn(fadeOverlay, 0.25f, () => go(), useRaycast: false));
+        else
+            go();
+    }
+
+    void HideModePanel()
+    {
+        if (modeSelectPanel)
+            modeSelectPanel.SetActive(false);
+
+        // balikin selection ke tombol Play lagi
+        if (firstSelected)
+            EventSystem.current.SetSelectedGameObject(firstSelected);
+    }
+
+
 
     // -------------------- FADING HELPERS --------------------
     CanvasGroup EnsureCanvasGroup(GameObject go)
