@@ -1,28 +1,40 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;   // <-- tambahkan ini
+
 public class Sc_pin : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private string pin, pinShowed;
+    private string pin = "", pinShowed = "";
     [SerializeField] TextMeshProUGUI pinText;
     private const int MAX_DIGITS = 9;
+
+    // tambahan untuk error state
+    private bool isShowingError = false;
+    private Coroutine errorCoroutine;
+    [SerializeField] private GameObject pintu;
+    [SerializeField] Sc_showUIPin script;
+
     void Start()
     {
-        
+        pintu.GetComponent<Sc_pintu>().enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // kalau lagi nunjukin "PIN SALAH", jangan update teks dari PIN
+        if (isShowingError) return;
+
         pinShowed = pin;
         KeepLast9Digits();
         pinText.text = pinShowed;
     }
+
     public void InputPin(string key)
     {
         pin += key;
         Debug.Log(pin);
     }
+
     public void DeleteLastDigit()
     {
         if (!string.IsNullOrEmpty(pin))
@@ -32,12 +44,68 @@ public class Sc_pin : MonoBehaviour
             Debug.Log("PIN setelah delete = " + pin);
         }
     }
+
     private void KeepLast9Digits()
     {
-        if (pin.Length > MAX_DIGITS)
+        if (!string.IsNullOrEmpty(pin) && pin.Length > MAX_DIGITS)
         {
             // ambil 9 karakter terakhir
             pinShowed = pin.Substring(pin.Length - MAX_DIGITS, MAX_DIGITS);
         }
+    }
+
+    public void KlikEnter()
+    {
+        if (pin == "1308")
+        {
+            Debug.Log("PIN benar");
+            pin = ""; // reset PIN internal
+            if (errorCoroutine != null)
+                StopCoroutine(errorCoroutine);
+
+            errorCoroutine = StartCoroutine(ShowError("PIN BENAR"));
+            pintu.GetComponent<Sc_pintu>().enabled = true;
+        }
+        else
+        {
+            Debug.Log("PIN salah");
+            pin = ""; // reset PIN internal
+
+            // mulai coroutine buat nunjukin pesan error 2 detik + kedip
+            if (errorCoroutine != null)
+                StopCoroutine(errorCoroutine);
+
+            errorCoroutine = StartCoroutine(ShowError("PIN SALAH"));
+
+        }
+    }
+
+    // Coroutine untuk menampilkan "PIN SALAH" 2 detik dan berkedip
+    private IEnumerator ShowError(string text)
+    {
+        isShowingError = true;
+
+        float duration = 2f;        // total durasi error
+        float elapsed = 0f;
+        float blinkInterval = 0.2f; // seberapa cepat kedip
+
+        while (elapsed < duration)
+        {
+            pinText.text = text;
+            yield return new WaitForSeconds(blinkInterval);
+
+            pinText.text = "";
+            yield return new WaitForSeconds(blinkInterval);
+
+            elapsed += blinkInterval * 2f;
+        }
+
+        // setelah 2 detik, reset jadi kosong (null display)
+        pinShowed = "";
+        pinText.text = "";
+        script.ClosePinUI();
+
+        isShowingError = false;
+        errorCoroutine = null;
     }
 }

@@ -15764,6 +15764,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pin
   pinText: {fileID: 1640850624}
+  pintu: {fileID: 1316335123}
+  script: {fileID: 1027855014}
 --- !u!1001 &612562380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33275,6 +33277,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1243700655}
     m_Modifications:
+    - target: {fileID: -666069908823677929, guid: d5d6fa0e4ff6741448b40d8392d53ba4, type: 3}
+      propertyPath: m_Name
+      value: double_door_r locked
+      objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: d5d6fa0e4ff6741448b40d8392d53ba4, type: 3}
       propertyPath: m_Name
       value: pintu (15)
@@ -34851,7 +34857,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1386896674}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 609893296}
+        m_TargetAssemblyTypeName: Sc_pin, Assembly-CSharp
+        m_MethodName: KlikEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1386896674
 MonoBehaviour:
   m_ObjectHideFlags: 0
