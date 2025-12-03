@@ -13,6 +13,8 @@ TagManager:
   - FlashLight
   - GagakArea
   - Letter
+  - Minecart
+  - Chest
   layers:
   - Default
   - TransparentFX
