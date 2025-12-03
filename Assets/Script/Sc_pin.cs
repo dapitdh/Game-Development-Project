@@ -59,12 +59,13 @@ public class Sc_pin : MonoBehaviour
         if (pin == "1308")
         {
             Debug.Log("PIN benar");
+            pintu.GetComponent<Sc_pintu>().enabled = true;
+
             pin = ""; // reset PIN internal
             if (errorCoroutine != null)
                 StopCoroutine(errorCoroutine);
 
-            errorCoroutine = StartCoroutine(ShowError("PIN BENAR"));
-            pintu.GetComponent<Sc_pintu>().enabled = true;
+            errorCoroutine = StartCoroutine(ShowError(true));
         }
         else
         {
@@ -75,13 +76,13 @@ public class Sc_pin : MonoBehaviour
             if (errorCoroutine != null)
                 StopCoroutine(errorCoroutine);
 
-            errorCoroutine = StartCoroutine(ShowError("PIN SALAH"));
+            errorCoroutine = StartCoroutine(ShowError(false));
 
         }
     }
 
     // Coroutine untuk menampilkan "PIN SALAH" 2 detik dan berkedip
-    private IEnumerator ShowError(string text)
+    private IEnumerator ShowError(bool solved)
     {
         isShowingError = true;
 
@@ -91,7 +92,7 @@ public class Sc_pin : MonoBehaviour
 
         while (elapsed < duration)
         {
-            pinText.text = text;
+            pinText.text = solved ? "PIN BENAR" : "PIN SALAH";
             yield return new WaitForSeconds(blinkInterval);
 
             pinText.text = "";
@@ -103,7 +104,7 @@ public class Sc_pin : MonoBehaviour
         // setelah 2 detik, reset jadi kosong (null display)
         pinShowed = "";
         pinText.text = "";
-        script.ClosePinUI();
+        if (solved) script.ClosePinUI(solved);
 
         isShowingError = false;
         errorCoroutine = null;
