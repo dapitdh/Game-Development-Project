@@ -1,5 +1,6 @@
 using UnityEngine;
 using FPP;
+using TMPro;
 
 public class Sc_showUIPin : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Sc_showUIPin : MonoBehaviour
     private bool isSolved = false;
     public bool isClicked = false;
     private bool isNear = false;
+    [SerializeField] private GameObject leftClickGUI; // UI left click
+    [SerializeField] private TextMeshProUGUI text;
+
     void Start()
     {
         hero = GameObject.FindWithTag("Player");
@@ -25,6 +29,7 @@ public class Sc_showUIPin : MonoBehaviour
     private void showPinUI()
     {
         pinUI.SetActive(true);
+        leftClickGUI.SetActive(false);
         Cursor.lockState = CursorLockMode.None;   // lepas kunci
         Cursor.visible = true;
         hero.transform.GetComponent<Animator>().SetBool("walk", false);
@@ -36,11 +41,16 @@ public class Sc_showUIPin : MonoBehaviour
         if (other.gameObject == hero && !isSolved)
         {
             isNear = true;
+            text.text = "Enter Pin";
+            leftClickGUI.SetActive(true);
         }
+
     }
-    public void ClosePinUI(bool solved = false)
+    public void ClosePinUI(bool solved)
     {
+        isClicked = false;
         pinUI.SetActive(false);
+        pinUI.GetComponent<Sc_pin>().ResetPin(); // reset PIN saat ditutup
         Cursor.lockState = CursorLockMode.Locked;   // kunci lagi
         Cursor.visible = false;
         hero.transform.GetComponent<Puan_control>().enabled = true;

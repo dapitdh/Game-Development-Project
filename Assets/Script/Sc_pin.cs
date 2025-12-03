@@ -109,4 +109,10 @@ public class Sc_pin : MonoBehaviour
         isShowingError = false;
         errorCoroutine = null;
     }
+    public void ResetPin()
+    {
+        pin = "";
+        pinShowed = "";
+        pinText.text = "";
+    }
 }
