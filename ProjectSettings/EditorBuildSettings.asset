@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/HouseSceneDailon.unity
     guid: 02e4f65c09bf6aa4ea5d6306574f1572
   - enabled: 0
-    path: Assets/Scenes/HouseSceneVedian.unity
+    path: Assets/Scenes/HouseScene.unity
     guid: c2be36e258e34bb40a7668c5788f94e1
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HouseScene.unity
     guid: a1b2e44ba7815f5409347e05aca0131a
+  - enabled: 1
+    path: Assets/Scenes/HouseScene_NoMercy.unity
+    guid: fc540ef48f4852b4696978fb35918ed9
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
