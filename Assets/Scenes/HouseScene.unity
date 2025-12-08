@@ -2446,7 +2446,7 @@ MonoBehaviour:
   viewRadius: 10
   viewAngle: 90
   eyeHeight: 0.8
-  player: {fileID: 0}
+  player: {fileID: 1273933097}
   drawGizmos: 1
 --- !u!1 &44010387
 GameObject:
@@ -19424,7 +19424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.79
+      value: 0.555
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21421,6 +21421,17 @@ MonoBehaviour:
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
   m_Area: 0
+--- !u!114 &713046490 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7988702706228365776, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 1424564678}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aab8da3aed2d854e825ffe745f77a1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FPP.FP_Inventory
 --- !u!1001 &713112665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22796,8 +22807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58dfc586b9e79548ba0ce541bfe854c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpTrigger
-  JumpSfx: {fileID: 0}
-  JumpAgus: {fileID: 0}
+  JumpSfx: {fileID: 840486918}
+  JumpAgus: {fileID: 1117697813}
   FlashImg: {fileID: 958620124}
   respawnPoint: {fileID: 988541024}
 --- !u!65 &745162008
@@ -34610,6 +34621,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114686777}
   m_CullTransparentMesh: 1
+--- !u!1 &1117697813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
+  m_PrefabInstance: {fileID: 647399010}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1118954692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38966,6 +38982,11 @@ MonoBehaviour:
   runVolume: 0.85
   pitchJitter: {x: 0.95, y: 1.05}
   useShiftToRun: 1
+--- !u!4 &1273933097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 1424564678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1281058149
 GameObject:
   m_ObjectHideFlags: 0
@@ -42740,7 +42761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.54
+      value: 2.709
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -42775,8 +42796,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6482870385333058399, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 713046490}
+    - target: {fileID: 6482870385333058399, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6493199227203755060, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_Enabled
@@ -42836,7 +42861,7 @@ PrefabInstance:
       objectReference: {fileID: 1958476270}
     - target: {fileID: 7988702706228365776, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8056265551681626822, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42883,8 +42908,6 @@ PrefabInstance:
       value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 7988702706228365776, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
-    - {fileID: 6482870385333058399, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
     - {fileID: 5632612470911969332, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
