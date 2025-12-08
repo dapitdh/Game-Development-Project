@@ -59130,8 +59130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_win
   winUI: {fileID: 252177898}
-  player: {fileID: 0}
-  objectiveUI: {fileID: 0}
+  player: {fileID: 1273933088}
+  objectiveUI: {fileID: 2118690025}
   objectiveUI2: {fileID: 0}
 --- !u!65 &1878191087
 BoxCollider:
