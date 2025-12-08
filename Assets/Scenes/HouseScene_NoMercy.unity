@@ -2446,7 +2446,7 @@ MonoBehaviour:
   viewRadius: 12
   viewAngle: 90
   eyeHeight: 0.8
-  player: {fileID: 0}
+  player: {fileID: 72285994}
   drawGizmos: 1
 --- !u!1 &44010387
 GameObject:
@@ -2756,6 +2756,11 @@ MonoBehaviour:
   runVolume: 0.85
   pitchJitter: {x: 0.95, y: 1.05}
   useShiftToRun: 1
+--- !u!4 &72285994 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 1844874843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &74238936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23344,8 +23349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58dfc586b9e79548ba0ce541bfe854c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpTrigger
-  JumpSfx: {fileID: 0}
-  JumpAgus: {fileID: 0}
+  JumpSfx: {fileID: 1284649565}
+  JumpAgus: {fileID: 1826971741}
   FlashImg: {fileID: 958620124}
   respawnPoint: {fileID: 988541024}
 --- !u!65 &745162008
@@ -57387,6 +57392,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.72991717, y: 1.6749778, z: 3.7669392}
   m_Center: {x: 0.000000014901161, y: 0.8374889, z: 0}
+--- !u!1 &1826971741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
+  m_PrefabInstance: {fileID: 1945315534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1829111864
 GameObject:
   m_ObjectHideFlags: 0
@@ -57777,7 +57787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.54
+      value: 2.66
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -61096,7 +61106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.79
+      value: 0.53
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
       propertyPath: m_LocalRotation.w
