@@ -2640,11 +2640,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7699877f4577b1d4dab4b4d40c8b271f, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2738,17 +2738,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d707e8e2f720c4fb7c403f56d6ef81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FootstepSFX
-  groundCheck: {fileID: 515740628}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  groundCheckRadius: 0.2
-  footstepClips:
+  puan: {fileID: 72285995}
+  walkClips:
   - {fileID: 8300000, guid: 7699877f4577b1d4dab4b4d40c8b271f, type: 3}
-  stepIntervalWalking: 0.5
-  stepIntervalRunning: 0.3
-  walkingSpeedThreshold: 0.1
-  runningSpeedThreshold: 4
+  runClips:
+  - {fileID: 8300000, guid: fc159940db855af4a8fe3718cc1518b0, type: 3}
+  walkStepInterval: 0.5
+  runStepInterval: 0.3
+  minMoveSpeed: 0.1
 --- !u!4 &72285994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
@@ -17018,11 +17015,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8530656, y: 0.19477089, z: 2.0699952}
   m_Center: {x: -0.4285567, y: 0.00778346, z: 1.0451416}
---- !u!4 &515740628 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2648243837319315521, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
-  m_PrefabInstance: {fileID: 1844874843}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &520494537
 PrefabInstance:
   m_ObjectHideFlags: 0

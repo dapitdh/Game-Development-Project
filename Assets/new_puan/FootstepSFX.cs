@@ -1,97 +1,81 @@
 using UnityEngine;
+using FPP;  
 
 [RequireComponent(typeof(AudioSource))]
 public class FootstepSFX : MonoBehaviour
 {
-    [Header("Ground Check (samakan dengan Puan_control)")]
-    public Transform groundCheck;
-    public LayerMask groundMask;
-    public float groundCheckRadius = 0.2f;
+    [Header("Referensi")]
+    public Puan_control puan;  
 
-    [Header("Footstep Settings")]
-    public AudioClip[] footstepClips;
-    public float stepIntervalWalking = 0.5f;
-    public float stepIntervalRunning = 0.3f;
+    [Header("Footstep Clips")]
+    public AudioClip[] walkClips;   
+    public AudioClip[] runClips;   
+
+    [Header("Interval Langkah (detik)")]
+    public float walkStepInterval = 0.5f;   
+    public float runStepInterval = 0.3f;    
 
     [Header("Threshold Kecepatan")]
-    public float walkingSpeedThreshold = 0.1f;
-    public float runningSpeedThreshold = 4f;
+    [Tooltip("Di bawah ini dianggap diam")]
+    public float minMoveSpeed = 0.1f;
 
     private AudioSource audioSource;
-    private float stepCycle;
-    private float nextStep;
-
-    private Vector3 lastPosition;
-    private float currentSpeed;
+    private float nextStepTime;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f;
         audioSource.loop = false;
+        audioSource.spatialBlend = 1f;
 
-        lastPosition = transform.position;
+        nextStepTime = 0f;
     }
 
     void Update()
     {
-        // --- Hitung speed ---
-        Vector3 currentPosition = transform.position;
-        Vector3 horizontalDelta = new Vector3(
-            currentPosition.x - lastPosition.x,
-            0f,
-            currentPosition.z - lastPosition.z
-        );
-        currentSpeed = horizontalDelta.magnitude / Time.deltaTime;
-        lastPosition = currentPosition;
+        if (puan == null) return;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb == null) return;
 
-        // --- Cek grounded ---
-        bool isGrounded = Physics.CheckSphere(
-            groundCheck.position,
-            groundCheckRadius,
-            groundMask,
-            QueryTriggerInteraction.Ignore
-        );
+        Vector3 v = rb.linearVelocity;
+        Vector2 hv = new Vector2(v.x, v.z);
+        float speed = hv.magnitude;
+        bool isMoving = speed > minMoveSpeed;
+        bool isGrounded = puan.IsGrounded;
+        bool isSprinting = puan.IsSprinting;
 
-        // Jika tidak di tanah atau sangat pelan -> reset dan STOP audio
-        if (!isGrounded || currentSpeed < walkingSpeedThreshold)
+        if (!isGrounded || !isMoving)
         {
-            stepCycle = 0f;
-            nextStep = 0f;
-
-            // pastikan tidak ada suara langkah yang lanjut
+            nextStepTime = Time.time;
             if (audioSource.isPlaying)
                 audioSource.Stop();
-
             return;
         }
+        float interval = isSprinting ? runStepInterval : walkStepInterval;
 
-        // --- Jalan / lari? ---
-        float stepInterval = (currentSpeed >= runningSpeedThreshold)
-            ? stepIntervalRunning
-            : stepIntervalWalking;
+        AudioClip[] bank = isSprinting && runClips != null && runClips.Length > 0
+            ? runClips
+            : walkClips;
 
-        stepCycle += currentSpeed * Time.deltaTime;
+        if (bank == null || bank.Length == 0) return;
 
-        if (stepCycle > nextStep)
+        if (Time.time >= nextStepTime)
         {
-            PlayFootstep();
-            nextStep = stepCycle + stepInterval;
+            PlayFootstep(bank);
+            nextStepTime = Time.time + interval;
         }
     }
 
-    void PlayFootstep()
+    void PlayFootstep(AudioClip[] bank)
     {
-        if (footstepClips == null || footstepClips.Length == 0) return;
+        int index = Random.Range(0, bank.Length);
+        AudioClip clip = bank[index];
 
-        int n = Random.Range(0, footstepClips.Length);
-        AudioClip clip = footstepClips[n];
-
-        // Pakai Play() biasa, bukan PlayOneShot, supaya bisa di-Stop
         audioSource.clip = clip;
         audioSource.pitch = Random.Range(0.95f, 1.05f);
-        audioSource.volume = Random.Range(0.8f, 1f);
+        audioSource.volume = Random.Range(0.9f, 1f);
+
         audioSource.Play();
     }
 }
