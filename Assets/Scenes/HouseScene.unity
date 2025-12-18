@@ -32218,9 +32218,9 @@ MonoBehaviour:
   sfxHover: {fileID: 8300000, guid: a0c4272aced14864ab7a611aa57f0fb8, type: 3}
   sfxVolume: 0.9
   disableWhenPaused:
-  - {fileID: 0}
+  - {fileID: 1273933098}
   freezeWhenPaused:
-  - {fileID: 0}
+  - {fileID: 1273933097}
   freezeChildren: 1
 --- !u!114 &1004516826
 MonoBehaviour:
@@ -40802,29 +40802,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d707e8e2f720c4fb7c403f56d6ef81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FootstepSFX
-  source: {fileID: 1273933089}
-  walkClips:
-  - {fileID: 8300000, guid: efcacc8aa1267a944914acfb34411e60, type: 3}
-  runClips: []
-  jumpClip: {fileID: 0}
-  landClip: {fileID: 8300000, guid: 3b540148493606444be5a2d6fab601f1, type: 3}
   groundCheck: {fileID: 1003300236}
-  groundRadius: 0.25
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  minMoveSpeed: 0.1
-  walkStrideLength: 1.9
-  runStrideLength: 2.6
-  walkVolume: 0.6
-  runVolume: 0.85
-  pitchJitter: {x: 0.95, y: 1.05}
-  useShiftToRun: 1
+  groundCheckRadius: 0.2
+  footstepClips: []
+  stepIntervalWalking: 0.5
+  stepIntervalRunning: 0.3
+  walkingSpeedThreshold: 0.1
+  runningSpeedThreshold: 4
 --- !u!4 &1273933097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
   m_PrefabInstance: {fileID: 1424564678}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1273933098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8531270031013856944, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 1424564678}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273933088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91950c0aafd371c43838b825ade6c78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EasyPeasyFirstPersonController.Puan_control
 --- !u!1 &1281058149
 GameObject:
   m_ObjectHideFlags: 0
@@ -44702,15 +44705,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.060575
+      value: 17.71
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.3992157
+      value: 2.735
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 23.723463
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56719,7 +56722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChaseTensionFX
   enemy: {fileID: 43549783}
-  player: {fileID: 0}
+  player: {fileID: 1273933097}
   vignetteGroup: {fileID: 1354616484}
   shaker: {fileID: 0}
   heartbeatSource: {fileID: 0}
