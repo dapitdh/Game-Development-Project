@@ -10,12 +10,12 @@ public class WeaponShooter : MonoBehaviour
 
     [Header("Bullet (Sphere)")]
     [Tooltip("Kosongkan untuk auto-buat sphere runtime.")]
-    public GameObject bulletPrefab;          // opsional
-    public float bulletRadius = 0.05f;       // 5 cm
+    public GameObject bulletPrefab;         
+    public float bulletRadius = 0.05f;      
     public float bulletSpeed = 50f;
     public float bulletLifetime = 5f;
     public bool bulletUseGravity = false;
-    public LayerMask bulletLayer = 0;        // opsional: set layer peluru
+    public LayerMask bulletLayer = 0;
 
     [Header("Cooldown & Ammo Rules")]
     [Tooltip("Jumlah tembakan per isi.")]
@@ -33,20 +33,16 @@ public class WeaponShooter : MonoBehaviour
     [Tooltip("Clip tembakan (dipakai oleh AudioSource).")]
     public AudioClip fireClip;
 
-    // ===== runtime state =====
-    Transform holder;        // itemHolder dari player
+    Transform holder;      
     bool isHeld;
-    float nextShootAllowedTime;  // kapan boleh menembak lagi
-    float reloadReadyTime;       // kapan reload otomatis selesai (untuk long cooldown)
-    int ammo;                    // sisa peluru di magazine
-
-    // Dipanggil saat di-pickup oleh script pickup
+    float nextShootAllowedTime;
+    float reloadReadyTime;       
+    int ammo;                   
     public void OnPickedUp(Transform itemHolder)
     {
         holder = itemHolder;
         isHeld = true;
 
-        // Jika baru dipegang & belum ada ammo, inisialisasi atau cek reload
         if (ammo <= 0)
         {
             if (Time.time >= reloadReadyTime) Reload();
@@ -54,7 +50,6 @@ public class WeaponShooter : MonoBehaviour
         }
     }
 
-    // Dipanggil saat drop
     public void OnDropped()
     {
         isHeld = false;
@@ -63,7 +58,6 @@ public class WeaponShooter : MonoBehaviour
 
     void Awake()
     {
-        // start penuh
         ammo = magazineSize;
         nextShootAllowedTime = 0f;
         reloadReadyTime = 0f;
@@ -73,32 +67,27 @@ public class WeaponShooter : MonoBehaviour
     {
         if (!isHeld) return;
 
-        // Selesaikan reload otomatis (setelah long cooldown)
         if (ammo == 0 && reloadReadyTime > 0f && Time.time >= reloadReadyTime)
         {
             Reload();
         }
 
-        bool wantShoot = Mouse.current?.leftButton.isPressed ?? false; // tahan = oke, kita kunci via cooldown
+        bool wantShoot = Mouse.current?.leftButton.isPressed ?? false; 
 
         if (!wantShoot) return;
 
         if (CanShoot())
         {
             FireOnce();
-
-            // Aturan cooldown:
             ammo--;
             if (ammo > 0)
             {
-                // Short cooldown (2 detik default)
                 nextShootAllowedTime = Time.time + shortCooldown;
             }
             else
             {
-                // Magazine habis → long cooldown (20 detik default) + jadwalkan reload
                 nextShootAllowedTime = Time.time + longCooldown;
-                reloadReadyTime = nextShootAllowedTime; // reload tepat saat long cooldown selesai
+                reloadReadyTime = nextShootAllowedTime; 
             }
         }
     }
@@ -115,13 +104,10 @@ public class WeaponShooter : MonoBehaviour
     {
         ammo = magazineSize;
         reloadReadyTime = 0f;
-        // (opsional) mainkan SFX/anim reload di sini
-        // Debug.Log("Reload selesai, ammo = " + ammo);
     }
 
     void FireOnce()
     {
-        // Tentukan asal & arah tembakan
         Transform cam = Camera.main ? Camera.main.transform : null;
 
         Vector3 spawnPos;
@@ -143,25 +129,19 @@ public class WeaponShooter : MonoBehaviour
             dir = transform.forward.normalized;
         }
 
-        // Buat peluru
         GameObject bullet = CreateBullet(spawnPos);
         if (!bullet) return;
 
-        // Set layer peluru (opsional)
         if (bulletLayer.value != 0)
-            bullet.layer = LayerMaskToLayer(bulletLayer); // first set bit
+            bullet.layer = LayerMaskToLayer(bulletLayer);
 
-        // Dorong peluru
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
             rb.linearVelocity = dir * bulletSpeed;
 
-        // Abaikan tabrakan peluru dengan pemain/senjata
         IgnoreCollisionWithHolder(bullet);
 
-        // Auto-destroy
         Destroy(bullet, bulletLifetime);
 
-        // === FX ===
         if (muzzleFlashPS) muzzleFlashPS.Play(true);
         if (fireSfx && fireClip) fireSfx.PlayOneShot(fireClip);
         else if (fireSfx) fireSfx.Play();
@@ -178,7 +158,6 @@ public class WeaponShooter : MonoBehaviour
             return go;
         }
 
-        // Buat sphere runtime
         go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         go.transform.SetPositionAndRotation(pos, Quaternion.identity);
         go.transform.localScale = Vector3.one * (bulletRadius * 2f);
@@ -218,23 +197,20 @@ public class WeaponShooter : MonoBehaviour
         var bulletCol = bullet.GetComponent<Collider>();
         if (!bulletCol) return;
 
-        // Abaikan semua collider di holder (player + senjata)
         var cols = holder.GetComponentsInChildren<Collider>(true);
         foreach (var c in cols)
             if (c) Physics.IgnoreCollision(bulletCol, c, true);
 
-        // Abaikan collider senjata ini sendiri
         var selfCols = GetComponentsInChildren<Collider>(true);
         foreach (var c in selfCols)
             if (c) Physics.IgnoreCollision(bulletCol, c, true);
     }
 
-    // Ambil index layer dari LayerMask (jika hanya 1 bit)
     int LayerMaskToLayer(LayerMask mask)
     {
         int value = mask.value;
         for (int i = 0; i < 32; i++)
             if (value == (1 << i)) return i;
-        return gameObject.layer; // fallback
+        return gameObject.layer;
     }
 }

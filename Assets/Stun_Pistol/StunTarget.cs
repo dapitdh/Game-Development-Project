@@ -6,18 +6,18 @@ public class StunTarget : MonoBehaviour, IStunnable
 {
     [Header("Stun")]
     public float defaultDuration = 2f;
-    public bool stackDuration = true;              // tambah durasi jika distun lagi
-    public bool freezeMovement = true;             // �membekukan� RB
+    public bool stackDuration = true;              
+    public bool freezeMovement = true;            
     public bool disableNavMeshAgent = true;
     public bool disableScripts = true;
-    public Behaviour[] extraBehavioursToDisable;   // drag AI scripts/behaviour kalian
+    public Behaviour[] extraBehavioursToDisable;   
     public Animator animator;
     public string stunBoolParam = "stun";
     public ParticleSystem stunVfx;
 
     [Header("Knockback")]
     public Rigidbody rb;
-    public float dragWhileStunned = 6f;            // gesekan tinggi biar �diam�
+    public float dragWhileStunned = 6f;           
 
     public bool IsStunned { get; private set; }
 
@@ -47,9 +47,9 @@ public class StunTarget : MonoBehaviour, IStunnable
         if (IsStunned)
         {
             if (stackDuration)
-                remaining += d;     // boleh ditumpuk
+                remaining += d;    
             else
-                return;             // ← ABAIKAN serangan baru saat masih stun
+                return;            
         }
         else
         {
@@ -57,7 +57,6 @@ public class StunTarget : MonoBehaviour, IStunnable
             if (routine == null) routine = StartCoroutine(StunRoutine());
         }
 
-        // knockback ringan (opsional)
         if (rb && force > 0f)
         {
             Vector3 pushDir = -hitNormal;
@@ -97,7 +96,6 @@ public class StunTarget : MonoBehaviour, IStunnable
             yield return null;
         }
 
-        // Restore
         if (stunVfx) stunVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         if (animator && !string.IsNullOrEmpty(stunBoolParam))
             animator.SetBool(stunBoolParam, false);
