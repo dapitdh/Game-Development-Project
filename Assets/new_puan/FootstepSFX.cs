@@ -1,164 +1,97 @@
 using UnityEngine;
 
-[DisallowMultipleComponent]
+[RequireComponent(typeof(AudioSource))]
 public class FootstepSFX : MonoBehaviour
 {
-    [Header("Audio Source (3D)")]
-    [Tooltip("AudioSource untuk memutar SFX. Kalau kosong, akan dibuat otomatis di GameObject ini.")]
-    public AudioSource source;
-
-    [Header("Clips")]
-    public AudioClip[] walkClips;   // isi beberapa clip langkah (random)
-    public AudioClip[] runClips;    // opsional; kalau kosong, pakai walkClips
-    public AudioClip jumpClip;      // opsional
-    public AudioClip landClip;      // opsional
-
-    [Header("Ground Check")]
-    [Tooltip("Drag 'GroundCheck' milik player (sesuai hierarchy kamu).")]
+    [Header("Ground Check (samakan dengan Puan_control)")]
     public Transform groundCheck;
-    public float groundRadius = 0.25f;
-    public LayerMask groundMask = ~0; // default: semua layer
+    public LayerMask groundMask;
+    public float groundCheckRadius = 0.2f;
 
-    [Header("Movement & Step Tuning")]
-    [Tooltip("Kecepatan minimum dianggap bergerak (m/s).")]
-    public float minMoveSpeed = 0.1f;
-    [Tooltip("Jarak horizontal per 1 langkah saat JALAN (meter).")]
-    public float walkStrideLength = 1.9f;
-    [Tooltip("Jarak horizontal per 1 langkah saat LARI (meter).")]
-    public float runStrideLength = 2.6f;
-    [Tooltip("Volume langkah jalan.")]
-    public float walkVolume = 0.6f;
-    [Tooltip("Volume langkah lari.")]
-    public float runVolume = 0.85f;
-    [Tooltip("Jitter pitch supaya tidak monoton (min..max).")]
-    public Vector2 pitchJitter = new Vector2(0.95f, 1.05f);
+    [Header("Footstep Settings")]
+    public AudioClip[] footstepClips;
+    public float stepIntervalWalking = 0.5f;
+    public float stepIntervalRunning = 0.3f;
 
-    [Header("Input")]
-    [Tooltip("Tahan Shift untuk lari.")]
-    public bool useShiftToRun = true;
+    [Header("Threshold Kecepatan")]
+    public float walkingSpeedThreshold = 0.1f;
+    public float runningSpeedThreshold = 4f;
 
-    // --- internal ---
-    CharacterController _cc;
-    bool _isGrounded, _wasGrounded;
-    Vector3 _prevPos;
-    float _accumDist; // akumulasi jarak horizontal
+    private AudioSource audioSource;
+    private float stepCycle;
+    private float nextStep;
 
-    void Reset()
-    {
-        // Auto-setup kalau drop pertama kali
-        if (!source)
-        {
-            source = GetComponent<AudioSource>();
-            if (!source) source = gameObject.AddComponent<AudioSource>();
-        }
-        if (!groundCheck)
-        {
-            var t = transform.Find("GroundCheck");
-            if (t) groundCheck = t;
-        }
-        source.spatialBlend = 1f;  // 3D
-        source.playOnAwake = false;
-        source.loop = false;
-    }
+    private Vector3 lastPosition;
+    private float currentSpeed;
 
     void Awake()
     {
-        _cc = GetComponent<CharacterController>();
-        if (!source)
-        {
-            source = GetComponent<AudioSource>();
-            if (!source) source = gameObject.AddComponent<AudioSource>();
-        }
-        source.spatialBlend = 1f;
-        source.playOnAwake = false;
-        source.loop = false;
-        _prevPos = transform.position;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
+        audioSource.loop = false;
+
+        lastPosition = transform.position;
     }
 
     void Update()
     {
-        // Hormati sistem pause-mu
-        if (MenuPause.GameIsPaused)
+        // --- Hitung speed ---
+        Vector3 currentPosition = transform.position;
+        Vector3 horizontalDelta = new Vector3(
+            currentPosition.x - lastPosition.x,
+            0f,
+            currentPosition.z - lastPosition.z
+        );
+        currentSpeed = horizontalDelta.magnitude / Time.deltaTime;
+        lastPosition = currentPosition;
+
+        // --- Cek grounded ---
+        bool isGrounded = Physics.CheckSphere(
+            groundCheck.position,
+            groundCheckRadius,
+            groundMask,
+            QueryTriggerInteraction.Ignore
+        );
+
+        // Jika tidak di tanah atau sangat pelan -> reset dan STOP audio
+        if (!isGrounded || currentSpeed < walkingSpeedThreshold)
         {
-            if (source && source.isPlaying) source.Pause();
-            _prevPos = transform.position;   // reset delta
-            _wasGrounded = _isGrounded;
+            stepCycle = 0f;
+            nextStep = 0f;
+
+            // pastikan tidak ada suara langkah yang lanjut
+            if (audioSource.isPlaying)
+                audioSource.Stop();
+
             return;
         }
-        else if (source) source.UnPause();
 
-        // --- Ground check ---
-        _isGrounded = CheckGrounded();
+        // --- Jalan / lari? ---
+        float stepInterval = (currentSpeed >= runningSpeedThreshold)
+            ? stepIntervalRunning
+            : stepIntervalWalking;
 
-        // --- Jump SFX (on press while grounded) ---
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
-            PlayOne(jumpClip, Mathf.Max(walkVolume, 0.7f));
+        stepCycle += currentSpeed * Time.deltaTime;
 
-        // --- Landing SFX (on land) ---
-        if (!_wasGrounded && _isGrounded)
-            PlayOne(landClip, Mathf.Max(walkVolume * 1.1f, 0.7f));
-
-        // --- Hitung jarak horizontal frame ini ---
-        Vector3 frameDelta = transform.position - _prevPos;
-        Vector3 planar = Vector3.ProjectOnPlane(frameDelta, Vector3.up);
-        float dist = planar.magnitude;
-        float speed = (Time.deltaTime > 0f) ? dist / Time.deltaTime : 0f;
-
-        bool moving = speed > minMoveSpeed;
-        bool running = useShiftToRun && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
-
-        // --- Footsteps ---
-        if (_isGrounded && moving)
+        if (stepCycle > nextStep)
         {
-            _accumDist += dist;
-            float stride = running ? runStrideLength : walkStrideLength;
-
-            if (_accumDist >= stride)
-            {
-                PlayFootstep(running);
-                _accumDist = 0f;
-            }
+            PlayFootstep();
+            nextStep = stepCycle + stepInterval;
         }
-        else
-        {
-            // pelan-pelan turunkan akumulasi (biar tidak langsung nol)
-            _accumDist = Mathf.Clamp(_accumDist - (walkStrideLength * 0.5f * Time.deltaTime), 0f, 999f);
-        }
-
-        _prevPos = transform.position;
-        _wasGrounded = _isGrounded;
     }
 
-    bool CheckGrounded()
+    void PlayFootstep()
     {
-        if (_cc) return _cc.isGrounded;
+        if (footstepClips == null || footstepClips.Length == 0) return;
 
-        if (groundCheck)
-        {
-            // Sphere Check di titik GroundCheck
-            return Physics.CheckSphere(groundCheck.position, groundRadius, groundMask, QueryTriggerInteraction.Ignore);
-        }
+        int n = Random.Range(0, footstepClips.Length);
+        AudioClip clip = footstepClips[n];
 
-        // fallback raycast dari sedikit di atas kaki
-        Vector3 origin = transform.position + Vector3.up * 0.2f;
-        return Physics.Raycast(origin, Vector3.down, 0.4f, groundMask, QueryTriggerInteraction.Ignore);
-    }
-
-    void PlayFootstep(bool running)
-    {
-        AudioClip[] bank = (running && runClips != null && runClips.Length > 0) ? runClips : walkClips;
-        if (bank == null || bank.Length == 0 || source == null) return;
-
-        source.pitch = Random.Range(pitchJitter.x, pitchJitter.y);
-        var clip = bank[Random.Range(0, bank.Length)];
-        float vol = running ? runVolume : walkVolume;
-        source.PlayOneShot(clip, vol);
-    }
-
-    void PlayOne(AudioClip clip, float vol)
-    {
-        if (!clip || source == null) return;
-        source.pitch = 1f;
-        source.PlayOneShot(clip, vol);
+        // Pakai Play() biasa, bukan PlayOneShot, supaya bisa di-Stop
+        audioSource.clip = clip;
+        audioSource.pitch = Random.Range(0.95f, 1.05f);
+        audioSource.volume = Random.Range(0.8f, 1f);
+        audioSource.Play();
     }
 }

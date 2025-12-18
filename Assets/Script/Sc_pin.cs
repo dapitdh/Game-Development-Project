@@ -16,7 +16,7 @@ public class Sc_pin : MonoBehaviour
 
     void Start()
     {
-        pintu.GetComponent<Sc_pintu>().enabled = false;
+        //pintu.GetComponent<Sc_pintu>().enabled = false;
     }
 
     void Update()

@@ -2640,11 +2640,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 7699877f4577b1d4dab4b4d40c8b271f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2738,24 +2738,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d707e8e2f720c4fb7c403f56d6ef81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FootstepSFX
-  source: {fileID: 72285986}
-  walkClips:
-  - {fileID: 8300000, guid: efcacc8aa1267a944914acfb34411e60, type: 3}
-  runClips: []
-  jumpClip: {fileID: 0}
-  landClip: {fileID: 8300000, guid: 3b540148493606444be5a2d6fab601f1, type: 3}
   groundCheck: {fileID: 515740628}
-  groundRadius: 0.25
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  minMoveSpeed: 0.1
-  walkStrideLength: 1.9
-  runStrideLength: 2.6
-  walkVolume: 0.6
-  runVolume: 0.85
-  pitchJitter: {x: 0.95, y: 1.05}
-  useShiftToRun: 1
+  groundCheckRadius: 0.2
+  footstepClips:
+  - {fileID: 8300000, guid: 7699877f4577b1d4dab4b4d40c8b271f, type: 3}
+  stepIntervalWalking: 0.5
+  stepIntervalRunning: 0.3
+  walkingSpeedThreshold: 0.1
+  runningSpeedThreshold: 4
 --- !u!4 &72285994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
