@@ -2448,6 +2448,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 43549779}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 43549784}
   m_SourcePrefab: {fileID: 100100000, guid: 457769f59bbcd1c4f8aa908f1704815e, type: 3}
 --- !u!1 &43549776 stripped
 GameObject:
@@ -2683,6 +2686,30 @@ MonoBehaviour:
   eyeHeight: 0.8
   player: {fileID: 1273933097}
   drawGizmos: 1
+--- !u!114 &43549784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43549776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7db7f9dec2e3741899d5117e68b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StunTarget
+  defaultDuration: 2
+  stackDuration: 1
+  freezeMovement: 1
+  disableNavMeshAgent: 1
+  disableScripts: 1
+  extraBehavioursToDisable:
+  - {fileID: 43549777}
+  animator: {fileID: 43549777}
+  stunBoolParam: stun
+  stunVfx: {fileID: 0}
+  rb: {fileID: 0}
+  dragWhileStunned: 6
 --- !u!1 &44010387
 GameObject:
   m_ObjectHideFlags: 0
@@ -56184,7 +56211,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498542512}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 0.1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
