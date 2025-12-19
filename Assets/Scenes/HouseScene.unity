@@ -43724,7 +43724,7 @@ MonoBehaviour:
   enemy: {fileID: 43549783}
   player: {fileID: 1273933097}
   vignetteGroup: {fileID: 533588839}
-  shaker: {fileID: 1473785091}
+  shaker: {fileID: 1563553182}
   heartbeatSource: {fileID: 1273933089}
   maxVignette: 0.55
   fadeIn: 0.25
@@ -53944,6 +53944,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6694595986463806724, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1273933089}
+    - targetCorrespondingSourceObject: {fileID: 8196156836037469051, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1563553182}
     - targetCorrespondingSourceObject: {fileID: 7720249355176209434, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1473785087}
@@ -53956,9 +53959,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7720249355176209434, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1473785084}
-    - targetCorrespondingSourceObject: {fileID: 7720249355176209434, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1473785091}
   m_SourcePrefab: {fileID: 100100000, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
 --- !u!1001 &1430596574
 PrefabInstance:
@@ -56475,7 +56475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1508804775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58706,6 +58706,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1785642, y: 2.5698967, z: 2.0264118}
   m_Center: {x: 0.15788226, y: 1.2146077, z: -0.015237813}
+--- !u!1 &1563553180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8196156836037469051, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 1424564678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1563553181 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4578819479437406863, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+  m_PrefabInstance: {fileID: 1424564678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1563553182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563553180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f950558dda69849b9f087b2ab65369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShaker
+  intensity: 0
+  posAmplitude: 0.08
+  rotAmplitude: 1
+  freq: 12
+  target: {fileID: 1563553181}
 --- !u!1 &1564469752
 GameObject:
   m_ObjectHideFlags: 0
