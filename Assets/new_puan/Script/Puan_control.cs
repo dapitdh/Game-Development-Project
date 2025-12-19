@@ -95,7 +95,6 @@ namespace FPP
 
         [SerializeField] private gagak_sfx gagakAudio;
 
-
         GameObject mainCamera;
 
         void Start()
@@ -148,15 +147,9 @@ namespace FPP
         {
             ReadInputs();
 
-            // crouch (hold) + safe-stand check
-            bool crouchHeld = IsCrouchHeld();
-            if (!crouchHeld && IsCrouching)
-            {
-                // mau berdiri → cek headroom
-                if (!CanStandUp())
-                    crouchHeld = true; // tetap crouch kalau mentok
-            }
-            IsCrouching = crouchHeld;
+            // PURE HOLD CROUCH:
+            // tekan LeftCtrl = crouch, lepas = berdiri (tanpa cek kepala)
+            IsCrouching = IsCrouchHeld();
 
             float targetH = IsCrouching ? crouchingHeight : standingHeight;
             capsule.height = Mathf.Lerp(capsule.height, targetH, Time.deltaTime * 12f);
@@ -323,7 +316,6 @@ namespace FPP
             }
         }
 
-
         bool IsSelf(Collider c) => c && c.transform.root == transform.root;
 
         // =======================
@@ -378,6 +370,7 @@ namespace FPP
         //      CROUCH/HEADROOM
         // =======================
 
+        // CanStandUp() tidak lagi dipakai, tapi boleh dibiarkan kalau nanti mau dipakai lagi.
         bool CanStandUp()
         {
             if (!capsule) return true;
@@ -422,10 +415,6 @@ namespace FPP
                 }
             }
         }
-
-        // =======================
-        //        DEBUG DRAW
-        // =======================
 
         void OnDrawGizmosSelected()
         {

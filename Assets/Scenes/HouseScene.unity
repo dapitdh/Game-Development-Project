@@ -6872,7 +6872,7 @@ GameObject:
   - component: {fileID: 190694107}
   m_Layer: 3
   m_Name: Kardus (6)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16314,7 +16314,7 @@ GameObject:
   - component: {fileID: 311763264}
   m_Layer: 3
   m_Name: Kardus (1)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16418,7 +16418,7 @@ GameObject:
   - component: {fileID: 312594099}
   m_Layer: 3
   m_Name: Kardus (3)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19065,7 +19065,7 @@ GameObject:
   - component: {fileID: 365718822}
   m_Layer: 3
   m_Name: Kardus (11)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28097,7 +28097,7 @@ GameObject:
   - component: {fileID: 676813443}
   m_Layer: 3
   m_Name: Kardus (2)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32077,7 +32077,7 @@ GameObject:
   - component: {fileID: 778777864}
   m_Layer: 3
   m_Name: Kardus (9)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33735,7 +33735,7 @@ GameObject:
   - component: {fileID: 849588647}
   m_Layer: 3
   m_Name: Kardus (10)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35300,7 +35300,7 @@ GameObject:
   - component: {fileID: 898992279}
   m_Layer: 3
   m_Name: Kardus (7)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53609,6 +53609,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7988702706228365776, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
+      propertyPath: slots.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8056265551681626822, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.41
@@ -59303,7 +59307,7 @@ GameObject:
   - component: {fileID: 1577363428}
   m_Layer: 3
   m_Name: Kardus
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60084,7 +60088,7 @@ GameObject:
   - component: {fileID: 1600362352}
   m_Layer: 3
   m_Name: Kardus (4)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66048,7 +66052,7 @@ GameObject:
   - component: {fileID: 1751791028}
   m_Layer: 3
   m_Name: Kardus (5)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72115,7 +72119,7 @@ GameObject:
   - component: {fileID: 1893875280}
   m_Layer: 3
   m_Name: Kardus (8)
-  m_TagString: Obstacle
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
