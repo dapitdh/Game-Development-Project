@@ -31127,7 +31127,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1595249742}
-  m_Father: {fileID: 731789378}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -39880,7 +39880,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1401718636}
-  m_Father: {fileID: 731789378}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -47699,7 +47699,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 471750023}
-  - {fileID: 731789378}
   m_Father: {fileID: 1450120348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -48022,7 +48021,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 731789378}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -50310,7 +50309,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2094870374}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -53705,15 +53704,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.761936
+      value: 15.259352
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.7823057
+      value: 9.560184
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.40286
+      value: 10.640918
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54944,7 +54943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -55559,7 +55558,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473785082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61f950558dda69849b9f087b2ab65369, type: 3}
   m_Name: 
@@ -61181,8 +61180,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -81.4369}
-  m_SizeDelta: {x: 79.7496, y: 14.8916}
+  m_AnchoredPosition: {x: 39.4532, y: -84.822}
+  m_SizeDelta: {x: 102.6561, y: 21.661}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1620683227
 MonoBehaviour:
@@ -61332,7 +61331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -65837,7 +65836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingsUI
   mixer: {fileID: 24100000, guid: e2e404f3299e8a946a88597017e2d018, type: 2}
   masterSlider: {fileID: 1687356334}
-  musicSlider: {fileID: 731789379}
+  musicSlider: {fileID: 0}
   sfxSlider: {fileID: 2144280947}
   masterParam: MasterVolume
   musicParam: MusicVolume
@@ -80617,7 +80616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -81619,3 +81618,7 @@ SceneRoots:
   - {fileID: 988541024}
   - {fileID: 1424564678}
   - {fileID: 1037722547}
+  - {fileID: 743045505}
+  - {fileID: 1002181090}
+  - {fileID: 1224236328}
+  - {fileID: 1318792454}
