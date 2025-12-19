@@ -59,13 +59,14 @@ public class Sc_pin : MonoBehaviour
         if (pin == "1308")
         {
             Debug.Log("PIN benar");
-            pintu.GetComponent<Sc_pintu>().enabled = true;
+
 
             pin = ""; // reset PIN internal
             if (errorCoroutine != null)
                 StopCoroutine(errorCoroutine);
 
-            errorCoroutine = StartCoroutine(ShowError(true));
+            errorCoroutine = StartCoroutine(ShowError(true)); 
+            pintu.GetComponent<Sc_pintu>().enabled = true;
         }
         else
         {
@@ -84,6 +85,7 @@ public class Sc_pin : MonoBehaviour
     // Coroutine untuk menampilkan "PIN SALAH" 2 detik dan berkedip
     private IEnumerator ShowError(bool solved)
     {
+        Debug.Log("Menampilkan pesan error");
         isShowingError = true;
 
         float duration = 2f;        // total durasi error

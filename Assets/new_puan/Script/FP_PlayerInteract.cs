@@ -5,8 +5,8 @@ namespace FPP
 {
     public class FP_PlayerInteract : MonoBehaviour
     {
-        public Camera cam;               // drag: MainCamera (Base)
-        public FP_Inventory inventory;   // drag: FP_Inventory
+        public Camera cam;            
+        public FP_Inventory inventory;   
         public float useDistance = 3f;
         public LayerMask interactMask = ~0;
 
@@ -16,7 +16,7 @@ namespace FPP
             if (!inventory) inventory = GetComponentInParent<FP_Inventory>();
 
             int fp = LayerMask.NameToLayer("FP_Arms");
-            if (fp >= 0) interactMask &= ~(1 << fp); // exclude viewmodel
+            if (fp >= 0) interactMask &= ~(1 << fp); 
         }
 
         void Update()

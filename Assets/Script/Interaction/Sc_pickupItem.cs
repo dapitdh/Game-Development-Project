@@ -11,14 +11,14 @@ public class Sc_pickupItem : MonoBehaviour
     public Vector3 targetPos = Vector3.zero;
 
     [Header("UI")]
-    public GameObject presEUI;              // "Press E" item umum
+    public GameObject presEUI;             
     public GameObject dropGUI;
     public GameObject findCrowbarGUI;
     public GameObject findKeyCardGUI;
 
-    public GameObject pressFlashlightGUI;   // "Press G" untuk flashlight
-    public GameObject pressChestGUI;        // "Press G" untuk chest
-    public GameObject pressCartGUI;         // "Press E" untuk kereta
+    public GameObject pressFlashlightGUI;  
+    public GameObject pressChestGUI;        
+    public GameObject pressCartGUI;        
 
     [Header("Flashlight")]
     public Vector3 flashlightLocalPos = new Vector3(0.25f, -0.25f, 0.45f);
@@ -26,7 +26,6 @@ public class Sc_pickupItem : MonoBehaviour
 
     void Update()
     {
-        // Kalau lagi pegang item → hanya bisa drop
         if (heldItem != null)
         {
             if (Input.GetKeyDown(KeyCode.G))
@@ -48,10 +47,8 @@ public class Sc_pickupItem : MonoBehaviour
         {
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
 
-            // Matikan dulu semua UI interaksi
             HideAllInteractionUI();
 
-            // ========== FLASHLIGHT (G) ==========
             if (hit.collider.CompareTag("FlashLight"))
             {
                 if (pressFlashlightGUI) pressFlashlightGUI.SetActive(true);
@@ -65,7 +62,6 @@ public class Sc_pickupItem : MonoBehaviour
                 return;
             }
 
-            // ========== CHEST (G untuk buka peti) ==========
             if (hit.collider.CompareTag("Chest") ||
                 hit.collider.transform.root.CompareTag("Chest"))
             {
@@ -79,7 +75,6 @@ public class Sc_pickupItem : MonoBehaviour
                 return;
             }
 
-            // ========== ITEM / OBSTACLE / KEYCARD (E) ==========
             if (hit.collider.CompareTag("Item") ||
                 hit.collider.CompareTag("KeyCard") ||
                 hit.collider.CompareTag("Obstacle") ||
@@ -103,7 +98,6 @@ public class Sc_pickupItem : MonoBehaviour
                 return;
             }
 
-            // ========== KERETA (E untuk dorong – GUI saja) ==========
             if (hit.collider.CompareTag("Minecart") ||
                 hit.collider.transform.root.CompareTag("Minecart"))
             {
@@ -111,11 +105,12 @@ public class Sc_pickupItem : MonoBehaviour
                 return;
             }
 
-            // ========== PIN LOCK ==========
             if (hit.collider.name == "pinLock")
             {
+                Debug.Log("Menabrak pin lock");
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
+                    Debug.Log("Mebabrak dan Klik pin lock");
                     var pin = hit.collider.GetComponent<Sc_showUIPin>();
                     Debug.Log(pin);
                     if (pin) pin.isClicked = true;
@@ -123,14 +118,12 @@ public class Sc_pickupItem : MonoBehaviour
                 return;
             }
 
-            // ========== ELECTRIC DOOR ==========
             if (hit.collider.name == "electric door")
             {
                 if (findKeyCardGUI) findKeyCardGUI.SetActive(true);
                 return;
             }
 
-            // selain kasus di atas, UI sudah dimatikan oleh HideAllInteractionUI()
         }
         else
         {
@@ -147,10 +140,8 @@ public class Sc_pickupItem : MonoBehaviour
         if (pressCartGUI) pressCartGUI.SetActive(false);
         if (findCrowbarGUI) findCrowbarGUI.SetActive(false);
         if (findKeyCardGUI) findKeyCardGUI.SetActive(false);
-        // dropGUI tetap hanya diatur saat pegang/drop item
+        
     }
-
-    //=================== PICKUP ITEM ===================
 
     void PickUpItem(GameObject item)
     {
@@ -165,10 +156,29 @@ public class Sc_pickupItem : MonoBehaviour
         }
 
         item.transform.SetParent(itemHolder);
+
+        // POSISI KHUSUS PER ITEM
         if (item.name == "crowbar")
-            item.transform.localPosition = targetPos + new Vector3(0, -1f, 0);
+        {
+            // crowbar lebih ke bawah
+            item.transform.localPosition = targetPos + new Vector3(0f, -1f, 0f);
+        }
+        else if (item.name.Contains("Kardus"))
+        {
+            // kardus: sedikit turun, jarak sama seperti default
+            item.transform.localPosition = targetPos + new Vector3(0f, -0.5f, 0f);
+        }
+        else if (item.name.Contains("Trash Can"))
+        {
+            // trash can: biasanya besar, jadi agak jauh dan sedikit ke bawah
+            item.transform.localPosition = targetPos + new Vector3(0f, -0.3f, 0f);
+            // kalau masih terlalu dekat / terlalu jauh, mainkan nilai Y dan Z di atas
+        }
         else
+        {
+            // item-item lain pakai posisi default
             item.transform.localPosition = targetPos;
+        }
 
         item.transform.localRotation = Quaternion.identity;
 
@@ -181,7 +191,6 @@ public class Sc_pickupItem : MonoBehaviour
         Debug.Log("Picked up: " + item.name);
     }
 
-    // === Pickup khusus FlashLight (G) ===
     void PickUpFlashLight(GameObject flashGo)
     {
         Rigidbody rb = flashGo.GetComponent<Rigidbody>();
@@ -223,7 +232,6 @@ public class Sc_pickupItem : MonoBehaviour
             rb.isKinematic = false;
             rb.AddForce(Camera.main.transform.forward * 4f, ForceMode.Impulse);
         }
-
         Debug.Log("Dropped: " + heldItem.name);
         heldItem = null;
         heldWeapon = null;
