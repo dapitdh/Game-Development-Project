@@ -5394,18 +5394,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hal yang belum tersampaikan
-
-
-    Teruntuk putri kecilku,
-
-
-    Ayah meletakan
-    suatu hadiah kecil yang mungkin berguna nantinya di sebuah ruangan. Ayah sudah
-    menguncinya dengan PIN yang disimpan pada suatu surat
-
-
-    Ayah...'
+  m_text: "The Unsolved Mystery\r\n\r\nTo my little daughter,\r\n\r\nI\u2019ve hidden
+    a small gift in a room its purpose may not be clear now, but one day it will.\r\n\r\nThe
+    gift is locked with a PIN,\r\nand the PIN sleeps inside a letter.\r\n\r\nThe
+    letter is in the same room,\r\nnot in the brightest spot,\r\nbut near the shadows\r\na
+    little higher than where feet pass,\r\nwaiting for curious eyes to find it.\r\n\r\nFind
+    the letter,\r\nsolve the PIN,\r\nand you\u2019ll open the first piece of the
+    mystery your father left behind.\r\n\r\nDad\u2026"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -44014,17 +44009,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Jawa adalah kunci
-
-
-    Teruntuk putri kecilku,
-
-
-    PIN ruangannya adalah
-    tanggal dan bulan ulang tahunmu. Ambillah hadiah yang sudah ayah simpan.
-
-
-    Ayah...'
+  m_text: "To my little daughter,\r\n\r\nThe PIN to the room is the date and month
+    of your birthday.\r\nLook at the calendar, at the day when you first came into
+    this world.\r\n\r\nThere lies the key.\r\nTake the gift that Dad has kept for
+    you.\r\n\r\nDad\u2026"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
