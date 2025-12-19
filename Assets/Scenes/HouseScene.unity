@@ -5281,11 +5281,8 @@ MonoBehaviour:
 
 
     Ayah meletakan
-    suatu hadiah kecil (hadiahnya kayak tools buat om agus supaya jadi lurus lagi)
-    di (tempatnya belum ada)
-
-    yang mungkin berguna nantinya. ayah sudah menguncinya
-    dengan kode yang disimpan pada suatu surat
+    suatu hadiah kecil yang mungkin berguna nantinya di sebuah ruangan. Ayah sudah
+    menguncinya dengan PIN yang disimpan pada suatu surat
 
 
     Ayah...'
@@ -5840,7 +5837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5390808796954847372, guid: f52ef9c5fb8bfb345aa5a48363f949ad, type: 3}
       propertyPath: m_Name
-      value: Letter 4
+      value: Letter 3
       objectReference: {fileID: 0}
     - target: {fileID: 5390808796954847372, guid: f52ef9c5fb8bfb345aa5a48363f949ad, type: 3}
       propertyPath: m_TagString
@@ -5906,7 +5903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905bd63ab8f369f48a7239e04cf4c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Letter_sc
-  LetterUI: {fileID: 0}
+  LetterUI: {fileID: 739845333}
 --- !u!1001 &159944333
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37664,9 +37661,8 @@ MonoBehaviour:
 
 
     Andai
-    kamu masih ada, kamu pasti sudah bermain dengan teka teki ini, temukan kode yang
-    ku sembunyikan di surat berikutnya yang ku letakan di tempat kesukaan mu. (bebas
-    dimana)
+    kamu masih ada, kita pasti masih bisa bermain kereta-keretaan. Ayah masih sangat
+    rindu momen itu...
 
 
     Ayah...'
@@ -43202,8 +43198,8 @@ MonoBehaviour:
     Teruntuk putri kecilku,
 
 
-    Kodenya tanggal
-    dan bulan pesawat nabrak gedung kembar.
+    PIN ruangannya adalah
+    tanggal dan bulan ulang tahunmu. Ambillah hadiah yang sudah ayah simpan.
 
 
     Ayah...'
@@ -53704,15 +53700,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.761936
+      value: 15.259352
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.7823057
+      value: 9.560184
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.40286
+      value: 10.640918
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54943,7 +54939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -55020,9 +55016,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1984780882}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1984780881}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
 --- !u!1 &1461177712
 GameObject:
@@ -55551,6 +55544,22 @@ MonoBehaviour:
   sumberSuara: {fileID: 1473785084}
   clipMusik1: {fileID: 0}
   clipMusik2: {fileID: 8300000, guid: 7647711b1854ed64dad09d02b2e535b7, type: 3}
+--- !u!114 &1473785091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473785082}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f950558dda69849b9f087b2ab65369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShaker
+  intensity: 0
+  posAmplitude: 0.08
+  rotAmplitude: 1
+  freq: 12
 --- !u!1 &1474372801
 GameObject:
   m_ObjectHideFlags: 0
@@ -57892,21 +57901,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
   m_PrefabInstance: {fileID: 2125181702}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1537917547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537917545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04579d1217a55404a9aa45ed20cce9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sc_kayuPenghalang
-  leftAnchor: {fileID: 1465061303}
-  rightAnchor: {fileID: 1838453756}
-  hingeAxis: {x: 0, y: 1, z: 0}
 --- !u!65 &1537917548
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -57974,7 +57968,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1540505758
 PrefabInstance:
@@ -61191,8 +61185,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -81.4369}
-  m_SizeDelta: {x: 79.7496, y: 14.8916}
+  m_AnchoredPosition: {x: 39.4532, y: -84.822}
+  m_SizeDelta: {x: 102.6561, y: 21.661}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1620683227
 MonoBehaviour:
@@ -61342,7 +61336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -61419,9 +61413,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1897345207}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1897345206}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
 --- !u!1001 &1631111118
 PrefabInstance:
@@ -68834,7 +68825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -72739,21 +72730,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
   m_PrefabInstance: {fileID: 1630859894}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1897345206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897345204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04579d1217a55404a9aa45ed20cce9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sc_kayuPenghalang
-  leftAnchor: {fileID: 614795784}
-  rightAnchor: {fileID: 1432216580}
-  hingeAxis: {x: 0, y: 1, z: 0}
 --- !u!65 &1897345207
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72821,7 +72797,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1899425720
 PrefabInstance:
@@ -74964,21 +74940,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
   m_PrefabInstance: {fileID: 1456835740}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1984780881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984780879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04579d1217a55404a9aa45ed20cce9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sc_kayuPenghalang
-  leftAnchor: {fileID: 808233343}
-  rightAnchor: {fileID: 1248296387}
-  hingeAxis: {x: 0, y: 1, z: 0}
 --- !u!65 &1984780882
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75046,7 +75007,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1987544018
 PrefabInstance:
@@ -80629,7 +80590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -80706,9 +80667,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1537917548}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1537917547}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
 --- !u!1001 &2129010764
 PrefabInstance:
