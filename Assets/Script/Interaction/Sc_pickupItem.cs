@@ -107,8 +107,10 @@ public class Sc_pickupItem : MonoBehaviour
 
             if (hit.collider.name == "pinLock")
             {
+                Debug.Log("Menabrak pin lock");
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
+                    Debug.Log("Mebabrak dan Klik pin lock");
                     var pin = hit.collider.GetComponent<Sc_showUIPin>();
                     Debug.Log(pin);
                     if (pin) pin.isClicked = true;
