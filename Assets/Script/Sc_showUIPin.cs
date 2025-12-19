@@ -48,6 +48,7 @@ public class Sc_showUIPin : MonoBehaviour
     }
     public void ClosePinUI(bool solved)
     {
+        Debug.Log("Closing PIN UI");
         isClicked = false;
         pinUI.SetActive(false);
         pinUI.GetComponent<Sc_pin>().ResetPin(); // reset PIN saat ditutup

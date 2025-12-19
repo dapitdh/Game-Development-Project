@@ -27721,7 +27721,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 726874537}
         m_TargetAssemblyTypeName: Sc_showUIPin, Assembly-CSharp
         m_MethodName: ClosePinUI
         m_Mode: 6
@@ -30172,22 +30172,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: 0f41a3a01b13a400cbdb611faa2ebf63, type: 3}
   m_PrefabInstance: {fileID: 1026042802}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &726874534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726874532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b008dae277d594480899556377b3cae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sc_showUIPin
-  pinUI: {fileID: 1285327427}
-  isClicked: 0
-  leftClickGUI: {fileID: 596329080}
-  text: {fileID: 1441064821}
 --- !u!135 &726874535
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -30228,8 +30212,24 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 11.487863, y: 18.060394, z: 1}
+  m_Center: {x: -0.0303891, y: 2.7966044, z: 0.00000000724532}
+--- !u!114 &726874537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726874532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b008dae277d594480899556377b3cae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sc_showUIPin
+  pinUI: {fileID: 1285327427}
+  isClicked: 0
+  leftClickGUI: {fileID: 596329080}
+  text: {fileID: 1441064821}
 --- !u!1 &732350899
 GameObject:
   m_ObjectHideFlags: 0
@@ -40844,7 +40844,7 @@ PrefabInstance:
       addedObject: {fileID: 726874535}
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: 0f41a3a01b13a400cbdb611faa2ebf63, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 726874534}
+      addedObject: {fileID: 726874537}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: 0f41a3a01b13a400cbdb611faa2ebf63, type: 3}
 --- !u!1 &1029191157
 GameObject:
@@ -49546,8 +49546,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sc_pin
   pinText: {fileID: 622897826}
-  pintu: {fileID: 1318093384}
-  script: {fileID: 726874534}
+  pintu: {fileID: 637819726}
+  script: {fileID: 726874537}
 --- !u!114 &1285327430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50455,11 +50455,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2574281530425103847, guid: f55d7df03694fd244a9b29dcc29c2175, type: 3}
   m_PrefabInstance: {fileID: 1317997460}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1318093384 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8128668236925612103, guid: d5d6fa0e4ff6741448b40d8392d53ba4, type: 3}
-  m_PrefabInstance: {fileID: 637819724}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1318792453
 GameObject:
@@ -53503,15 +53498,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.71
+      value: 18.761936
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.735
+      value: 6.7823057
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13
+      value: 24.40286
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -56462,7 +56457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1508804775
 MonoBehaviour:
   m_ObjectHideFlags: 0
