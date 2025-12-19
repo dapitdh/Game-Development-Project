@@ -5837,7 +5837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5390808796954847372, guid: f52ef9c5fb8bfb345aa5a48363f949ad, type: 3}
       propertyPath: m_Name
-      value: Letter 4
+      value: Letter 3
       objectReference: {fileID: 0}
     - target: {fileID: 5390808796954847372, guid: f52ef9c5fb8bfb345aa5a48363f949ad, type: 3}
       propertyPath: m_TagString
@@ -5903,7 +5903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905bd63ab8f369f48a7239e04cf4c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Letter_sc
-  LetterUI: {fileID: 0}
+  LetterUI: {fileID: 739845333}
 --- !u!1001 &159944333
 PrefabInstance:
   m_ObjectHideFlags: 0
