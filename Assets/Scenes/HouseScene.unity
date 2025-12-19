@@ -31127,7 +31127,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1595249742}
-  m_Father: {fileID: 731789378}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -39880,7 +39880,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1401718636}
-  m_Father: {fileID: 731789378}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -47699,7 +47699,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 471750023}
-  - {fileID: 731789378}
   m_Father: {fileID: 1450120348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -48022,7 +48021,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 731789378}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
@@ -50310,7 +50309,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2094870374}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -54944,7 +54943,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -55021,9 +55020,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1984780882}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1984780881}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
 --- !u!1 &1461177712
 GameObject:
@@ -55559,7 +55555,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473785082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61f950558dda69849b9f087b2ab65369, type: 3}
   m_Name: 
@@ -57909,21 +57905,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
   m_PrefabInstance: {fileID: 2125181702}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1537917547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537917545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04579d1217a55404a9aa45ed20cce9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sc_kayuPenghalang
-  leftAnchor: {fileID: 1465061303}
-  rightAnchor: {fileID: 1838453756}
-  hingeAxis: {x: 0, y: 1, z: 0}
 --- !u!65 &1537917548
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -57991,7 +57972,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1540505758
 PrefabInstance:
@@ -61332,7 +61313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -61409,9 +61390,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1897345207}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1897345206}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
 --- !u!1001 &1631111118
 PrefabInstance:
@@ -65837,7 +65815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingsUI
   mixer: {fileID: 24100000, guid: e2e404f3299e8a946a88597017e2d018, type: 2}
   masterSlider: {fileID: 1687356334}
-  musicSlider: {fileID: 731789379}
+  musicSlider: {fileID: 0}
   sfxSlider: {fileID: 2144280947}
   masterParam: MasterVolume
   musicParam: MusicVolume
@@ -68824,7 +68802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -72729,21 +72707,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
   m_PrefabInstance: {fileID: 1630859894}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1897345206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897345204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04579d1217a55404a9aa45ed20cce9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sc_kayuPenghalang
-  leftAnchor: {fileID: 614795784}
-  rightAnchor: {fileID: 1432216580}
-  hingeAxis: {x: 0, y: 1, z: 0}
 --- !u!65 &1897345207
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72811,7 +72774,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1899425720
 PrefabInstance:
@@ -74954,21 +74917,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
   m_PrefabInstance: {fileID: 1456835740}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1984780881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984780879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04579d1217a55404a9aa45ed20cce9e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sc_kayuPenghalang
-  leftAnchor: {fileID: 808233343}
-  rightAnchor: {fileID: 1248296387}
-  hingeAxis: {x: 0, y: 1, z: 0}
 --- !u!65 &1984780882
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75036,7 +74984,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1987544018
 PrefabInstance:
@@ -79712,8 +79660,10 @@ MonoBehaviour:
   sfxClick: {fileID: 8300000, guid: a0c4272aced14864ab7a611aa57f0fb8, type: 3}
   sfxHover: {fileID: 8300000, guid: a0c4272aced14864ab7a611aa57f0fb8, type: 3}
   sfxVolume: 0.9
-  disableWhenPaused: []
-  freezeWhenPaused: []
+  disableWhenPaused:
+  - {fileID: 1273933098}
+  freezeWhenPaused:
+  - {fileID: 1273933097}
   freezeChildren: 1
 --- !u!114 &2098042043
 MonoBehaviour:
@@ -80617,7 +80567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_TagString
-      value: KayuPenghalang
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       propertyPath: m_LocalScale.x
@@ -80694,9 +80644,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1537917548}
-    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1537917547}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: e7a2e4bed7cee4a29809dd6851f11143, type: 3}
 --- !u!1001 &2129010764
 PrefabInstance:
@@ -81619,3 +81566,7 @@ SceneRoots:
   - {fileID: 988541024}
   - {fileID: 1424564678}
   - {fileID: 1037722547}
+  - {fileID: 743045505}
+  - {fileID: 1002181090}
+  - {fileID: 1224236328}
+  - {fileID: 1318792454}
