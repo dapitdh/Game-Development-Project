@@ -356,7 +356,6 @@ public class MainMenuController : MonoBehaviour
         if (from.rt)
             from.rt.anchoredPosition = fromHome;
 
-        // FROM: slide keluar + fade out
         if (from.rt)
         {
             iTween.MoveTo(from.rt.gameObject, iTween.Hash(
