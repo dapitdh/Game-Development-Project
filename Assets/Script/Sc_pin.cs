@@ -94,7 +94,7 @@ public class Sc_pin : MonoBehaviour
 
         while (elapsed < duration)
         {
-            pinText.text = solved ? "PIN BENAR" : "PIN SALAH";
+            pinText.text = solved ? "CORRECT" : "WRONG PIN";
             yield return new WaitForSeconds(blinkInterval);
 
             pinText.text = "";
