@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Sc_win : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject winUI, player, objectiveUI, objectiveUI2;
     void Start()
     {
@@ -10,7 +9,6 @@ public class Sc_win : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 

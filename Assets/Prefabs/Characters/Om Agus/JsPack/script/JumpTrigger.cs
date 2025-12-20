@@ -14,7 +14,6 @@ public class JumpTrigger : MonoBehaviour
 
     void Awake()
     {
-        // kalau respawnPoint belum diisi, pakai posisi awal player sebagai respawn
         var pc = FindObjectOfType<FPP.Puan_control>(true);
         if (respawnPoint == null && pc)
             respawnPoint = pc.transform;
@@ -26,7 +25,6 @@ public class JumpTrigger : MonoBehaviour
         }
         else
         {
-            // fallback aman
             _respawnPos = Vector3.zero;
             _respawnRot = Quaternion.identity;
         }
@@ -51,19 +49,16 @@ public class JumpTrigger : MonoBehaviour
     {
        yield return new WaitForSeconds(3.8f);
 
-        // Matikan rig jumpscare & flash
         if (JumpAgus) JumpAgus.SetActive(false);
         if (FlashImg) FlashImg.SetActive(false);
 
-        // ===== RESPawn PLAYER =====
         var pc = FindObjectOfType<FPP.Puan_control>(true);
         if (pc)
         {
             var t = pc.transform;
             var cc = pc.GetComponent<CharacterController>();
             var rb = pc.GetComponent<Rigidbody>();
-
-            // matikan collider dulu supaya teleport mulus
+            
             if (cc) cc.enabled = false;
 
             if (rb)
@@ -77,26 +72,17 @@ public class JumpTrigger : MonoBehaviour
 
             if (cc) cc.enabled = true;
         }
-
-        // ===== RESET OM AGUS =====
         var omAgus = FindObjectOfType<EnemyAI>(true);
         if (omAgus)
         {
-            // fungsi yang kamu tambahkan di EnemyAI (langkah 2 sebelumnya)
             omAgus.ResetAfterJumpscare();
-
-            // nyalakan lagi kontrol / visual Om Agus
             SetOmAgusControl(true);
         }
-
-        // ===== HIDUPKAN LAGI KONTROL PLAYER =====
         SetPlayerControl(true);
-
-        // balik ke mode gameplay: cursor biasanya disembunyikan & lock
         SetCursor(false);
     }
 
-        void SetPlayerControl(bool enabled)
+    void SetPlayerControl(bool enabled)
     {
         var pc = FindObjectOfType<FPP.Puan_control>(true);
         if (pc) pc.enabled = enabled;

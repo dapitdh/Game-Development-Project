@@ -13,10 +13,10 @@ public class MainMenuController : MonoBehaviour
     public Button btnQuit;
 
     [Header("Panels (Roots)")]
-    public GameObject leftPanel;       // main menu
-    public GameObject settingsPanel;   // default inactive
-    public GameObject howToPlayPanel;  // default inactive
-    public GameObject creditsPanel;    // default inactive
+    public GameObject leftPanel;       
+    public GameObject settingsPanel;  
+    public GameObject howToPlayPanel;  
+    public GameObject creditsPanel;   
     public GameObject modeSelectPanel;
 
     [Header("Back Buttons")]
@@ -25,7 +25,7 @@ public class MainMenuController : MonoBehaviour
     public Button btnBackCredits;
 
     [Header("Selection")]
-    public GameObject firstSelected;   // set ke Btn_Play
+    public GameObject firstSelected;   
 
     [Header("Gameplay")]
     public string gameplaySceneName = "HouseScene";
@@ -36,16 +36,14 @@ public class MainMenuController : MonoBehaviour
     public Button btnModeNoMercy;
     public Button btnModeBack;
 
-    // key utk simpan mode ke PlayerPrefs (bisa dipakai di HouseScene)
     public string difficultyPrefKey = "OmAgus_Difficulty";
 
     [Header("Fade Overlay")]
     public float fadeTime = 0.2f;
     public CanvasGroup fadeOverlay;
 
-    // --- BGM ---
     [Header("BGM")]
-    public AudioSource bgmSource;      // drag: BGM_Menu
+    public AudioSource bgmSource;      
     public float bgmFadeIn = 0.8f;
     public float bgmFadeOut = 0.4f;
 
@@ -55,11 +53,10 @@ public class MainMenuController : MonoBehaviour
     public AudioClip sfxHover;
     public float sfxVolume = 0.9f;
 
-    // ---------- iTween Anim Settings ----------
     [Header("Intro Tween (Title/Buttons/Window)")]
-    public RectTransform titleRT;           // “OM AGUS”
-    public RectTransform buttonGroupRT;     // parent tombol
-    public RectTransform windowFrameRightRT;// opsional, bingkai/jendela
+    public RectTransform titleRT;          
+    public RectTransform buttonGroupRT;    
+    public RectTransform windowFrameRightRT;
     public float introDelay = 0.2f;
     public float titleDropTime = 0.9f;
     public string easeTitle = "easeOutBounce";
@@ -78,21 +75,17 @@ public class MainMenuController : MonoBehaviour
     public string easeOut = "easeInOutCubic";
     public string easeIn = "easeInOutCubic";
 
-    // state
     bool busySwitch;
     bool playedIntro;
     System.Action _pendingFinalize;
 
-    // ---------------------------------------------------
 
     void PlayClickSfx() { if (uiSfxSource && sfxClick) uiSfxSource.PlayOneShot(sfxClick, sfxVolume); }
     void PlayHoverSfx() { if (uiSfxSource && sfxHover) uiSfxSource.PlayOneShot(sfxHover, 0.8f * sfxVolume); }
 
-    // --- iTween callback targets (temporary holders) ---
     CanvasGroup _twCgA, _twCgB;
     RectTransform _twRt;
 
-    // iTween will call these by name (string)
     void ITween_SetAlphaA(float v) { if (_twCgA) _twCgA.alpha = v; }
     void ITween_SetAlphaB(float v) { if (_twCgB) _twCgB.alpha = v; }
     void ITween_SetRT_Y(float y)
@@ -109,7 +102,6 @@ public class MainMenuController : MonoBehaviour
     {
         HookButtons();
 
-        // Keadaan awal (CanvasGroup dipastikan ada)
         var leftCG = EnsureCanvasGroup(leftPanel); leftCG.alpha = 1f; leftCG.interactable = true; leftCG.blocksRaycasts = true;
 
         if (howToPlayPanel) { howToPlayPanel.SetActive(false); var cg = EnsureCanvasGroup(howToPlayPanel); cg.alpha = 0; cg.interactable = false; cg.blocksRaycasts = false; }
@@ -133,7 +125,6 @@ public class MainMenuController : MonoBehaviour
 
     }
     
-    // --- cache posisi home tiap panel ---
     Vector2 _homeLeft, _homeSettings, _homeHowTo, _homeCredits, _homeModeSelect;
 
     RectTransform GetOrSelfRT(GameObject go, RectTransform prefer)
@@ -143,7 +134,6 @@ public class MainMenuController : MonoBehaviour
 
     void CacheHomePositions()
     {
-        // Pastikan field RT menunjuk ke RT yang benar
         leftPanelRT     = GetOrSelfRT(leftPanel,     leftPanelRT);
         settingsPanelRT = GetOrSelfRT(settingsPanel, settingsPanelRT);
         howToPanelRT    = GetOrSelfRT(howToPlayPanel,howToPanelRT);
@@ -156,7 +146,6 @@ public class MainMenuController : MonoBehaviour
         _homeCredits  = creditsPanelRT  ? creditsPanelRT.anchoredPosition  : Vector2.zero;
         _homeModeSelect   = modeSelectPanelRT ? modeSelectPanelRT.anchoredPosition : Vector2.zero;
 
-        // Debug bantu verifikasi di Console:
     #if UNITY_EDITOR
         Debug.Log($"[Menu] Home Left:     {_homeLeft}  (RT: {leftPanelRT?.name})");
         Debug.Log($"[Menu] Home Settings: {_homeSettings} (RT: {settingsPanelRT?.name})");
@@ -185,12 +174,10 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        // BGM masuk fade in
         if (bgmSource && bgmSource.clip && !bgmSource.isPlaying)
             StartCoroutine(FadeAudio(bgmSource, 1f, bgmFadeIn, startFromZero: true));
 
         CacheHomePositions();
-        // Intro tween satu kali
         if (!playedIntro) { playedIntro = true; StartCoroutine(CoIntroTween()); }
     }
 
@@ -217,10 +204,8 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    // -------------------- INTRO TWEEN --------------------
     System.Collections.IEnumerator CoIntroTween()
     {
-        // fade-in LeftPanel pelan biar manis
         var leftCG = EnsureCanvasGroup(leftPanel);
         leftCG.alpha = 0f;
         _twCgA = leftCG;
@@ -228,12 +213,11 @@ public class MainMenuController : MonoBehaviour
             "from", 0f, "to", 1f, "time", 0.25f,
             "delay", introDelay,
             "easetype", iTween.EaseType.linear,
-            "onupdate", "ITween_SetAlphaA"   // <- string name
+            "onupdate", "ITween_SetAlphaA"  
         ));
 
         yield return new WaitForSeconds(introDelay);
 
-        // Title turun dari atas
         if (titleRT)
         {
             var startY = titleRT.anchoredPosition.y + 220f;
@@ -244,12 +228,10 @@ public class MainMenuController : MonoBehaviour
             iTween.ValueTo(gameObject, iTween.Hash(
                 "from", startY, "to", endY, "time", titleDropTime,
                 "easetype", easeTitle,
-                "onupdate", "ITween_SetRT_Y"  // <- string name
+                "onupdate", "ITween_SetRT_Y"  
             ));
         }
 
-
-        // Tombol scale-in staggered
         if (buttonGroupRT)
         {
             for (int i = 0; i < buttonGroupRT.childCount; i++)
@@ -266,7 +248,6 @@ public class MainMenuController : MonoBehaviour
             }
         }
 
-        // Parallax halus window kanan (opsional)
         if (windowFrameRightRT)
         {
             var p0 = windowFrameRightRT.anchoredPosition;
@@ -276,8 +257,6 @@ public class MainMenuController : MonoBehaviour
             ));
         }
     }
-
-    // -------------------- UI EVENTS --------------------
     void HookButtons()
     {
         if (btnPlay)     { btnPlay.onClick.AddListener(PlayClickSfx);     btnPlay.onClick.AddListener(OnPlay); }
@@ -298,17 +277,17 @@ public class MainMenuController : MonoBehaviour
         if (btnModeCalm)
         {
             btnModeCalm.onClick.AddListener(PlayClickSfx);
-            btnModeCalm.onClick.AddListener(() => StartGameWithDifficulty(0));   // 0 = Calm
+            btnModeCalm.onClick.AddListener(() => StartGameWithDifficulty(0)); 
         }
         if (btnModeNoMercy)
         {
             btnModeNoMercy.onClick.AddListener(PlayClickSfx);
-            btnModeNoMercy.onClick.AddListener(() => StartGameWithDifficulty(1)); // 1 = No Mercy
+            btnModeNoMercy.onClick.AddListener(() => StartGameWithDifficulty(1));
         }
         if (btnModeBack)
         {
             btnModeBack.onClick.AddListener(PlayClickSfx);
-            btnModeBack.onClick.AddListener(BackToMain); // bukan HideModePanel lagi
+            btnModeBack.onClick.AddListener(BackToMain); 
         }
         if (btnModeBack) AddHoverSfx(btnModeBack);
 
@@ -332,7 +311,6 @@ public class MainMenuController : MonoBehaviour
         et.triggers.Add(sel);
     }
 
-    // -------------------- PANEL SWITCH (iTween) --------------------
     void OpenPanel(GameObject target)
     {
         if (!target || busySwitch) return;
@@ -351,7 +329,7 @@ public class MainMenuController : MonoBehaviour
         if (howToPlayPanel && howToPlayPanel.activeSelf)      open = howToPlayPanel;
         else if (settingsPanel && settingsPanel.activeSelf)   open = settingsPanel;
         else if (creditsPanel && creditsPanel.activeSelf)     open = creditsPanel;
-        else if (modeSelectPanel && modeSelectPanel.activeSelf) open = modeSelectPanel; // NEW
+        else if (modeSelectPanel && modeSelectPanel.activeSelf) open = modeSelectPanel; 
 
         if (!open) return;
 
@@ -364,23 +342,17 @@ public class MainMenuController : MonoBehaviour
     void StartSwitch(PanelPack from, PanelPack to, int dir)
     {
         busySwitch = true;
-
-        // siapkan target
         to.root.SetActive(true);
         to.cg.alpha = 0f;
         to.cg.interactable = false;
         to.cg.blocksRaycasts = false;
 
-        // posisi home keduanya
         Vector2 fromHome = GetHomePos(from.root);
         Vector2 toHome   = GetHomePos(to.root);
 
-        // SET START POSISI:
-        // panel tujuan mulai di luar layar (arah kebalikan 'dir')
         if (to.rt)
             to.rt.anchoredPosition = toHome + new Vector2(dir * slideDist, 0f);
 
-        // panel asal pastikan di home sebelum keluar
         if (from.rt)
             from.rt.anchoredPosition = fromHome;
 
@@ -401,7 +373,6 @@ public class MainMenuController : MonoBehaviour
             "onupdate", "ITween_SetAlphaA"
         ));
 
-        // TO: slide masuk + fade in (overlap dikit)
         if (to.rt)
         {
             iTween.MoveTo(to.rt.gameObject, iTween.Hash(
@@ -414,10 +385,8 @@ public class MainMenuController : MonoBehaviour
         }
 
         _twCgB = to.cg;
-        // gunakan iTween callback string + oncompletetarget
         _pendingFinalize = () =>
         {
-            // snap kembali ke homePos untuk jaga-jaga
             if (from.rt) from.rt.anchoredPosition = fromHome;
             if (to.rt)   to.rt.anchoredPosition   = toHome;
 
@@ -464,14 +433,12 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    // -------------------- PLAY / QUIT --------------------
     void OnPlay()
     {
         if (modeSelectPanel)
         {
             modeSelectPanel.SetActive(true);
 
-            // fokuskan ke tombol Calm
             if (btnModeCalm)
                 EventSystem.current.SetSelectedGameObject(btnModeCalm.gameObject);
 
@@ -494,32 +461,22 @@ public class MainMenuController : MonoBehaviour
     void StartGameWithDifficulty(int difficulty)
     {
         string targetScene = gameplaySceneName;
-
         if (difficulty == 1)
             targetScene = string.IsNullOrEmpty(gameplaySceneName2) ? gameplaySceneName : gameplaySceneName2;
-
         if (string.IsNullOrEmpty(targetScene))
         {
             Debug.LogError("[MainMenu] Target scene name is empty!");
             return;
         }
-
-        // (Opsional) tetap simpan info difficulty, kalau mau dipakai di UI dalam scene
         if (!string.IsNullOrEmpty(difficultyPrefKey))
         {
             PlayerPrefs.SetInt(difficultyPrefKey, difficulty);
             PlayerPrefs.Save();
         }
-
-        // Tutup panel mode biar rapi
         HideModePanel();
-
-        // Transisi: fade BGM + fade overlay, sama seperti sebelumnya
         System.Action go = () => SceneManager.LoadScene(targetScene);
-
         if (bgmSource)
             StartCoroutine(FadeAudio(bgmSource, 0f, bgmFadeOut));
-
         if (fadeOverlay)
             StartCoroutine(FadeIn(fadeOverlay, 0.25f, () => go(), useRaycast: false));
         else
@@ -531,14 +488,10 @@ public class MainMenuController : MonoBehaviour
         if (modeSelectPanel)
             modeSelectPanel.SetActive(false);
 
-        // balikin selection ke tombol Play lagi
         if (firstSelected)
             EventSystem.current.SetSelectedGameObject(firstSelected);
     }
 
-
-
-    // -------------------- FADING HELPERS --------------------
     CanvasGroup EnsureCanvasGroup(GameObject go)
     {
         var cg = go ? go.GetComponent<CanvasGroup>() : null;
@@ -555,7 +508,7 @@ public class MainMenuController : MonoBehaviour
         {
             t += Time.unscaledDeltaTime;
             float k = t / Mathf.Max(0.0001f, time);
-            k = 1f - (1f - k) * (1f - k); // ease out quad
+            k = 1f - (1f - k) * (1f - k);
             src.volume = Mathf.Lerp(start, target, k);
             yield return null;
         }
@@ -600,7 +553,7 @@ public class MainMenuController : MonoBehaviour
     void ITween_OnPanelInDone()
     {
         _pendingFinalize?.Invoke();
-        _pendingFinalize = null; // avoid accidental re-run
+        _pendingFinalize = null; 
     }
 
     float EaseInQuad(float x)  => x * x;
