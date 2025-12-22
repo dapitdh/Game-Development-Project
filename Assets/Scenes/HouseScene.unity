@@ -8136,7 +8136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sc_cardReader
   moveSpeed: 0.5
   moveSpeedCard: 0.1
-  pressGUI: {fileID: 0}
+  pressGUI: {fileID: 1608268703}
 --- !u!1 &170939876
 GameObject:
   m_ObjectHideFlags: 0
@@ -61658,31 +61658,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.67547
+      value: 20.465498
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.907265
+      value: 3.1891494
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.89617
+      value: 19.075449
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7161211
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0077743824
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6978923
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0075113894
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6317471897304829886, guid: fa9b7788c47c0f54998f5c610124522e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

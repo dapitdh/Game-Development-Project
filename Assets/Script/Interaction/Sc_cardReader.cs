@@ -46,11 +46,12 @@ public class Sc_cardReader : MonoBehaviour
                     moveSpeedCard * Time.deltaTime
                 );
 
+                if (pressGUI) pressGUI.SetActive(false);
+
                 // Cek kalau sudah sampai -> destroy sekali, lalu null-kan referensi
                 if (Vector3.Distance(cardKey.transform.position, targetPosCard) <= 0.001f)
                 {
                     hero.GetComponent<Sc_pickupItem>().DropItem(); // biar hero lepas pegangan
-                    if (pressGUI) pressGUI.SetActive(false);
                     Destroy(cardKey);
                     cardKey = null;
                 }
